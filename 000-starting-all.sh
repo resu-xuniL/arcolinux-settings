@@ -56,7 +56,7 @@ _EOF_
         echo
 
         [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/thunar/bookmarks/wamvm_user/bookmarks ~/.config/gtk-3.0/
+        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wamvm_user/bookmarks ~/.config/gtk-3.0/
 
         tput setaf 3
         echo "################################################################"
@@ -76,7 +76,7 @@ _EOF_
         echo
 
         [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/thunar/bookmarks/wam_user/bookmarks ~/.config/gtk-3.0/
+        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wam_user/bookmarks ~/.config/gtk-3.0/
 
         tput setaf 3
         echo "################################################################"
@@ -96,7 +96,7 @@ _EOF_
         echo
 
         [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/thunar/bookmarks/wam_user/dual-boot/bookmarks ~/.config/gtk-3.0/
+        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wam_user/dual-boot/bookmarks ~/.config/gtk-3.0/
 
         tput setaf 3
         echo "################################################################"

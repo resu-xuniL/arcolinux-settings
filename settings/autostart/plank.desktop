@@ -5,7 +5,6 @@ Type=Application
 Name=Plank
 Comment=
 Exec=plank
-OnlyShowIn=XFCE;
 RunHook=0
 StartupNotify=false
 Terminal=false
