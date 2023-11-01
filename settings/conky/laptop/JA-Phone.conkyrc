@@ -22,7 +22,7 @@ conky.config = {
 	default_outline_color = '#000000',
 	minimum_width = 100, minimum_height = 100,
 	maximum_width = 430,
-	gap_x = 1030,
+	gap_x = 1020,
 	gap_y = 480,
 	alignment = 'top_left',
 	no_buffers = true,

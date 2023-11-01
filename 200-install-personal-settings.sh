@@ -141,10 +141,10 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
     if [[ $CURRENT_USER = "wam" ]];then
         echo "Configuring for WAM user"
-        sudo cp $INSTALL_DIRECTORY/settings/grub/wam-user/theme.txt /boot/grub/themes/Vimix/
+        sudo cp -a $INSTALL_DIRECTORY/settings/grub/wam-user/theme.txt /boot/grub/themes/Vimix/
     else
         echo "Configuring for WAMVM user"
-        sudo cp $INSTALL_DIRECTORY/settings/grub/wamvm-user/theme.txt /boot/grub/themes/Vimix/
+        sudo cp -a $INSTALL_DIRECTORY/settings/grub/wamvm-user/theme.txt /boot/grub/themes/Vimix/
     fi
     sudo sed -i "s/quiet //g" /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
