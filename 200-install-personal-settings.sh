@@ -173,31 +173,21 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	
     cp  -r "$INSTALL_DIRECTORY/settings/plank/"* $HOME/.config/plank/dock1/launchers
 
+    echo "Configuring for $CURRENT_USER user"
+    cp  -r "$INSTALL_DIRECTORY/settings/plank/$CURRENT_USER-user/"* $HOME/.config/plank/dock1/launchers
+        secs=$((3))
+        while [ $secs -gt 0 ]; do
+            echo -ne "Patientez : $secs\033[0K\r"
+            sleep 1
+            : $((secs--))
+        done
     if [[ $CURRENT_USER = "wam" ]];then
-        echo "Configuring for WAM user"
-        cp  -r "$INSTALL_DIRECTORY/settings/plank/wam-user/"* $HOME/.config/plank/dock1/launchers
-            secs=$((3))
-            while [ $secs -gt 0 ]; do
-                echo -ne "Patientez : $secs\033[0K\r"
-                sleep 1
-                : $((secs--))
-            done
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem']"
-        echo -ne "Done \033[0K\r"
-        echo
     else
-        echo "Configuring for WAMVM user"
-        cp  -r "$INSTALL_DIRECTORY/settings/plank/wamvm-user/"* $HOME/.config/plank/dock1/launchers
-            secs=$((3))
-            while [ $secs -gt 0 ]; do
-                echo -ne "Patientez : $secs\033[0K\r"
-                sleep 1
-                : $((secs--))
-            done
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem']"
-        echo -ne "Done \033[0K\r"
-        echo
     fi
+    echo -ne "Done \033[0K\r"
+    echo
 
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto
@@ -228,6 +218,10 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy
     [ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
 	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/kde_settings.conf /etc/sddm.conf.d
+    if [[ $CURRENT_USER = "wamvm" ]];then
+        echo "Changing background for WAMVM user"
+        sudo sed -i "s/Mountain/background/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
+    fi
 
 	echo
     tput setaf 2
@@ -259,6 +253,22 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d $HOME"/.config/vlc" ] || mkdir -p $HOME"/.config/vlc"
 	sudo cp -a $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
+
+	echo
+    tput setaf 2
+    echo "################################################################"
+    echo "############ Wine :  Mediahuman Youtube downloader #############"
+    echo "################################################################"
+    tput sgr0
+    echo
+    if [[ $CURRENT_USER = "wam" ]];then
+        [ -d $HOME"/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube Downloader"
+        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/wam-user/"* $HOME/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube\ Downloader
+    else
+        [ -d $HOME"/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube Downloader"
+        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/wamvm-user/"*  $HOME/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube\ Downloader
+    fi
+	echo
 
 	echo
     tput setaf 2

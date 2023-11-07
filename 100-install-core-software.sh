@@ -109,7 +109,16 @@ sudo pacman -S --noconfirm --needed thunderbird
 echo
 tput setaf 4
 echo "################################################################"
-echo "##################### Visual studio code #######################"
+echo "########################## Veracrypt ###########################"
+echo "################################################################"
+tput sgr0
+echo
+sudo pacman -S --noconfirm --needed veracrypt
+
+echo
+tput setaf 4
+echo "################################################################"
+echo "###################### Visual studio code ######################"
 echo "################################################################"
 tput sgr0
 echo
@@ -151,6 +160,14 @@ echo "################################################################"
 tput sgr0
 echo
 sudo pacman -S --noconfirm --needed wine
+
+echo
+tput setaf 4
+echo "################################################################"
+echo "################### Wine : Youtube downloader ##################"
+echo "################################################################"
+tput sgr0
+echo
 file="$HOME/Downloads/YouTubeDownloader-x64.exe"
 if [[ -f $file ]];then
     tput setaf 2
@@ -167,12 +184,6 @@ sleep 3
 rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.lnk
 rm -v ~/Desktop/Visit\ MediaHuman\ Website.url
 mv -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop ~/.wine/drive_c/
-sleep 3
-if [[ $CURRENT_USER = "wam" ]];then
-    cp  -r "$INSTALL_DIRECTORY/settings/youtube-downloader/wam/"* $HOME/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube\ Downloader
-else
-    cp  -r "$INSTALL_DIRECTORY/settings/youtube-downloader/wam-user/"*  $HOME/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube\ Downloader
-fi
 
 echo
 tput setaf 4

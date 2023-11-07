@@ -1,5 +1,5 @@
 ﻿###
-###  vlc 3.0.19
+###  vlc 3.0.20
 ###
 
 ###
@@ -1080,7 +1080,7 @@ qt-privacy-ask=0
 #sout-avi-subject=
 
 # Encoder (string)
-#sout-avi-encoder=VLC Media Player - 3.0.19 Vetinari
+#sout-avi-encoder=VLC Media Player - 3.0.20 Vetinari
 
 # Keywords (string)
 #sout-avi-keywords=
@@ -3927,7 +3927,7 @@ qt-privacy-ask=0
 #snapshot-prefix=vlcsnap-
 
 # Video snapshot format (string)
-#snapshot-format=png
+snapshot-format=jpg
 
 # Display video snapshot preview (boolean)
 #snapshot-preview=1
@@ -3993,7 +3993,7 @@ qt-privacy-ask=0
 #deinterlace-mode=auto
 
 # Video output module (string)
-#vout=
+vout=any
 
 # Video filter module (string)
 video-filter=pause_click
