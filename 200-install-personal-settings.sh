@@ -49,7 +49,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################# Personal settings to install #################"
     echo "################################################################"
     tput sgr0
-    echo
+
 
     if [[ $CURRENT_USER = "wamvm" ]];then
     	echo
@@ -60,7 +60,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
         tput sgr0
         echo
 	    sudo usermod -aG vboxsf $USER
-        echo
     fi
 
 	echo
@@ -71,7 +70,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
 	echo
 	cp $INSTALL_DIRECTORY/settings/shell/.bashrc-personal ~/.bashrc-personal
-	echo
+
 
   	echo
     tput setaf 2
@@ -124,13 +123,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
         echo "Configuring for LAPTOP"
         cp $INSTALL_DIRECTORY/settings/conky/laptop/JA-Phone.conkyrc $HOME/.config/conky
     fi
-    if [[ $CURRENT_USER = "wam" ]];then
-        echo "Configuring for WAM user"
-	    cp $INSTALL_DIRECTORY/settings/conky/wam-user/conky-sessionfile $HOME/.config/conky/
-    else
-        echo "Configuring for WAMVM user"
-	    cp $INSTALL_DIRECTORY/settings/conky/wamvm-user/conky-sessionfile $HOME/.config/conky/
-    fi
+    echo "Configuring for $CURRENT_USER user"
+    cp $INSTALL_DIRECTORY/settings/conky/$CURRENT_USER-user/conky-sessionfile $HOME/.config/conky/
 
 	echo
     tput setaf 2
@@ -139,13 +133,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-    if [[ $CURRENT_USER = "wam" ]];then
-        echo "Configuring for WAM user"
-        sudo cp -a $INSTALL_DIRECTORY/settings/grub/wam-user/theme.txt /boot/grub/themes/Vimix/
-    else
-        echo "Configuring for WAMVM user"
-        sudo cp -a $INSTALL_DIRECTORY/settings/grub/wamvm-user/theme.txt /boot/grub/themes/Vimix/
-    fi
+    echo "Configuring for $CURRENT_USER user"
+    sudo cp -a $INSTALL_DIRECTORY/settings/grub/$CURRENT_USER-user/theme.txt /boot/grub/themes/Vimix/
     sudo sed -i "s/quiet //g" /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -159,7 +148,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
 	cp  $INSTALL_DIRECTORY/settings/gtk3/settings.ini $HOME/.config/gtk-3.0
-	echo
 
 	echo
     tput setaf 2
@@ -187,7 +175,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem']"
     fi
     echo -ne "Done \033[0K\r"
-    echo
+
 
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto
@@ -205,7 +193,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d /etc/samba ] || sudo mkdir -p /etc/samba
 	sudo cp -a $INSTALL_DIRECTORY/settings/samba/smb.conf /etc/samba
-	echo
 
   	echo
     tput setaf 2
@@ -232,7 +219,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d $HOME"/.config/Thunar" ] || mkdir -p $HOME"/.config/Thunar"
 	cp  $INSTALL_DIRECTORY/settings/thunar/uca.xml $HOME/.config/Thunar
-	echo
 
 	echo
     tput setaf 2
@@ -243,7 +229,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d $HOME"/.config/variety" ] || mkdir -p $HOME"/.config/variety"
 	cp $INSTALL_DIRECTORY/settings/variety/variety.conf ~/.config/variety/
-	echo
 
     tput setaf 2
     echo "################################################################"
@@ -261,14 +246,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-    if [[ $CURRENT_USER = "wam" ]];then
-        [ -d $HOME"/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube Downloader"
-        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/wam-user/"* $HOME/.wine/drive_c/users/wam/AppData/Local/MediaHuman/YouTube\ Downloader
-    else
-        [ -d $HOME"/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube Downloader"
-        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/wamvm-user/"*  $HOME/.wine/drive_c/users/wamvm/AppData/Local/MediaHuman/YouTube\ Downloader
-    fi
-	echo
+    [ -d $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube Downloader"
+    cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/"* $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
 
 	echo
     tput setaf 2
@@ -280,7 +259,6 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
 	[ -d $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/" ] || mkdir -p $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/"
 	cp  -r "$INSTALL_DIRECTORY/settings/xfce/"* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
-    echo
 
     echo
     tput setaf 2
