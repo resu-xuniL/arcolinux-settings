@@ -123,7 +123,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
         echo "Configuring for LAPTOP"
         cp $INSTALL_DIRECTORY/settings/conky/laptop/JA-Phone.conkyrc $HOME/.config/conky
     fi
-    echo "Configuring for $CURRENT_USER user"
+    echo "Configuring for ${CURRENT_USER^^} user"
     cp $INSTALL_DIRECTORY/settings/conky/$CURRENT_USER-user/conky-sessionfile $HOME/.config/conky/
 
 	echo
@@ -133,7 +133,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-    echo "Configuring for $CURRENT_USER user"
+    echo "Configuring for ${CURRENT_USER^^} user"
     sudo cp -a $INSTALL_DIRECTORY/settings/grub/$CURRENT_USER-user/theme.txt /boot/grub/themes/Vimix/
     sudo sed -i "s/quiet //g" /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -161,7 +161,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	
     cp  -r "$INSTALL_DIRECTORY/settings/plank/"* $HOME/.config/plank/dock1/launchers
 
-    echo "Configuring for $CURRENT_USER user"
+    echo "Configuring for ${CURRENT_USER^^} user"
     cp  -r "$INSTALL_DIRECTORY/settings/plank/$CURRENT_USER-user/"* $HOME/.config/plank/dock1/launchers
         secs=$((3))
         while [ $secs -gt 0 ]; do
@@ -205,8 +205,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy
     [ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
 	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/kde_settings.conf /etc/sddm.conf.d
-    if [[ $CURRENT_USER = "wamvm" ]];then
-        echo "Changing background for WAMVM user"
+    if [[ ! $CURRENT_USER = "wam" ]];then
+        echo "Changing background for ${CURRENT_USER^^} user"
         sudo sed -i "s/Mountain/background/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
     fi
 
