@@ -1,1 +1,0 @@
-conky -c /home/wamvm/.config/conky/JA-Phone.conkyrc & sleep 1s

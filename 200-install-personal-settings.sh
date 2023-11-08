@@ -34,7 +34,7 @@ find $INSTALL_DIRECTORY/settings -type f -exec chmod 644 -- {} +
 
 tput setaf 3
 echo "################################################################"
-echo "################ Personal directories to create ################"
+echo "################# Create personal directories ##################"
 echo "################################################################"
 tput sgr0
 echo
@@ -51,7 +51,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
 
 
-    if [[ $CURRENT_USER = "wamvm" ]];then
+    if [[ ! $CURRENT_USER = "wam" ]];then
     	echo
         tput setaf 2
         echo "################################################################"
@@ -116,6 +116,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
 	[ -d $HOME"/.config/conky" ] || mkdir -p $HOME"/.config/conky"
+
     if [ $CURRENT_RESOLUTION = "1680x1050" ];then
         echo "Configuring for DESKTOP"
         cp $INSTALL_DIRECTORY/settings/conky/desktop/JA-Phone.conkyrc $HOME/.config/conky
@@ -123,8 +124,10 @@ if grep -q "ArcoLinux" /etc/os-release; then
         echo "Configuring for LAPTOP"
         cp $INSTALL_DIRECTORY/settings/conky/laptop/JA-Phone.conkyrc $HOME/.config/conky
     fi
+
     echo "Configuring for ${CURRENT_USER^^} user"
-    cp $INSTALL_DIRECTORY/settings/conky/$CURRENT_USER-user/conky-sessionfile $HOME/.config/conky/
+    cp $INSTALL_DIRECTORY/settings/conky/conky-sessionfile $HOME/.config/conky/
+    sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.config/conky/conky-sessionfile
 
 	echo
     tput setaf 2
@@ -133,9 +136,14 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
+    sudo cp -a $INSTALL_DIRECTORY/settings/grub/theme.txt /boot/grub/themes/Vimix/
+
     echo "Configuring for ${CURRENT_USER^^} user"
-    sudo cp -a $INSTALL_DIRECTORY/settings/grub/$CURRENT_USER-user/theme.txt /boot/grub/themes/Vimix/
+    if [[ ! $CURRENT_USER = "wam" ]];then
+        sudo sed -i "s/archlinux03.jpg/archlinux04.jpg/g" /boot/grub/themes/Vimix/theme.txt
+    fi
     sudo sed -i "s/quiet //g" /etc/default/grub
+
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 	echo
@@ -158,31 +166,33 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo
     [ -d $HOME"/.config/plank/dock1/" ] || mkdir -p $HOME"/.config/plank/dock1/"
 	[ -d $HOME"/.config/plank/dock1/launchers/" ] || mkdir -p $HOME"/.config/plank/dock1/launchers/"
-	
+	    
     cp  -r "$INSTALL_DIRECTORY/settings/plank/"* $HOME/.config/plank/dock1/launchers
 
     echo "Configuring for ${CURRENT_USER^^} user"
-    cp  -r "$INSTALL_DIRECTORY/settings/plank/$CURRENT_USER-user/"* $HOME/.config/plank/dock1/launchers
-        secs=$((3))
-        while [ $secs -gt 0 ]; do
-            echo -ne "Patientez : $secs\033[0K\r"
-            sleep 1
-            : $((secs--))
-        done
+    sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem
+    
+    secs=$((3))
+    while [ $secs -gt 0 ]; do
+        echo -ne "Patientez : $secs\033[0K\r"
+        sleep 1
+        : $((secs--))
+    done
+
     if [[ $CURRENT_USER = "wam" ]];then
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem']"
     else
+        sudo rm -v $HOME/.config/plank/dock1/launchers/virtualbox.dockitem
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem']"
     fi
-    echo -ne "Done \033[0K\r"
-
-
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ lock-items true
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ pinned-only true
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position top
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme Transparent
+
+    echo -ne "Done \033[0K\r"
 
 	echo
     tput setaf 2
@@ -202,12 +212,14 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
 	[ -d /usr/share/sddm/themes/arcolinux-sugar-candy ] || sudo mkdir -p /usr/share/sddm/themes/arcolinux-sugar-candy
-	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy
     [ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
+    sudo cp -a $INSTALL_DIRECTORY/settings/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy
 	sudo cp -a $INSTALL_DIRECTORY/settings/sddm/kde_settings.conf /etc/sddm.conf.d
+
     if [[ ! $CURRENT_USER = "wam" ]];then
         echo "Changing background for ${CURRENT_USER^^} user"
-        sudo sed -i "s/Mountain/background/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
+        sudo sed -i "s/Mountain.jpg/background.jpg/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
+        sudo sed -i "s/Bienvenue !/⚠ MACHINE VIRTUELLE ⚠/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf        
     fi
 
 	echo
