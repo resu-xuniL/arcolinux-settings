@@ -174,6 +174,19 @@ cp $INSTALL_DIRECTORY/settings/wine/shortcut/shortcut.exe $HOME/.wine/drive_c/wi
 echo
 tput setaf 4
 echo "################################################################"
+echo "###################### Wine : Tag renamer ######################"
+echo "################################################################"
+tput sgr0
+echo
+[ -d $HOME"/.wine/drive_c/Program\ Files/TagRename" ] || mkdir -p $HOME"/.wine/drive_c/Program Files/TagRename"
+7z x $INSTALL_DIRECTORY/settings/wine/tag-rename/TagRename.7z -o$HOME/.wine/drive_c/Program\ Files/TagRename
+
+[ -d $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename" ] || mkdir -p $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename"
+wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk" /a:c /t:"c:\Program Files\TagRename\TagRename.exe" /i:"c:\Program Files\TagRename\TagRename.exe,0"
+
+echo
+tput setaf 4
+echo "################################################################"
 echo "################### Wine : Youtube downloader ##################"
 echo "################################################################"
 tput sgr0
