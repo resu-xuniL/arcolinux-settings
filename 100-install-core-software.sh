@@ -164,6 +164,16 @@ sudo pacman -S --noconfirm --needed wine
 echo
 tput setaf 4
 echo "################################################################"
+echo "####################### Wine : Shortcut ########################"
+echo "################################################################"
+tput sgr0
+echo
+[ -d $HOME"/.wine/drive_c/windows" ] || mkdir -p $HOME"/.wine/drive_c/windows"
+cp $INSTALL_DIRECTORY/settings/wine/shortcut/shortcut.exe $HOME/.wine/drive_c/windows
+
+echo
+tput setaf 4
+echo "################################################################"
 echo "################### Wine : Youtube downloader ##################"
 echo "################################################################"
 tput sgr0
