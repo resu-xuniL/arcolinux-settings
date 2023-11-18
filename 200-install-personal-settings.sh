@@ -249,7 +249,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
 	[ -d $HOME"/.config/vlc" ] || mkdir -p $HOME"/.config/vlc"
-	sudo cp -a $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
+	cp -a $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
 
 	echo
     tput setaf 2

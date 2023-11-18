@@ -22,7 +22,24 @@ INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))
 
 ##################################################################################################################
 
-sudo pacman -Syy
+echo
+tput setaf 3
+echo "################################################################"
+echo "###########                                          ###########"
+echo "###########             Updating system              ###########"
+echo "###########                                          ###########"
+echo "################################################################"
+tput sgr0
+echo
+sudo pacman -Syyu --noconfirm
+
+echo
+tput setaf 4
+echo "################################################################"
+echo "####################### System updated ! #######################"
+echo "################################################################"
+tput sgr0
+echo
 
 echo
 tput setaf 3
@@ -192,7 +209,7 @@ echo
 
 [ -d $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename" ] || mkdir -p $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename"
 wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk" /a:c /t:"C:\Program Files\TagRename\TagRename.exe" /i:"C:\Program Files\TagRename\TagRename.exe,0"
-
+sleep 3
 [ -d $HOME"/.local/share/applications/wine/Programs/TagRename" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/TagRename"
 cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
 
