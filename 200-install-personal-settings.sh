@@ -259,7 +259,12 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
     [ -d $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube Downloader"
-    cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/"* $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+
+    if [[ $CURRENT_RESOLUTION = "1680x1050" && $CURRENT_USER = "wam" ]];then
+        ln -s /mnt/WinArium/Users/Wam/AppData/Local/MediaHuman/YouTube\ Downloader $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+    else
+        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/"* $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+    fi
 
 	echo
     tput setaf 2
