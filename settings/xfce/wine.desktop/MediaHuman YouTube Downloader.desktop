@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=MediaHuman YouTube Downloader
 Type=Application
-Exec=env WINEPREFIX="/home/wam/.wine" wine "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MediaHuman\YouTube Downloader\MediaHuman YouTube Downloader.lnk"
-Path=/home/wam/.wine/dosdevices/c:/Program Files/MediaHuman/YouTube Downloader
+Exec=env WINEPREFIX="/home/***/.wine" wine "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MediaHuman\YouTube Downloader\MediaHuman YouTube Downloader.lnk"
+Path=/home/***/.wine/dosdevices/c:/Program Files/MediaHuman/YouTube Downloader
 StartupWMClass=youtubedownloader.exe
 Icon=80EF_YouTubeDownloader.0
 Comment=Download and convert any video from YouTube and other video streaming sites

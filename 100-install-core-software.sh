@@ -19,6 +19,7 @@
 ##################################################################################################################
 
 INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))
+CURRENT_USER=$(whoami)
 
 ##################################################################################################################
 
@@ -59,6 +60,15 @@ echo "################################################################"
 tput sgr0
 echo
 sudo pacman -S --noconfirm --needed brave-bin
+
+echo
+tput setaf 4
+echo "################################################################"
+echo "######################### Galculator ###########################"
+echo "################################################################"
+tput sgr0
+echo
+sudo pacman -S --noconfirm --needed galculator
 
 echo
 tput setaf 4
@@ -212,6 +222,7 @@ wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename
 sleep 3
 [ -d $HOME"/.local/share/applications/wine/Programs/TagRename" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/TagRename"
 cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
+sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
 
 echo
 tput setaf 4
@@ -239,6 +250,7 @@ mv -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop ~/.wine/drive_c/
 
 [ -d $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader"
 cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
+sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
 
 echo
 tput setaf 4
