@@ -116,13 +116,12 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
 	[ -d $HOME"/.config/conky" ] || mkdir -p $HOME"/.config/conky"
-
-    if [ $CURRENT_RESOLUTION = "1680x1050" ];then
-        echo "Configuring for DESKTOP"
-        cp $INSTALL_DIRECTORY/settings/conky/desktop/JA-Phone.conkyrc $HOME/.config/conky
-    else
+    cp $INSTALL_DIRECTORY/settings/conky/JA-Phone.conkyrc $HOME/.config/conky
+    
+    if [ ! $CURRENT_RESOLUTION = "1680x1050" ];then
         echo "Configuring for LAPTOP"
-        cp $INSTALL_DIRECTORY/settings/conky/laptop/JA-Phone.conkyrc $HOME/.config/conky
+        sed -i "s/1300/1020/g" $HOME/.config/conky/conky-sessionfile
+        sed -i "s/750/480/g" $HOME/.config/conky/conky-sessionfile
     fi
 
     echo "Configuring for ${CURRENT_USER^^} user"

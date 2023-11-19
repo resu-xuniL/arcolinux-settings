@@ -19,6 +19,8 @@
 ##################################################################################################################
 
 INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))
+CURRENT_USER=$(whoami)
+VM=$(systemd-detect-virt)
 
 ##################################################################################################################
 
@@ -29,55 +31,29 @@ echo "################### Installation & settings ####################"
 echo "################################################################"
 tput sgr0
 echo
+[ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
+cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks ~/.config/gtk-3.0/
+if [ $VM = "none" ];then
+    echo "file:///home/***/VirtualBox%20VMs/_SharedFolder VM shared folder" >> ~/.config/gtk-3.0/bookmarks
+fi
+sed -i "s/\*\*\*/$CURRENT_USER/g" ~/.config/gtk-3.0/bookmarks
 
 while [[ $REPLY != 0 ]]; do
     clear
     cat <<- _EOF_
     Please Select:
 
-    1. Install bookmarks for WAMVM user
-    2. Install bookmarks for WAM user
-    3. Install bookmarks for WAM user with dual-boot
-    0. Cancel
+    1. Normal
+    2. Dual-boot
+    0. Abort
 
 _EOF_
 
-    read -p "Enter selection [0-3] > " -n 1 -r selection
+    read -p "Enter selection [0-2] > " -n 1 -r selection
     tput cup 8 0
 
     case $selection in
     1)  
-        echo
-        tput setaf 3
-        echo "################################################################"
-        echo "#################### Installing Bookmarks ######################"
-        echo "################################################################"
-        tput sgr0
-        echo
-
-        [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wamvm_user/bookmarks ~/.config/gtk-3.0/
-
-        tput setaf 3
-        echo "################################################################"
-        echo "################# PERSONAL BOOKMARKS ADDED ! ###################"
-        echo "################################################################"
-        tput sgr0
-        echo
-        break
-        ;;
-    2)  
-        echo
-        tput setaf 3
-        echo "################################################################"
-        echo "#################### Installing Bookmarks ######################"
-        echo "################################################################"
-        tput sgr0
-        echo
-
-        [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wam_user/bookmarks ~/.config/gtk-3.0/
-
         tput setaf 3
         echo "################################################################"
         echo "################# PERSONAL BOOKMARKS ADDED ! ###################"
@@ -86,7 +62,7 @@ _EOF_
         echo
 		break
         ;; 
-    3)  
+    2)  
         echo
         tput setaf 3
         echo "################################################################"
@@ -94,7 +70,6 @@ _EOF_
         echo "################################################################"
         tput sgr0
         echo
-
         sudo cp -a $INSTALL_DIRECTORY/settings/automount/fstab /etc
 
         tput setaf 3
@@ -107,20 +82,33 @@ _EOF_
         echo
         tput setaf 3
         echo "################################################################"
-        echo "#################### Installing Bookmarks ######################"
+        echo "################### Adding other bookmarks #####################"
         echo "################################################################"
         tput sgr0
         echo
-
-        [ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-        cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks/wam_user/dual-boot/bookmarks ~/.config/gtk-3.0/
-
-        tput setaf 3
-        echo "################################################################"
-        echo "################# PERSONAL BOOKMARKS ADDED ! ###################"
-        echo "################################################################"
-        tput sgr0
-        echo
+        if [ $VM = "none" ];then
+            echo "file:///mnt/Swap%20%5B511%20Go%5D/%5BVU%5D" >> ~/.config/gtk-3.0/bookmarks
+            echo "file:///mnt/Storage%20%5B200%20Go%5D/Tools/%5BLinux%5D/%5BVideos%5D [Storage : Linux Videos]" >> ~/.config/gtk-3.0/bookmarks
+            echo "file:///home/***/.wine/drive_c [Wine drive C :\]" >> ~/.config/gtk-3.0/bookmarks
+            echo "file:///home/***/VirtualBox%20VMs/_SharedFolder VM shared folder" >> ~/.config/gtk-3.0/bookmarks
+            sed -i "s/\*\*\*/$CURRENT_USER/g" ~/.config/gtk-3.0/bookmarks
+            
+            tput setaf 3
+            echo "################################################################"
+            echo "################# PERSONAL BOOKMARKS ADDED ! ###################"
+            echo "################################################################"
+            tput sgr0
+            echo
+        
+        else
+            tput setaf 1
+            echo "################################################################"
+            echo "########## ⚠  WARNING, this is a virtual machine ⚠ ###########"
+            echo "################### NONE BOOKMARK ADDED ! ######################"
+            echo "################################################################"
+            tput sgr0
+            echo
+        fi
 		break
         ;; 
     0)  

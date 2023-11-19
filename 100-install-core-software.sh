@@ -246,7 +246,7 @@ wine $HOME/Downloads/YouTubeDownloader-x64.exe
 sleep 3
 rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.lnk
 rm -v ~/Desktop/Visit\ MediaHuman\ Website.url
-mv -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop ~/.wine/drive_c/
+rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop
 
 [ -d $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader"
 cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
