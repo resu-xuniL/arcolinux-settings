@@ -221,7 +221,7 @@ echo
 wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk" /a:c /t:"C:\Program Files\TagRename\TagRename.exe" /i:"C:\Program Files\TagRename\TagRename.exe,0"
 sleep 3
 [ -d $HOME"/.local/share/applications/wine/Programs/TagRename" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/TagRename"
-cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
+cp $INSTALL_DIRECTORY/settings/wine/tag-rename/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
 sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
 
 echo
@@ -249,7 +249,7 @@ rm -v ~/Desktop/Visit\ MediaHuman\ Website.url
 rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop
 
 [ -d $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader"
-cp $INSTALL_DIRECTORY/settings/xfce/wine.desktop/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
+cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
 sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
 
 echo
