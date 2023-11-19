@@ -120,8 +120,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     
     if [ ! $CURRENT_RESOLUTION = "1680x1050" ];then
         echo "Configuring for LAPTOP"
-        sed -i "s/1300/1020/g" $HOME/.config/conky/conky-sessionfile
-        sed -i "s/750/480/g" $HOME/.config/conky/conky-sessionfile
+        sed -i "s/1300/1010/g" $HOME/.config/conky/JA-Phone.conkyrc
+        sed -i "s/750/480/g" $HOME/.config/conky/JA-Phone.conkyrc
     fi
 
     echo "Configuring for ${CURRENT_USER^^} user"
