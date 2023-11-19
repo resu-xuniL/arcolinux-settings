@@ -63,30 +63,30 @@ _EOF_
 		break
         ;; 
     2)  
-        echo
-        tput setaf 3
-        echo "################################################################"
-        echo "####### Setting auto-mount for other (NTFS) partitions #########"
-        echo "################################################################"
-        tput sgr0
-        echo
-        sudo cp -a $INSTALL_DIRECTORY/settings/automount/fstab /etc
-
-        tput setaf 3
-        echo "################################################################"
-        echo "##################### Auto-mount done ! ########################"
-        echo "################################################################"
-        tput sgr0
-        echo
-
-        echo
-        tput setaf 3
-        echo "################################################################"
-        echo "################### Adding other bookmarks #####################"
-        echo "################################################################"
-        tput sgr0
-        echo
         if [ $VM = "none" ];then
+            echo
+            tput setaf 3
+            echo "################################################################"
+            echo "####### Setting auto-mount for other (NTFS) partitions #########"
+            echo "################################################################"
+            tput sgr0
+            echo
+            sudo cp -a $INSTALL_DIRECTORY/settings/automount/fstab /etc
+
+            tput setaf 3
+            echo "################################################################"
+            echo "##################### Auto-mount done ! ########################"
+            echo "################################################################"
+            tput sgr0
+            echo
+
+            echo
+            tput setaf 3
+            echo "################################################################"
+            echo "################### Adding other bookmarks #####################"
+            echo "################################################################"
+            tput sgr0
+            echo
             echo "file:///mnt/Swap%20%5B511%20Go%5D/%5BVU%5D" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///mnt/Storage%20%5B200%20Go%5D/Tools/%5BLinux%5D/%5BVideos%5D [Storage : Linux Videos]" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///home/***/.wine/drive_c [Wine drive C :\]" >> ~/.config/gtk-3.0/bookmarks
@@ -99,12 +99,12 @@ _EOF_
             echo "################################################################"
             tput sgr0
             echo
-        
         else
             tput setaf 1
             echo "################################################################"
             echo "########## ⚠  WARNING, this is a virtual machine ⚠ ###########"
-            echo "################### NONE BOOKMARK ADDED ! ######################"
+            echo "############### AUTO-MOUNT PARTITIONS ABORTED ! ################"
+            echo "################# AND NONE BOOKMARK ADDED ! ####################"
             echo "################################################################"
             tput sgr0
             echo
