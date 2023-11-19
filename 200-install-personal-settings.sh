@@ -166,7 +166,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     [ -d $HOME"/.config/plank/dock1/" ] || mkdir -p $HOME"/.config/plank/dock1/"
 	[ -d $HOME"/.config/plank/dock1/launchers/" ] || mkdir -p $HOME"/.config/plank/dock1/launchers/"
 	    
-    cp  -r "$INSTALL_DIRECTORY/settings/plank/"* $HOME/.config/plank/dock1/launchers
+    cp  -r $INSTALL_DIRECTORY/settings/plank/* $HOME/.config/plank/dock1/launchers
 
     echo "Configuring for ${CURRENT_USER^^} user"
     sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem
@@ -262,7 +262,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     if [[ $CURRENT_RESOLUTION = "1680x1050" && $CURRENT_USER = "wam" ]];then
         ln -s /mnt/WinArium/Users/Wam/AppData/Local/MediaHuman/YouTube\ Downloader $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
     else
-        cp  -r "$INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/"* $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+        cp  -r $INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/tracking.dat $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
     fi
 
 	echo
@@ -274,7 +274,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     tput sgr0
     echo
 	[ -d $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/" ] || mkdir -p $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/"
-	cp  -r "$INSTALL_DIRECTORY/settings/xfce/"* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
+	cp  -r $INSTALL_DIRECTORY/settings/xfce/* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
 
     echo
     tput setaf 2
