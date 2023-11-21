@@ -19,22 +19,23 @@
 ##################################################################################################################
 
 INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))
+CURRENT_USER=$(whoami)
 
 ##################################################################################################################
 
 echo
 tput setaf 3
 echo "################################################################"
-echo "################ Autostart certain applications ################"
+echo "################# Autostart some applications ##################"
 echo "################################################################"
 tput sgr0
 echo
 
-[ -d $HOME"/.config/autostart" ] || mkdir -p $HOME"/.config/autostart"
+[ -d $HOME/.config/autostart ] || mkdir -p $HOME/.config/autostart
+cp $INSTALL_DIRECTORY/settings/_extra/.login.sound.mp3 $HOME/
+cp "$INSTALL_DIRECTORY/settings/autostart/"* $HOME/.config/autostart
 
-sleep 1
-
-cp -f "$INSTALL_DIRECTORY/settings/autostart/"* $HOME"/.config/autostart"
+sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.config/autostart/login.sound.desktop
 
 tput setaf 3
 echo "################################################################"
