@@ -214,15 +214,15 @@ echo "###################### Wine : Tag renamer ######################"
 echo "################################################################"
 tput sgr0
 echo
-[ -d $HOME"/.wine/drive_c/Program\ Files/TagRename" ] || mkdir -p $HOME"/.wine/drive_c/Program Files/TagRename"
+[ -d $HOME/.wine/drive_c/Program\ Files/TagRename ] || mkdir -p $HOME/.wine/drive_c/Program\ Files/TagRename
 7z x $INSTALL_DIRECTORY/settings/wine/tag-rename/TagRename.7z -o$HOME/.wine/drive_c/Program\ Files/TagRename
 
-[ -d $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename" ] || mkdir -p $HOME"/.wine/drive_c/ProgramData/Microsoft/Windows/Start Menu/Programs/TagRename"
+[ -d $HOME/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename ] || mkdir -p $HOME/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename
 wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk" /a:c /t:"C:\Program Files\TagRename\TagRename.exe" /i:"C:\Program Files\TagRename\TagRename.exe,0"
 sleep 3
-[ -d $HOME"/.local/share/applications/wine/Programs/TagRename" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/TagRename"
+[ -d $HOME/.local/share/applications/wine/Programs/TagRename ] || mkdir -p $HOME/.local/share/applications/wine/Programs/TagRename
 cp $INSTALL_DIRECTORY/settings/wine/tag-rename/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
-sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
+sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
 
 echo
 tput setaf 4
@@ -248,9 +248,9 @@ rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.lnk
 rm -v ~/Desktop/Visit\ MediaHuman\ Website.url
 rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop
 
-[ -d $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader" ] || mkdir -p $HOME"/.local/share/applications/wine/Programs/MediaHuman/YouTube Downloader"
+[ -d $HOME".local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
 cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
-sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
+sudo sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
 
 echo
 tput setaf 4

@@ -31,12 +31,12 @@ echo "################### Installation & settings ####################"
 echo "################################################################"
 tput sgr0
 echo
-[ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
+[ -d $HOME/.config/gtk-3.0 ] || mkdir -p $HOME/.config/gtk-3.0
 cp $INSTALL_DIRECTORY/settings/gtk3/bookmarks ~/.config/gtk-3.0/
 if [ $VM = "none" ];then
     echo "file:///home/***/VirtualBox%20VMs/_SharedFolder VM shared folder" >> ~/.config/gtk-3.0/bookmarks
 fi
-sed -i "s/\*\*\*/$CURRENT_USER/g" ~/.config/gtk-3.0/bookmarks
+sed -i "s/\*\*\*/$CURRENT_USER/" ~/.config/gtk-3.0/bookmarks
 
 while [[ $REPLY != 0 ]]; do
     clear
@@ -91,7 +91,7 @@ _EOF_
             echo "file:///mnt/Storage%20%5B200%20Go%5D/Tools/%5BLinux%5D/%5BVideos%5D [Storage : Linux Videos]" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///home/***/.wine/drive_c [Wine drive C :\]" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///home/***/VirtualBox%20VMs/_SharedFolder VM shared folder" >> ~/.config/gtk-3.0/bookmarks
-            sed -i "s/\*\*\*/$CURRENT_USER/g" ~/.config/gtk-3.0/bookmarks
+            sed -i "s/\*\*\*/$CURRENT_USER/" ~/.config/gtk-3.0/bookmarks
             
             tput setaf 3
             echo "################################################################"

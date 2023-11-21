@@ -38,8 +38,8 @@ echo "################# Create personal directories ##################"
 echo "################################################################"
 tput sgr0
 echo
-[ -d $HOME"/.config" ] || mkdir -p $HOME"/.config"
-[ -d $HOME"/Documents/[Nextcloud]" ] || mkdir -p $HOME"/Documents/[Nextcloud]"
+[ -d $HOME/.config ] || mkdir -p $HOME/.config
+[ -d $HOME/Documents/[Nextcloud] ] || mkdir -p $HOME/Documents/[Nextcloud]
 
 if grep -q "ArcoLinux" /etc/os-release; then
 
@@ -115,18 +115,18 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/conky" ] || mkdir -p $HOME"/.config/conky"
+	[ -d $HOME/.config/conky ] || mkdir -p $HOME/.config/conky
     cp $INSTALL_DIRECTORY/settings/conky/JA-Phone.conkyrc $HOME/.config/conky
     
     if [ ! $CURRENT_RESOLUTION = "1680x1050" ];then
         echo "Configuring for LAPTOP"
-        sed -i "s/1300/1010/g" $HOME/.config/conky/JA-Phone.conkyrc
-        sed -i "s/750/480/g" $HOME/.config/conky/JA-Phone.conkyrc
+        sed -i "s/1300/1010/" $HOME/.config/conky/JA-Phone.conkyrc
+        sed -i "s/750/480/" $HOME/.config/conky/JA-Phone.conkyrc
     fi
 
     echo "Configuring for ${CURRENT_USER^^} user"
     cp $INSTALL_DIRECTORY/settings/conky/conky-sessionfile $HOME/.config/conky/
-    sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.config/conky/conky-sessionfile
+    sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.config/conky/conky-sessionfile
 
 	echo
     tput setaf 2
@@ -139,9 +139,9 @@ if grep -q "ArcoLinux" /etc/os-release; then
 
     echo "Configuring for ${CURRENT_USER^^} user"
     if [[ ! $CURRENT_USER = "wam" ]];then
-        sudo sed -i "s/archlinux03.jpg/archlinux04.jpg/g" /boot/grub/themes/Vimix/theme.txt
+        sudo sed -i "s/archlinux03.jpg/archlinux04.jpg/" /boot/grub/themes/Vimix/theme.txt
     fi
-    sudo sed -i "s/quiet //g" /etc/default/grub
+    sudo sed -i "s/quiet //" /etc/default/grub
 
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -153,8 +153,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/gtk-3.0" ] || mkdir -p $HOME"/.config/gtk-3.0"
-	cp  $INSTALL_DIRECTORY/settings/gtk3/settings.ini $HOME/.config/gtk-3.0
+	[ -d $HOME/.config/gtk-3.0 ] || mkdir -p $HOME/.config/gtk-3.0
+	cp $INSTALL_DIRECTORY/settings/gtk3/settings.ini $HOME/.config/gtk-3.0
 
 	echo
     tput setaf 2
@@ -163,13 +163,13 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-    [ -d $HOME"/.config/plank/dock1/" ] || mkdir -p $HOME"/.config/plank/dock1/"
-	[ -d $HOME"/.config/plank/dock1/launchers/" ] || mkdir -p $HOME"/.config/plank/dock1/launchers/"
+    [ -d $HOME/.config/plank/dock1/ ] || mkdir -p $HOME/.config/plank/dock1/
+	[ -d $HOME/.config/plank/dock1/launchers/ ] || mkdir -p $HOME/.config/plank/dock1/launchers/
 	    
-    cp  -r $INSTALL_DIRECTORY/settings/plank/* $HOME/.config/plank/dock1/launchers
+    cp "$INSTALL_DIRECTORY/settings/plank/"* $HOME/.config/plank/dock1/launchers
 
     echo "Configuring for ${CURRENT_USER^^} user"
-    sudo sed -i "s/\*\*\*/$CURRENT_USER/g" $HOME/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem
+    sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem
     
     secs=$((3))
     while [ $secs -gt 0 ]; do
@@ -217,8 +217,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
 
     if [[ ! $CURRENT_USER = "wam" ]];then
         echo "Changing background for ${CURRENT_USER^^} user"
-        sudo sed -i "s/Mountain.jpg/background.jpg/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
-        sudo sed -i "s/Bienvenue !/⚠ MACHINE VIRTUELLE ⚠/g" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf        
+        sudo sed -i "s/Mountain.jpg/background.jpg/" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf
+        sudo sed -i "s/Bienvenue !/⚠ MACHINE VIRTUELLE ⚠/" /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf        
     fi
 
 	echo
@@ -228,8 +228,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/Thunar" ] || mkdir -p $HOME"/.config/Thunar"
-	cp  $INSTALL_DIRECTORY/settings/thunar/uca.xml $HOME/.config/Thunar
+	[ -d $HOME/.config/Thunar ] || mkdir -p $HOME/.config/Thunar
+	cp $INSTALL_DIRECTORY/settings/thunar/uca.xml $HOME/.config/Thunar
 
 	echo
     tput setaf 2
@@ -238,7 +238,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/variety" ] || mkdir -p $HOME"/.config/variety"
+	[ -d $HOME/.config/variety ] || mkdir -p $HOME/.config/variety
 	cp $INSTALL_DIRECTORY/settings/variety/variety.conf ~/.config/variety/
 
     tput setaf 2
@@ -247,8 +247,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/vlc" ] || mkdir -p $HOME"/.config/vlc"
-	cp -a $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
+	[ -d $HOME/.config/vlc ] || mkdir -p $HOME/.config/vlc
+	cp $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
 
 	echo
     tput setaf 2
@@ -257,12 +257,12 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-    [ -d $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader" ] || mkdir -p $HOME"/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube Downloader"
+    [ -d $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
 
     if [[ $CURRENT_RESOLUTION = "1680x1050" && $CURRENT_USER = "wam" ]];then
         ln -s /mnt/WinArium/Users/Wam/AppData/Local/MediaHuman/YouTube\ Downloader $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
     else
-        cp  -r $INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/tracking.dat $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+        cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/tracking.dat $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
     fi
 
 	echo
@@ -273,8 +273,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
     echo "################################################################"
     tput sgr0
     echo
-	[ -d $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/" ] || mkdir -p $HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/"
-	cp  -r $INSTALL_DIRECTORY/settings/xfce/* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
+	[ -d $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/ ] || mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
+	cp "$INSTALL_DIRECTORY/settings/xfce/"* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
 
     echo
     tput setaf 2
@@ -300,8 +300,8 @@ if [ $result = "none" ];then
 	tput sgr0
 	echo	
 
-	[ -d $HOME"/VirtualBox VMs" ] || mkdir -p $HOME"/VirtualBox VMs"
-	sudo cp -rf settings/virtualbox-template/* ~/VirtualBox\ VMs/
+	[ -d $HOME/VirtualBox VMs ] || mkdir -p $HOME/VirtualBox VMs
+	cp settings/virtualbox-template/template.tar.gz ~/VirtualBox\ VMs/
 	cd ~/VirtualBox\ VMs/
 	tar -xzf template.tar.gz
 	rm -f template.tar.gz	
