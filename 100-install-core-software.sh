@@ -222,6 +222,11 @@ wine shortcut /f:"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename
 sleep 3
 [ -d $HOME/.local/share/applications/wine/Programs/TagRename ] || mkdir -p $HOME/.local/share/applications/wine/Programs/TagRename
 cp $INSTALL_DIRECTORY/settings/wine/tag-rename/TagRename.desktop $HOME/.local/share/applications/wine/Programs/TagRename
+
+ICON_FILENAME=$(find ~ -name "*TagRename*.png" -printf "%f" -quit)
+ICON_FILENAME=${ICON_FILENAME%.*}
+
+sed -i "s/Icon=/Icon=$ICON_FILENAME/" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
 sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/TagRename/TagRename.desktop
 
 echo
@@ -250,7 +255,7 @@ rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop
 
 [ -d $HOME".local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
 cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
-sudo sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
+sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
 
 echo
 tput setaf 4

@@ -181,7 +181,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     if [[ $CURRENT_USER = "wam" ]];then
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem']"
     else
-        sudo rm -v $HOME/.config/plank/dock1/launchers/virtualbox.dockitem
+        rm -v $HOME/.config/plank/dock1/launchers/virtualbox.dockitem
         gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem']"
     fi
     gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300
