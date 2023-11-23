@@ -142,7 +142,7 @@ if [[ $REPLY = 0 ]] ; then
     exit 0
 else
     sh 100-install-core-software.sh
-    sh 110-remove-software.sh
+    sh 110-uninstall-software.sh
     sh 200-install-personal-settings.sh
     sh 210-autostart-applications.sh
 
