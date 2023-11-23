@@ -300,7 +300,7 @@ if [ $result = "none" ];then
 	tput sgr0
 	echo	
 
-	[ -d $HOME/VirtualBox VMs ] || mkdir -p $HOME/VirtualBox VMs
+	[ -d $HOME/VirtualBox\ VMs ] || mkdir -p $HOME/VirtualBox\ VMs
 	cp settings/virtualbox-template/template.tar.gz ~/VirtualBox\ VMs/
 	cd ~/VirtualBox\ VMs/
 	tar -xzf template.tar.gz

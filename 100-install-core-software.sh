@@ -253,7 +253,7 @@ rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.lnk
 rm -v ~/Desktop/Visit\ MediaHuman\ Website.url
 rm -v ~/Desktop/MediaHuman\ YouTube\ Downloader.desktop
 
-[ -d $HOME".local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
+[ -d $HOME.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
 cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader
 sed -i "s/\*\*\*/$CURRENT_USER/" $HOME/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop       
 
