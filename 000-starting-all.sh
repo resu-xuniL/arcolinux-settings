@@ -20,6 +20,7 @@
 
 INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))
 CURRENT_USER=$(whoami)
+CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 VM=$(systemd-detect-virt)
 
 ##################################################################################################################
@@ -63,7 +64,7 @@ _EOF_
 		break
         ;; 
     2)  
-        if [ $VM = "none" ];then
+        if [[ $CURRENT_RESOLUTION = "1680x1050" && $VM = "none" ]];then
             echo
             tput setaf 3
             echo "################################################################"
@@ -102,7 +103,7 @@ _EOF_
         else
             tput setaf 1
             echo "################################################################"
-            echo "########## ⚠  WARNING, this is a virtual machine ⚠ ###########"
+            echo "####### ⚠  WARNING, this is NOT a dual-boot machine ⚠ ########"
             echo "############### AUTO-MOUNT PARTITIONS ABORTED ! ################"
             echo "################# AND NONE BOOKMARK ADDED ! ####################"
             echo "################################################################"
