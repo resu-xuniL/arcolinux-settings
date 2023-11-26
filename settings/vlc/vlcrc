@@ -1406,7 +1406,7 @@ qt-privacy-ask=0
 #alsa-audio-channels=6
 
 # Software gain (float)
-#alsa-gain=1.000000
+alsa-gain=0.027000
 
 [amem] # Audio memory output
 
@@ -3855,7 +3855,7 @@ qt-privacy-ask=0
 #audio-time-stretch=1
 
 # Audio output module (string)
-#aout=
+aout=alsa
 
 # Media role (string)
 #role=video
