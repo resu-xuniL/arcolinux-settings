@@ -135,20 +135,20 @@ done
 
 if [[ $REPLY = 0 ]] ; then
     tput setaf 1; tput bold
-    echo -e "\r################################################################"
+    echo "################################################################"
     echo "################## INSTALLATION ABORTED ! ######################"
     echo "################################################################"
     tput sgr0
     echo
     exit 0
 else
-    sh 100-install-core-software.sh
     sh 110-uninstall-software.sh
+    sh 100-install-core-software.sh
     sh 200-install-personal-settings.sh
     sh 210-autostart-applications.sh
 
     tput setaf 3
-    echo -e "\r################################################################"
+    echo "################################################################"
     echo "###########                                          ###########"
     echo "###########                                          ###########"
     echo "###########               ALL DONE !                 ###########"
