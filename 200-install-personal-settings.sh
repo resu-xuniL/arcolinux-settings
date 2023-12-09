@@ -102,11 +102,12 @@ if grep -q "ArcoLinux" /etc/os-release; then
   	echo
     tput setaf 2
     echo "################################################################"
-    echo "################## Set settings for filenames ##################"
+    echo "############### Set settings for filenames order ###############"
     echo "################################################################"
     tput sgr0
     echo
 	sudo localectl set-locale LC_COLLATE=C
+    gsettings set org.gtk.Settings.FileChooser sort-directories-first true
 
   	echo
     tput setaf 2
