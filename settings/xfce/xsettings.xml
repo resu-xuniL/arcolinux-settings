@@ -2,7 +2,7 @@
 
 <channel name="xsettings" version="1.0">
   <property name="Net" type="empty">
-    <property name="ThemeName" type="string" value="Arc-Darkest"/>
+    <property name="ThemeName" type="string" value="Windows-10-Dark"/>
     <property name="IconThemeName" type="string" value="We10X-black-dark"/>
     <property name="DoubleClickTime" type="empty"/>
     <property name="DoubleClickDistance" type="empty"/>
