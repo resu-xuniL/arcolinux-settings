@@ -3,7 +3,7 @@
 <channel name="xsettings" version="1.0">
   <property name="Net" type="empty">
     <property name="ThemeName" type="string" value="Windows-10-Dark"/>
-    <property name="IconThemeName" type="string" value="We10X-black-dark"/>
+    <property name="IconThemeName" type="string" value="Mint-L-Yellow-We10x-black-dark"/>
     <property name="DoubleClickTime" type="empty"/>
     <property name="DoubleClickDistance" type="empty"/>
     <property name="DndDragThreshold" type="empty"/>
@@ -23,7 +23,7 @@
   <property name="Gtk" type="empty">
     <property name="CanChangeAccels" type="empty"/>
     <property name="ColorPalette" type="empty"/>
-    <property name="FontName" type="string" value="Noto Sans 9"/>
+    <property name="FontName" type="string" value="Ubuntu 9"/>
     <property name="MonospaceFontName" type="string" value="Monospace 9"/>
     <property name="IconSizes" type="empty"/>
     <property name="KeyThemeName" type="empty"/>
