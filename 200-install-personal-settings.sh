@@ -282,7 +282,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     sudo unzip $INSTALL_DIRECTORY/settings/themes/Windows-10-Dark-3.2.1-dark.zip -d /usr/share/themes
     sudo mv /usr/share/themes/Windows-10-Dark-3.2.1-dark /usr/share/themes/Windows-10-Dark
 
-    sudo unzip $INSTALL_DIRECTORY/settings/icons/Mint-L-Yellow-We10x-black-dark.7z -d /usr/share/icons
+    sudo 7z x $INSTALL_DIRECTORY/settings/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons
     
 	[ -d $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/ ] || mkdir -p $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/
 	cp "$INSTALL_DIRECTORY/settings/xfce/"* $HOME/.config/xfce4/xfconf/xfce-perchannel-xml
