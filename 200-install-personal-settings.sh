@@ -251,7 +251,15 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	[ -d $HOME/.config/vlc ] || mkdir -p $HOME/.config/vlc
 	cp $INSTALL_DIRECTORY/settings/vlc/vlcrc $HOME/.config/vlc
 
+    tput setaf 2
+    echo "################################################################"
+    echo "################## VLC : Customize interface  ##################"
+    echo "################################################################"
+    tput sgr0
+    echo
+	cp $INSTALL_DIRECTORY/settings/vlc/vlc-qt-interface.conf $HOME/.config/vlc
 	echo
+
     tput setaf 2
     echo "################################################################"
     echo "############ Wine :  Mediahuman Youtube downloader #############"
