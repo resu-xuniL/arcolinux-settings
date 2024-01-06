@@ -160,6 +160,17 @@ if grep -q "ArcoLinux" /etc/os-release; then
 	echo
     tput setaf 2
     echo "################################################################"
+    echo "############ Change content of /etc/mkinitcpio.conf ############"
+    echo "################### New mkinitcpio package #####################"
+    echo "################################################################"
+    tput sgr0
+    echo
+    sudo sed -i "s/sd-vconsole//g" /etc/mkinitcpio.conf
+    sudo mkinitcpio -P
+
+	echo
+    tput setaf 2
+    echo "################################################################"
     echo "############################ Plank #############################"
     echo "################################################################"
     tput sgr0
