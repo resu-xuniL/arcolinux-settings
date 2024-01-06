@@ -72,7 +72,13 @@ _EOF_
             echo "################################################################"
             tput sgr0
             echo
-            sudo cp -a $INSTALL_DIRECTORY/settings/automount/fstab /etc
+            echo "LABEL=Win10 /mnt/Win10 auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=0AAEA709AEA6EC7F /mnt/Utils\040[20\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=4278D51A78D50D93 /mnt/Games\040[200\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=505AE3315AE31310 /mnt/Storage\040[200\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=904E76144E75F2F8 /mnt/Swap\040[511\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=46C4A652C4A64451 /mnt/Videos\040[232\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
+            echo "UUID=7E38CE3238CDE96B /mnt/Archives\040[465\040Go] auto nosuid,nodev,nofail,x-gvfs-show 0 0" | sudo tee -a /etc/fstab
 
             tput setaf 3
             echo "################################################################"
