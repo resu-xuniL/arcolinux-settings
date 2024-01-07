@@ -143,6 +143,8 @@ if grep -q "ArcoLinux" /etc/os-release; then
         sudo sed -i "s/archlinux03.jpg/archlinux04.jpg/" /boot/grub/themes/Vimix/theme.txt
     fi
     sudo sed -i "s/quiet //" /etc/default/grub
+    sudo sed -i "s/GRUB_DEFAULT=0/GRUB_DEFAULT=saved/" /etc/default/grub
+    sudo sed -i "s/#GRUB_SAVEDEFAULT=\"true\"/GRUB_SAVEDEFAULT=\"true\"/" /etc/default/grub
 
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -280,7 +282,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     [ -d $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader ] || mkdir -p $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
 
     if [[ $CURRENT_RESOLUTION = "1680x1050" && $CURRENT_USER = "wam" ]];then
-        ln -s /mnt/WinArium/Users/${CURRENT_USER^}/AppData/Local/MediaHuman/YouTube\ Downloader $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader
+        ln -s /mnt/Win10/Users/${CURRENT_USER^}/AppData/Local/MediaHuman/YouTube\ Downloader $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman
     else
         if [[ $CURRENT_USER = "wam" ]];then
             cp $INSTALL_DIRECTORY/settings/wine/youtube-downloader/$CURRENT_USER-user/tracking.dat $HOME/.wine/drive_c/users/$CURRENT_USER/AppData/Local/MediaHuman/YouTube\ Downloader

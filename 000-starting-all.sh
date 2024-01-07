@@ -94,6 +94,7 @@ _EOF_
             echo "################################################################"
             tput sgr0
             echo
+            echo "file:///mnt/Swap%20%5B511%20Go%5D/%5BFilms%5D" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///mnt/Swap%20%5B511%20Go%5D/%5BVU%5D" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///mnt/Storage%20%5B200%20Go%5D/Tools/%5BLinux%5D/%5BVideos%5D [Storage : Linux Videos]" >> ~/.config/gtk-3.0/bookmarks
             echo "file:///home/***/.wine/drive_c [Wine drive C :\]" >> ~/.config/gtk-3.0/bookmarks
