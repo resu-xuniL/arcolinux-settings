@@ -1,5 +1,6 @@
 function update_system() {
     exec_log "sudo pacman -Syyu --noconfirm" "${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
+    log_msg "${GREEN}\nSystem is up-to-date${RESET}"
 }
 
 function replace_username() {
@@ -95,13 +96,13 @@ function manage_one() {
         wine
     "
     if [[ ${warning} =~ ${package} ]]; then
-        warning_msg=" ${RED}(might be long)${RESET}"
+        warning_msg="${RED}(might be long)${RESET}"
     fi
 
     if [[ ${action_type} == "install" ]]; then
-        exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
+        exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package} ${warning_msg}"
     elif [[ ${action_type} == "uninstall" ]]; then
-        exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
+        exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package} ${warning_msg}"
     elif [[ ${action_type} == "copy_paste" ]]; then
         if [[ "${target}" =~ "/*" ]]; then
             file_name[1]="All files from ${file_name[0]^^} folder"

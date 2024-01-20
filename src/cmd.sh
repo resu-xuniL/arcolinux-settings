@@ -19,10 +19,18 @@ ${YELLOW}################################################################
 EOF
 }
 
-function ask_question() {
+function prompt_to_continue() {
+    printf "%b" "\nPress [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
+
+    read -rp "" choice
+    [[ -n $choice ]] && exit 0
+}
+
+function prompt_default_no() {
+    printf "%b" "\n$1"
     yes="y"
     no="n"
-    read -rp "$1 ($yes/${no^^}) : " choice
+    read -rp " ($yes/${no^^}) : " choice
 
     if [ "${choice,,}" == "$yes" ]; then
         return 0
@@ -31,10 +39,11 @@ function ask_question() {
     fi
 }
 
-function ask_question_confirm() {
+function prompt_default_yes() {
+    printf "%b" "\n$1"
     yes="y"
     no="n"
-    read -rp "$1 (${yes^^}/$no) : " choice
+    read -rp " (${yes^^}/$no) : " choice
 
     if [ "${choice,,}" == "$no" ]; then
         return 1

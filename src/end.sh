@@ -2,10 +2,10 @@ function endscript() {
     local -r end_time="$(date +%s)"
     local -r duration="$((${end_time} - ${1}))"
 
-    echo -e "Done in ${GREEN}${duration}${RESET} seconds."
-    echo -e "Done in ${duration} seconds." >>"${LOG_FILE}"
+    echo -e "\nAll done in ${GREEN}${duration}${RESET} seconds."
+    echo -e "All done in ${duration} seconds." >>"${LOG_FILE}"
 
-    if ask_question "Do you want to upload the log file to a pastebin?"; then
+    if prompt_default_no "Do you want to upload the log file to a pastebin?"; then
         echo "Uploading log file to pastebin..."
         local -r url="$(curl -s -F 'file=@'"${LOG_FILE}" https://0x0.st)"
         echo "Log file uploaded to ${url}"

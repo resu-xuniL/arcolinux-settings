@@ -21,7 +21,6 @@ function init() {
     fi
     check_dir ${HOME}/.config "user"
     check_dir ${HOME}/Documents/[Nextcloud] "user"
-    sleep 2
 }
 
 function usage() {
@@ -80,10 +79,10 @@ function check_internet() {
     local -r tool_opts='-s --connect-timeout 8'
 
     if ! ${tool} ${tool_opts} https://archlinux.org/ >/dev/null 2>&1; then
-        log_msg "\n${RED}[KO]${RESET} Error -> No internet connection${RESET}"
+        log_msg "${RED}[KO]${RESET} Error -> No internet connection${RESET}"
         return 1
     else
-        log_msg "\n${GREEN}[OK]${RESET} Internet connection detected${RESET}"
+        log_msg "${GREEN}[OK]${RESET} Internet connection detected${RESET}"
         sleep 2
     fi
 
@@ -98,7 +97,5 @@ function init_log() {
     touch "${LOG_FILE}"
     echo -e "Commit hash: $(git rev-parse HEAD)" >>"${LOG_FILE}"
     echo -e "Log file: ${LOGFILE}\n" >>"${LOG_FILE}"
-    log_msg "\n${GREEN}[OK]${RESET} Log file created${RESET}"
-
-    sleep 2
+    log_msg "\n${GREEN}[+]${RESET} Log file created${RESET}"
 }

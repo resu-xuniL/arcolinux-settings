@@ -18,32 +18,38 @@ check_internet || exit 1
 if grep -q "ArcoLinux" /etc/os-release; then
 
     # init
+    header
+    prompt_to_continue
     display_step "Initialization"
     sleep 1
     init_log
     step init "Initialization\n--------------\n"
-    header
+    prompt_to_continue
 
     # Uninstall
     display_step "Software uninstallation"
     sleep 1
     step uninstall_software     "Software uninstallation\n-----------------------\n"
+    prompt_to_continue
 
     # Update system
     display_step "Updating system"
     sleep 1
     step update_system          "Updating system\n---------------\n"
+    prompt_to_continue
 
     # Install
     display_step "Software installation"
     sleep 1
     step install_software       "Software installation\n---------------------"
+    prompt_to_continue
 
     # Configuration
     display_step "System configuration"
     sleep 1
     step config_files              "Files system configuration\n--------------------------"
     step config_settings           "System configuration\n--------------------"
+    prompt_to_continue
 
     # End
     sleep 1

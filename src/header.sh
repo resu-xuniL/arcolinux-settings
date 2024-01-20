@@ -15,9 +15,6 @@ function header() {
 EOF
 
     sleep 1
-    printf "%b" "${RED}This script will make changes to your system.${RESET}\n"
-    printf "%b" "Some steps may take longer, depending on your Internet connection and CPU.\nPress [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
-
-    read -rp "" choice
-    [[ -n $choice ]] && exit 0
+    printf "%b" "\n${RED}This script will make changes to your system.${RESET}\n"
+    printf "%b" "\nSome steps may take longer, depending on your Internet connection and CPU.\n"
 }

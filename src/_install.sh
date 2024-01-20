@@ -41,8 +41,9 @@ function install_software() {
     else
         log_msg "${RED}\n[This is a virtual machine - Skipping VirtualBox installation]${RESET}"
     fi
+
+    select_from_list font_list "Font"
     select_from_list soft_list "Miscaleanous"
-    select_from_list font_list "Font" 
 
     local -r packages="${selected_packages}"
     selected_packages=""
@@ -100,7 +101,7 @@ function install_software() {
         ##########               Wine : Shortcut              ##########
         ################################################################
 
-        if ask_question_confirm "Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/windows "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/shortcut/shortcut.exe ${HOME}/.wine/drive_c/windows" "${GREEN}[+]${RESET} Copying [${YELLOW}shortcut.exe${RESET}] file to [${YELLOW}WINE${RESET}] folder"
         fi
@@ -109,7 +110,7 @@ function install_software() {
         ##########             Wine : Tag renamer             ##########
         ################################################################
 
-        if ask_question_confirm "Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
             exec_log "7z x -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder\n${RED}/!\ Enter password ! /!\ ${RESET}"
             
@@ -130,7 +131,7 @@ function install_software() {
         ##########          Wine : Youtube downloader         ##########
         ################################################################
 
-        if ask_question_confirm "Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
 
             local -r file="$HOME/Downloads/YouTubeDownloader-x64.exe"
 
@@ -138,10 +139,10 @@ function install_software() {
                 log_msg "${GREEN}${file} already exists${RESET}"
             else
                 log_msg "${RED}${file} doesn't exist - Downloading now : '${RESET}"
-                exec_log "wget -O ${HOME}/Downloads/YouTubeDownloader-x64.exe https://www.mediahuman.com/fr/download/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} Downloading [${YELLOW}YouTubeDownloader-x64.exe${RESET}]${RED} (might be long)${RESET}"
+                exec_log "wget -O ${HOME}/Downloads/YouTubeDownloader-x64.exe https://www.mediahuman.com/fr/download/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} Downloading [${YELLOW}YouTubeDownloader-x64.exe${RESET}] ${RED}(might be long)${RESET}"
             fi
 
-            exec_log "wine ${HOME}/Downloads/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Installing [${YELLOW}YouTubeDownloader-x64.exe${RESET}] to [${YELLOW}WINE${RESET}] folder${RED}(might be long)${RESET}"
+            exec_log "wine ${HOME}/Downloads/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Installing [${YELLOW}YouTubeDownloader-x64.exe${RESET}] to [${YELLOW}WINE${RESET}] folder ${RED}(might be long)${RESET}"
             sleep 3
             
             exec_log "rm -v ${HOME}/Desktop/MediaHuman\ YouTube\ Downloader.lnk" "${RED}[-]${RESET} Removing [${YELLOW}MediaHuman YouTube Downloader.lnk${RESET}] desktop shortcut"
