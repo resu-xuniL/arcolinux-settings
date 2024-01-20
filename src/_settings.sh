@@ -12,7 +12,7 @@ function set_config_list() {
 }
 
 function config_settings() {
-    export action_type="config_system"
+    action_type="config_system"
 
     set_config_list
 

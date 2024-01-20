@@ -32,7 +32,7 @@ function set_install_list() {
 }
 
 function install_software() {
-    export action_type="install"
+    action_type="install"
 
     set_install_list
 

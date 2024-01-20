@@ -32,7 +32,7 @@ function set_config_files_list() {
 }
 
 function config_files() {
-    export action_type="copy_paste"
+    action_type="copy_paste"
 
     set_config_files_list
 
