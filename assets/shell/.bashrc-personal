@@ -1,0 +1,7 @@
+alias updtae='sudo pacman -Syyu'
+
+alias grub-updtae="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias updtae-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+#Cleanup orphaned packages
+alias cleanorphaned='pacman -Qtdq | sudo pacman -Rns -'

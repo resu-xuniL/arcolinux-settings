@@ -1,0 +1,18 @@
+{
+	"Echo debug to console": {
+		"prefix": "debug",
+		"body": [
+			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BLUE}\\${${1:VAR}}\\${RESET}\""
+		],
+		"description": "Echo debug to console"
+	},
+
+	"Echo debug to console with pause": {
+		"prefix": "debug_sleep",
+		"body": [
+			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BLUE}\\${${1:VAR}}\\${RESET}\"",
+			"sleep ${2:3}"
+		],
+		"description": "Echo debug to console with pause"
+	}
+}

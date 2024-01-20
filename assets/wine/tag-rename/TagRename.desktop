@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=TagRename
+Type=Application
+Exec=env WINEPREFIX="/home/***/.wine" wine "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk"
+Path=/home/***/.wine/dosdevices/c:/Program Files/TagRename
+StartupWMClass=tagrename.exe
+Icon=
+Comment=Music file tag editor that easily handles all popular digital audio formats
+StartupNotify=true
+Terminal=false
