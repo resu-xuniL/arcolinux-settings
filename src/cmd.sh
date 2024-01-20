@@ -49,11 +49,11 @@ function exit_status() {
     echo "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "uninstall" ]]; then
-            echo -e "${GREEN}${package} is not installed${RESET}"
+            log_msg "${GREEN}${package} is not installed${RESET}"
         elif [[ ${action_type} == "install" ]]; then
-            echo -e "${RED}Error: ${package} installation failed${RESET}"
+            log_msg "${RED}Error: ${package} installation failed${RESET}"
         else
-            echo -e "${RED}Error: something went wrong${RESET}"
+            log_msg "${RED}Error: something went wrong${RESET}"
         fi
     #else
         #echo -e "${GREEN}Complete: ${package} installation succeeded${RESET}"

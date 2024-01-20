@@ -12,8 +12,8 @@ export VM=$(systemd-detect-virt)
 
 function init() {
     exec_log "find $INSTALL_DIRECTORY -type f -exec chmod 644 -- {} +" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}configuration${RESET}] files"
-    exec_log "sed -i \"s/Noto Sans 11/Ubuntu 9/\" ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}FONT${RESET}]"
-    exec_log "sed -i \"s/Monospace 11/Monospace 9/\" ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}FONT${RESET}] size"
+    #exec_log "sed -i \"s/Noto Sans 11/Ubuntu 9/\" ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}FONT${RESET}]"
+    #exec_log "sed -i \"s/Monospace 11/Monospace 9/\" ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}FONT${RESET}] size"
     if [[ ! ${CURRENT_USER} = "wam" ]];then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
