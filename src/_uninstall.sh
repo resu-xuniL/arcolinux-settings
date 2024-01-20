@@ -7,24 +7,26 @@ selected_packages=""
 function set_uninstall_list() {
 
     dkms_list=(
-        ["broadcom-wl"]="broadcom-wl-dkms"
-        ["rtl8821cu-morrownr"]="rtl8821cu-morrownr-dkms-git"
+        [broadcom-wl]="broadcom-wl-dkms"
+        [rtl8821cu-morrownr]="rtl8821cu-morrownr-dkms-git"
     )
 
     soft_list=(
-        ["Clipman"]="xfce4-clipman-plugin"
-        ["Parole"]="parole"
-        ["Xfburn"]="xfburn"
+        [Clipman]="xfce4-clipman-plugin"
+        [Parole]="parole"
+        [Xfburn]="xfburn"
     )
 
     icon_list=(
-        ["Sardi"]="sardi-icons"
-        ["Surfn"]="surfn-icons-git"
+        [Sardi]="sardi-icons"
+        [Surfn]="surfn-icons-git"
     )
 }
 
 function uninstall_software() {
-    export action_type="uninstall"
+    local mkinitcpio_needed=0
+    
+    action_type="uninstall"
 
     set_uninstall_list
 
@@ -42,9 +44,9 @@ function uninstall_software() {
     ##########            DKMS Uninstallation             ##########
     ################################################################
 
-#TODO : check if packages were installed
-
     if [[ "${packages}" =~ "broadcom-wl-dkms" || "${packages}" =~ "rtl8821cu-morrownr-dkms-git" ]];then
-        exec_log "sudo mkinitcpio -P" "${GREEN}[+]${RESET} Building [${YELLOW}initcpio${RESET}] image ${RED}(might be long)${RESET}"
+        if [[ ${mkinitcpio_needed} -gt 0 ]]; then
+            exec_log "sudo mkinitcpio -P" "${GREEN}[+]${RESET} Building [${YELLOW}initcpio${RESET}] image ${RED}(might be long)${RESET}"
+        fi
     fi
 }

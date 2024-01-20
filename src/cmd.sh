@@ -64,7 +64,10 @@ function exit_status() {
         else
             log_msg "${RED}Error: something went wrong${RESET}"
         fi
-    #else
+    else
+        if   [[ ${action_type} == "uninstall" && ("${package}" =~ "broadcom-wl-dkms" || "${package}" =~ "rtl8821cu-morrownr-dkms-git") ]]; then
+            ((mkinitcpio_needed++))
+        fi
         #echo -e "${GREEN}Complete: ${package} installation succeeded${RESET}"
     fi
 }
