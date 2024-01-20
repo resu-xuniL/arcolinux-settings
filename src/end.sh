@@ -16,8 +16,6 @@ function endscript() {
         exit 0
     fi
 
-    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Using system [${YELLOW}FONT${RESET}] set to [${YELLOW}TRUE${RESET}]"
-
     read -rp "${GREEN}Script completed successfully, the system must restart${RESET}: Press [${GREEN}Enter${RESET}] to restart or [${RED}Ctrl+C${RESET}] to cancel."
     for i in {10..1}; do
         echo -ne "${GREEN}Restarting in ${i} seconds...${RESET}\r"

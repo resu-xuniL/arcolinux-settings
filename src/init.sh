@@ -13,6 +13,7 @@ export VM=$(systemd-detect-virt)
 function init() {
     exec_log "find $INSTALL_DIRECTORY -type f -exec chmod 644 -- {} +" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}configuration${RESET}] files"
     exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT${RESET}] name & size"
+    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : [${YELLOW}BACKGROUND DARKNESS${RESET}] set to [${YELLOW}1${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Using system [${YELLOW}FONT${RESET}] set to [${YELLOW}FALSE${RESET}]"
     
     if [[ ! ${CURRENT_USER} = "wam" ]];then
