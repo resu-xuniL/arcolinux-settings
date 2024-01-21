@@ -1,6 +1,7 @@
 declare -A vm_list
 declare -A font_list
 declare -A soft_list
+declare -A extra_list
 
 selected_packages=""
 
@@ -17,17 +18,20 @@ function set_install_list() {
     soft_list=(
         [Brave]="brave-bin"
         [Galculator]="galculator"
-        [KeePassXC]="keepassxc"
         [Meld]="meld"
-        [Nextcloud]="nextcloud-client"
         [Plank]="plank"
-        [Qbittorrent]="qbittorrent"
         [Thunderbird]="thunderbird"
-        [Ventoy]="ventoy-bin"
-        [Veracrypt]="veracrypt"
         [Visual studio code]="visual-studio-code-bin"
         [VLC]="vlc"
         [Wine]="wine"
+    )
+
+    extra_list=(
+        [KeePassXC]="keepassxc"
+        [Nextcloud]="nextcloud-client"
+        [Qbittorrent]="qbittorrent"
+        [Ventoy]="ventoy-bin"
+        [Veracrypt]="veracrypt"
     )
 }
 
@@ -43,7 +47,8 @@ function install_software() {
     fi
 
     select_from_list font_list "Font"
-    select_from_list soft_list "Miscaleanous"
+    select_from_list soft_list "Required"
+    select_from_list extra_list "Extra"
 
     local -r packages="${selected_packages}"
     selected_packages=""

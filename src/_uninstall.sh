@@ -1,6 +1,7 @@
 declare -A dkms_list
-declare -A soft_list
 declare -A icon_list
+declare -A soft_list
+
 
 selected_packages=""
 
@@ -11,15 +12,15 @@ function set_uninstall_list() {
         [rtl8821cu-morrownr]="rtl8821cu-morrownr-dkms-git"
     )
 
+    icon_list=(
+        [Sardi]="sardi-icons"
+        [Surfn]="surfn-icons-git"
+    )
+
     soft_list=(
         [Clipman]="xfce4-clipman-plugin"
         [Parole]="parole"
         [Xfburn]="xfburn"
-    )
-
-    icon_list=(
-        [Sardi]="sardi-icons"
-        [Surfn]="surfn-icons-git"
     )
 }
 
