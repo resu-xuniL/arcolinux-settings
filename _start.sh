@@ -18,11 +18,11 @@ check_internet || exit 1
 if grep -q "ArcoLinux" /etc/os-release; then
 
     # init
+    change_xfce_terminal_display
     header
     prompt_to_continue
     display_step "Initialization"
     sleep 1
-    init_log
     step init "Initialization\n--------------\n"
     prompt_to_continue
 
