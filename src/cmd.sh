@@ -1,8 +1,13 @@
 function step() {
     local -r function=$1
     local -r message=$2
+    local dash_line=""
 
-    echo -e "\n${YELLOW}${message}${RESET}"
+    for (( i=0; i<${#message}; i++ )); 
+        do dash_line+="-" ; 
+    done
+
+    echo -e "\n${YELLOW}${message}\n${dash_line}${RESET}"
 
     ${function}
 }

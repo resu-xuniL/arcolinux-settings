@@ -1,5 +1,5 @@
 function update_system() {
-    exec_log "sudo pacman -Syyu --noconfirm" "${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
+    exec_log "sudo pacman -Syyu --noconfirm" "\n${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
     log_msg "${GREEN}\nSystem is up-to-date${RESET}"
 }
 
