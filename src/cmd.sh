@@ -90,7 +90,7 @@ function log_msg() {
     log "${comment}"
 }
 
-function exec() {
+function execute() {
     local -r command="$1"
 
     if [[ ${VERBOSE} == true ]]; then
@@ -107,5 +107,5 @@ function exec_log() {
     local -r comment="$2"
     
     log_msg "${comment}"
-    exec "${command}"
+    execute "${command}"
 }
