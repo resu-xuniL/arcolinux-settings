@@ -14,11 +14,11 @@ start_time="$(date +%s)"
 LOG_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/logfile_$(date "+%Y%m%d-%H%M%S").log"
 
 check_internet || exit 1
+change_xfce_terminal_display
 
 if grep -q "ArcoLinux" /etc/os-release; then
 
     # init
-    change_xfce_terminal_display
     header
     prompt_to_continue
     display_step "Initialization"

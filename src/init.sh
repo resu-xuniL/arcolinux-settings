@@ -14,7 +14,9 @@ function change_xfce_terminal_display() {
     exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT${RESET}] name & size"
     exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : [${YELLOW}BACKGROUND DARKNESS${RESET}] set to [${YELLOW}1${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Using system [${YELLOW}FONT${RESET}] set to [${YELLOW}FALSE${RESET}]"
- }
+
+    sleep 2
+}
 
 function init() {
     init_log
@@ -83,11 +85,10 @@ function check_internet() {
     local -r tool_opts='-s --connect-timeout 8'
 
     if ! ${tool} ${tool_opts} https://archlinux.org/ >/dev/null 2>&1; then
-        log_msg "${RED}[KO]${RESET} Error -> No internet connection${RESET}"
+        log_msg "${RED}[KO] Error : No internet connection !\n${RESET}"
         return 1
     else
-        log_msg "${GREEN}[OK]${RESET} Internet connection detected${RESET}"
-        sleep 2
+        log_msg "${GREEN}[OK]${RESET} Internet connection detected\n"
     fi
 
     return 0
