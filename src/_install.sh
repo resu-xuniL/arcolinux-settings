@@ -1,3 +1,5 @@
+source src/getLastSyncWord.sh
+
 declare -A vm_list
 declare -A font_list
 declare -A soft_list
@@ -54,6 +56,16 @@ function install_software() {
     selected_packages=""
 
     manage_lst "${packages}"
+
+    ################################################################
+    ##########                   Brave                    ##########
+    ################################################################
+
+    if [[ ${packages} =~ "brave-bin" ]]; then
+        exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]\n${RED}/!\ Enter password ! /!\ ${RESET}"
+        fetch_the_25th_word
+        exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
+    fi
 
     ################################################################
     ##########                 VirtualBox                 ##########
