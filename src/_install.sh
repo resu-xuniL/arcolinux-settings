@@ -133,16 +133,16 @@ function install_software() {
 
         if prompt_default_yes "Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
 
-            local -r file="$HOME/Downloads/YouTubeDownloader-x64.exe"
+            local -r file="YouTubeDownloader-x64.exe"
 
-            if [[ -f ${file} ]];then
-                log_msg "${GREEN}${file} already exists${RESET}"
+            if [[ -f ${HOME}/Downloads/${file} ]];then
+                log_msg "\n${GREEN}${file} already exists${RESET}"
             else
-                log_msg "${RED}${file} doesn't exist - Downloading now : '${RESET}"
-                exec_log "wget -O ${HOME}/Downloads/YouTubeDownloader-x64.exe https://www.mediahuman.com/fr/download/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} Downloading [${YELLOW}YouTubeDownloader-x64.exe${RESET}] ${RED}(might be long)${RESET}"
+                log_msg "\n${RED}${file} doesn't exist - Downloading now${RESET}\n"
+                exec_log "wget -O ${HOME}/Downloads/${file} https://www.mediahuman.com/fr/download/${file}" "${GREEN}[+]${RESET} Downloading [${YELLOW}${file}${RESET}] ${RED}(might be long)${RESET}"
             fi
 
-            exec_log "wine ${HOME}/Downloads/YouTubeDownloader-x64.exe" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Installing [${YELLOW}YouTubeDownloader-x64.exe${RESET}] to [${YELLOW}WINE${RESET}] folder ${RED}(might be long)${RESET}"
+            exec_log "wine ${HOME}/Downloads/${file}" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Installing [${YELLOW}${file}${RESET}] to [${YELLOW}WINE${RESET}] folder ${RED}(might be long)${RESET}"
             sleep 3
             
             exec_log "rm -v ${HOME}/Desktop/MediaHuman\ YouTube\ Downloader.lnk" "${RED}[-]${RESET} Removing [${YELLOW}MediaHuman YouTube Downloader.lnk${RESET}] desktop shortcut"
@@ -154,8 +154,11 @@ function install_software() {
             replace_username "${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] : changing username to [${YELLOW}${CURRENT_USER^^}${RESET}]"
         
             exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader\ RAZ.reg ${HOME}/.wine/drive_c" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader RAZ.reg${RESET}] file to [${YELLOW}${HOME}/.wine/drive_c${RESET}] folder"
+            
             check_dir ${HOME}/.local/share/applications "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/wine-regedit.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wine-regedit.desktop${RESET}] shortcut for .reg files to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
+
+            exec_log "grep -qxF 'text/x-ms-regedit=wine-regedit.desktop' ${HOME}/.config/mimeapps.list || echo 'text/x-ms-regedit=wine-regedit.desktop' | sudo tee -a ${HOME}/.config/mimeapps.list" "${GREEN}[+]${RESET} Adding [${YELLOW}regedit to wine${RESET}] association to [${YELLOW}mimeapps.list${RESET}]"
 
             ################################################################
             ##########       Youtube downloader: tracking.dat     ##########
