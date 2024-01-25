@@ -41,13 +41,13 @@ function select_from_list() {
     done
 
     if [[ ${action_type} == "install" ]]; then
-        echo -en "\n${BLUE}::${RESET} Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        echo -en "\n${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "uninstall" ]]; then
-        echo -en "\n${BLUE}::${RESET} Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        echo -en "\n${BLUE}:: ${RESET}Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "copy_paste" ]]; then
-        echo -en "\n${BLUE}::${RESET} Configuration file to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        echo -en "\n${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "config_system" ]]; then
-        echo -en "\n${BLUE}::${RESET} Configuration to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        echo -en "\n${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     fi
 
     read -ra input

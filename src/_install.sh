@@ -101,7 +101,7 @@ function install_software() {
         ##########               Wine : Shortcut              ##########
         ################################################################
 
-        if prompt_default_yes "Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/windows "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/shortcut/shortcut.exe ${HOME}/.wine/drive_c/windows" "${GREEN}[+]${RESET} Copying [${YELLOW}shortcut.exe${RESET}] file to [${YELLOW}WINE${RESET}] folder"
         fi
@@ -110,7 +110,7 @@ function install_software() {
         ##########             Wine : Tag renamer             ##########
         ################################################################
 
-        if prompt_default_yes "Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
             exec_log "7z x -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder\n${RED}/!\ Enter password ! /!\ ${RESET}"
             
@@ -131,14 +131,14 @@ function install_software() {
         ##########          Wine : Youtube downloader         ##########
         ################################################################
 
-        if prompt_default_yes "Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
+        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
 
             local -r file="YouTubeDownloader-x64.exe"
 
             if [[ -f ${HOME}/Downloads/${file} ]];then
-                log_msg "\n${GREEN}${file} already exists${RESET}"
+                log_msg "\n${GREEN}[OK] ${file} already exists${RESET}\n"
             else
-                log_msg "\n${RED}${file} doesn't exist - Downloading now${RESET}\n"
+                log_msg "\n${RED}[KO] ${file} doesn't exist - Downloading now${RESET}\n"
                 exec_log "wget -O ${HOME}/Downloads/${file} https://www.mediahuman.com/fr/download/${file}" "${GREEN}[+]${RESET} Downloading [${YELLOW}${file}${RESET}] ${RED}(might be long)${RESET}"
             fi
 
