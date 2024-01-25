@@ -157,8 +157,7 @@ function config_files() {
     ################################################################
 
     if [[ "${packages}" =~ "xfce/*" ]];then
-        exec_log "sudo unzip -o ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.zip -d /usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.zip${RESET}] theme"
-        exec_log "sudo mv /usr/share/themes/Windows-10-Dark-3.2.1-dark /usr/share/themes/Windows-10-Dark" "${GREEN}[+]${RESET} Renaming [${YELLOW}Windows-10-Dark-3.2.1-dark${RESET}] to [${YELLOW}Windows-10-Dark${RESET}]"
+        exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
     fi
 }
