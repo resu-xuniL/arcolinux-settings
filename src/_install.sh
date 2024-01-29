@@ -5,7 +5,6 @@ declare -A font_list
 declare -A soft_list
 declare -A extra_list
 
-PASSWORD=""
 selected_packages=""
 
 function set_install_list() {
@@ -39,8 +38,9 @@ function set_install_list() {
 }
 
 function install_software() {
+    local password=""
     action_type="install"
-
+    
     set_install_list
 
     if [[ ${VM} = "none" ]];then
@@ -63,8 +63,8 @@ function install_software() {
     ################################################################
 
     if [[ ${packages} =~ "brave-bin" ]]; then
-        [[ ! -z "${PASSWORD}" ]] || PASSWORD=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
-        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
+        [[ ! -z "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+        exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
         fetch_the_25th_word
         exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
     fi
@@ -114,8 +114,8 @@ function install_software() {
 
         if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
-            [[ ! -z "${PASSWORD}" ]] || PASSWORD=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
-            exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
+            [[ ! -z "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+            exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
             
             check_dir ${HOME}/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename "user"
             exec_log "wine shortcut /f:'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk' /a:c /t:'C:\Program Files\TagRename\TagRename.exe' /i:'C:\Program Files\TagRename\TagRename.exe,0'" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Creating [${YELLOW}TagRename.lnk${RESET}] ${RED}(might be long)${RESET}"
