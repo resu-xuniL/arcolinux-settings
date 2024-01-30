@@ -2053,7 +2053,7 @@ word_list=(
     "zoo"
 )
 
-function echo_whole_list() {
+echo_whole_list() {
     len=${#word_list[@]}
 
     for (( i=0; i<$len; i++ )); 
@@ -2061,7 +2061,7 @@ function echo_whole_list() {
     done
 }
 
-function fetch_the_25th_word() {
+fetch_the_25th_word() {
     wordsv2EpochString="2022-05-10  02:00:00"
     wordsv2EpochDateUtc=$(date -d "${wordsv2EpochString}" +"%s%3N")
 

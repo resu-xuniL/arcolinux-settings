@@ -3,7 +3,7 @@ declare -A user_config_files_list
 
 selected_packages=""
 
-function set_config_files_list() {
+set_config_files_list() {
 
     root_config_files_list=(
         [Set DNS]="dns/resolv.conf[]/etc"
@@ -31,7 +31,7 @@ function set_config_files_list() {
     )
 }
 
-function config_files() {
+config_files() {
     action_type="copy_paste"
 
     set_config_files_list

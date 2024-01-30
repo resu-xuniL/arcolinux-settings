@@ -1,16 +1,16 @@
-function update_system() {
+update_system() {
     exec_log "sudo pacman -Syyu --noconfirm" "\n${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
     log_msg "${GREEN}\nSystem is up-to-date${RESET}"
 }
 
-function replace_username() {
+replace_username() {
     local -r file_to_edit=$1
     local -r message_log=$2
 
     exec_log "sed -i 's/\*\*\*/${CURRENT_USER}/' ${file_to_edit}" "${message_log}"
 }
 
-function check_dir() {
+check_dir() {
     local -r folder=$1
     local -r permission=$2
 
@@ -25,7 +25,7 @@ function check_dir() {
     fi
 }
 
-function select_from_list() {
+select_from_list() {
     declare -n item_list=$1
     local -r type_list=$2
     local i=1
@@ -69,7 +69,7 @@ function select_from_list() {
     done
 }
 
-function manage_lst() {
+manage_lst() {
     local -r lst=$1
     local -r lst_split=(${lst// / })
 
@@ -78,7 +78,7 @@ function manage_lst() {
     done
 }
 
-function manage_one() {
+manage_one() {
     local -r package=$1
     local -r package_split=(${package//[]/ })
     local -r target=${package_split[0]}

@@ -1,4 +1,4 @@
-function step() {
+step() {
     local -r function=$1
     local -r message=$2
     local dash_line=""
@@ -12,7 +12,7 @@ function step() {
     ${function}
 }
 
-function display_step() {
+display_step() {
     local -r message="$1"
     clear
     cat <<-EOF
@@ -24,14 +24,14 @@ ${YELLOW}################################################################
 EOF
 }
 
-function prompt_to_continue() {
+prompt_to_continue() {
     printf "%b" "\n${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
 
     read -rp "" choice
     [[ -n $choice ]] && exit 0
 }
 
-function prompt_default_no() {
+prompt_default_no() {
     printf "%b" "\n$1"
     yes="y"
     no="n"
@@ -44,7 +44,7 @@ function prompt_default_no() {
     fi
 }
 
-function prompt_default_yes() {
+prompt_default_yes() {
     printf "%b" "\n$1"
     yes="y"
     no="n"
@@ -57,7 +57,7 @@ function prompt_default_yes() {
     fi
 }
 
-function exit_status() {
+exit_status() {
     local exit_status=$?
 
     echo "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
@@ -77,20 +77,20 @@ function exit_status() {
     fi
 }
 
-function log() {
+log() {
     local -r comment="$1"
 
     echo "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
 }
 
-function log_msg() {
+log_msg() {
     local -r comment="$1"
 
     echo -e "${comment}"
     log "${comment}"
 }
 
-function execute() {
+execute() {
     local -r command="$1"
 
     if [[ ${VERBOSE} == true ]]; then
@@ -102,7 +102,7 @@ function execute() {
     exit_status
 }
 
-function exec_log() {
+exec_log() {
     local -r command="$1"
     local -r comment="$2"
     

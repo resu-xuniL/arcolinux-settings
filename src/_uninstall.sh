@@ -5,7 +5,7 @@ declare -A soft_list
 
 selected_packages=""
 
-function set_uninstall_list() {
+set_uninstall_list() {
 
     dkms_list=(
         [broadcom-wl]="broadcom-wl-dkms"
@@ -24,7 +24,7 @@ function set_uninstall_list() {
     )
 }
 
-function uninstall_software() {
+uninstall_software() {
     local mkinitcpio_needed=0
     
     action_type="uninstall"

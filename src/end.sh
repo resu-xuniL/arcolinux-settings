@@ -1,4 +1,4 @@
-function endscript() {
+endscript() {
     local -r end_time="$(date +%s)"
     local -r duration="$((${end_time} - ${1}))"
 

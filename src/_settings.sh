@@ -2,7 +2,7 @@ declare -A sys_config_list
 
 selected_packages=""
 
-function set_config_list() {
+set_config_list() {
 
     sys_config_list=(
         [Adjust clock for dual-boot]="timedatectl[]set-local-rtc[]1[]--adjust-system-clock"
@@ -12,8 +12,8 @@ function set_config_list() {
     )
 }
 
-function config_settings() {
-    local MICROPHONE_STATE=$(amixer get Capture | grep -E '\[o.+\]')
+config_settings() {
+    local microphone_state=$(amixer get Capture | grep -E '\[o.+\]')
     action_type="config_system"
 
     set_config_list
@@ -38,7 +38,7 @@ function config_settings() {
     ##########         Audio : set microphone off         ##########
     ################################################################
 
-    if [[ "${packages}" =~ "amixer[]set[]Master[]100%" && $MICROPHONE_STATE =~ '[on]' ]];then
+    if [[ "${packages}" =~ "amixer[]set[]Master[]100%" && $microphone_state =~ '[on]' ]];then
         exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
         exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
     fi

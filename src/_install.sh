@@ -7,9 +7,9 @@ declare -A extra_list
 
 selected_packages=""
 
-function set_install_list() {
+set_install_list() {
     vm_list=(
-        [VirtualBox (+ template)]="virtualbox"
+        [VirtualBox \(+ template\)]="virtualbox"
     )
 
     font_list=(
@@ -37,7 +37,7 @@ function set_install_list() {
     )
 }
 
-function install_software() {
+install_software() {
     local password=""
     action_type="install"
     
@@ -63,7 +63,7 @@ function install_software() {
     ################################################################
 
     if [[ ${packages} =~ "brave-bin" ]]; then
-        [[ ! -z "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+        [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
         exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
         fetch_the_25th_word
         exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
@@ -114,7 +114,7 @@ function install_software() {
 
         if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
-            [[ ! -z "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+            [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
             exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
             
             check_dir ${HOME}/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename "user"
@@ -124,9 +124,9 @@ function install_software() {
             check_dir ${HOME}/.local/share/applications/wine/Programs/TagRename "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.desktop ${HOME}/.local/share/applications/wine/Programs/TagRename" "${GREEN}[+]${RESET} Copying [${YELLOW}TagRename.desktop${RESET}] file to [${YELLOW}${CURRENT_USER^^}${RESET}] folder"
 
-            local ICON_FILENAME=$(find ~ -name "*TagRename*.png" -printf "%f" -quit)
-            ICON_FILENAME=${ICON_FILENAME%.*}
-            exec_log "sed -i 's/Icon=/Icon=$ICON_FILENAME/' ${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing icon filename to [${YELLOW}${ICON_FILENAME}${RESET}]"
+            local icon_filename=$(find ~ -name "*TagRename*.png" -printf "%f" -quit)
+            icon_filename=${icon_filename%.*}
+            exec_log "sed -i 's/Icon=/Icon=$icon_filename/' ${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing icon filename to [${YELLOW}${icon_filename}${RESET}]"
             replace_username "${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing username to [${YELLOW}${CURRENT_USER^^}${RESET}]"
         fi
 

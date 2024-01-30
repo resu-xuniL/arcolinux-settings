@@ -10,7 +10,7 @@ export CURRENT_USER=$(whoami)
 export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 export VM=$(systemd-detect-virt)
 
-function change_xfce_terminal_display() {
+change_xfce_terminal_display() {
     exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT${RESET}] name & size"
     exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : [${YELLOW}BACKGROUND DARKNESS${RESET}] set to [${YELLOW}1${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Using system [${YELLOW}FONT${RESET}] set to [${YELLOW}FALSE${RESET}]"
@@ -18,7 +18,7 @@ function change_xfce_terminal_display() {
     sleep 2
 }
 
-function init() {
+init() {
     init_log
     exec_log "find $INSTALL_DIRECTORY -type f -exec chmod 644 -- {} +" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}configuration${RESET}] files"
  
@@ -29,7 +29,7 @@ function init() {
     check_dir ${HOME}/Documents/[Nextcloud] "user"
 }
 
-function usage() {
+usage() {
     echo "Usage : ./XXXXXXXXXX.sh [OPTION]"
     echo "Options :"
     echo "  -h --help    : Display this help."
@@ -37,12 +37,12 @@ function usage() {
     echo "  --no-reboot  : Do not reboot the system at the end of the script."
 }
 
-VALID_ARGS=$(getopt -o hv --long help,verbose,no-reboot -- "$@")
+valid_args=$(getopt -o hv --long help,verbose,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
 
-eval set -- "$VALID_ARGS"
+eval set -- "$valid_args"
 while [ : ]; do
   case "$1" in
     -h | --help)
@@ -80,7 +80,7 @@ else
     exit 1
 fi
 
-function check_internet() {
+check_internet() {
     local -r tool='curl'
     local -r tool_opts='-s --connect-timeout 8'
 
@@ -94,7 +94,7 @@ function check_internet() {
     return 0
 }
 
-function init_log() {
+init_log() {
     if [[ -f "${LOG_FILE}" ]]; then
         rm -f "${LOG_FILE}"
     fi
