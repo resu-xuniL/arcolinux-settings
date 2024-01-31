@@ -23,8 +23,8 @@ endscript() {
         sleep 1
     done
 
-    execute "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" #"${GREEN}[+]${RESET} Restoring XFCE terminal : set [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
-    execute "xfconf-query -c xfce4-terminal -p /font-use-system -s true" #"${GREEN}[+]${RESET} Restoring XFCE terminal : Use system [${YELLOW}FONT${RESET}] set to [${YELLOW}TRUE${RESET}]"
+    execute "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" #"\n${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
+    execute "xfconf-query -c xfce4-terminal -p /font-use-system -s true" #"${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
 
     reboot
 }
