@@ -30,11 +30,11 @@ init() {
 }
 
 usage() {
-    echo "Usage : ./XXXXXXXXXX.sh [OPTION]"
-    echo "Options :"
-    echo "  -h --help    : Display this help."
-    echo "  -v --verbose : Verbose mode."
-    echo "  --no-reboot  : Do not reboot the system at the end of the script."
+    printf "%s\n" "Usage : ./install.sh [OPTION]"
+    printf "%s\n" "Options :"
+    printf "%s\n" "  -h --help    : Display this help."
+    printf "%s\n" "  -v --verbose : Verbose mode."
+    printf "%s\n" "  --no-reboot  : Do not reboot the system at the end of the script."
 }
 
 valid_args=$(getopt -o hv --long help,verbose,no-reboot -- "$@")
@@ -73,10 +73,10 @@ fi
 
 if sudo -v; then
     clear
-    echo -e "\n${GREEN}[OK]${RESET} Root privileges granted"
+    printf "\n%s\n" "${GREEN}[OK]${RESET} Root privileges granted"
 else
     clear
-    echo -e "\n${RED}[KO]${RESET} Root privileges denied"
+    printf "\n%s\n" "${RED}[KO]${RESET} Root privileges denied"
     exit 1
 fi
 
@@ -85,7 +85,7 @@ check_internet() {
     local -r tool_opts='-s --connect-timeout 8'
 
     if ! ${tool} ${tool_opts} https://archlinux.org/ >/dev/null 2>&1; then
-        log_msg "${RED}[KO] Error : No internet connection !\n${RESET}"
+        log_msg "${RED}[KO] Error : No internet connection !${RESET}\n"
         return 1
     else
         log_msg "${GREEN}[OK]${RESET} Internet connection detected\n"
@@ -100,7 +100,7 @@ init_log() {
     fi
 
     touch "${LOG_FILE}"
-    echo -e "Commit hash: $(git rev-parse HEAD)" >>"${LOG_FILE}"
-    echo -e "Log file: ${LOG_FILE}\n" >>"${LOG_FILE}"
-    log_msg "\n${GREEN}[+]${RESET} Log file created${RESET}"
+    printf "%s\n" "Commit hash: $(git rev-parse HEAD)" >>"${LOG_FILE}"
+    printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
+    log_msg "${GREEN}[+]${RESET} Log file created${RESET}"
 }

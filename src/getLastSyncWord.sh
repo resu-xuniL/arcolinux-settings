@@ -2057,7 +2057,7 @@ echo_whole_list() {
     len=${#word_list[@]}
 
     for (( i=0; i<$len; i++ )); 
-        do echo "${word_list[$i]}" ; 
+        do printf "%s\n" "${word_list[$i]}" ; 
     done
 }
 
@@ -2068,15 +2068,18 @@ fetch_the_25th_word() {
     nowUtc="$(date +%s%3N)"
 
     deltaInMsec=$(( ${nowUtc} - ${wordsv2EpochDateUtc} ))
-    deltaInDays=$(echo "scale=13; ${deltaInMsec} / (24*60*60*1000)" | bc)
+
+    #deltaInDays=$(echo "scale=13; ${deltaInMsec} / (24*60*60*1000)" | bc)
+    LC_NUMERIC="en_US.UTF-8" printf -v deltaInDays $(bc -q <<< scale=13\;${deltaInMsec}/\(24*60*60*1000\))
+
     deltaInDaysRounded=$(( (${deltaInMsec} + (24*60*60*1000) / 2 ) / (24*60*60*1000) ))
 
     if [[ ${deltaInDaysRounded} -lt 0 ]]; then
-        echo "Today cannot be a date before Tue, 10 May 2022"
+        printf "%s\n" "Today cannot be a date before Tue, 10 May 2022"
         exit 0;
     fi
 
     the25thWord=${word_list[deltaInDaysRounded]}
 
-    # echo ${the25thWord}
+    # printf "%s\n" ${the25thWord}
 }

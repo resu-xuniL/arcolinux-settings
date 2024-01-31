@@ -15,6 +15,6 @@ header() {
 EOF
 
     sleep 1
-    printf "%b" "\n${RED}This script will make changes to your system.${RESET}\n"
-    printf "%b" "\nSome steps may take longer, depending on your Internet connection and CPU.\n"
+    printf "\n%s\n" "${RED}This script will make changes to your system.${RESET}"
+    printf "\n%s\n" "Some steps may take longer, depending on your Internet connection and CPU."
 }

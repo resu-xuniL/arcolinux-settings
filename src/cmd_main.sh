@@ -1,6 +1,6 @@
 update_system() {
-    exec_log "sudo pacman -Syyu --noconfirm" "\n${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
-    log_msg "${GREEN}\nSystem is up-to-date${RESET}"
+    exec_log "sudo pacman -Syyu --noconfirm" "${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
+    log_msg "\n${GREEN}System is up-to-date${RESET}"
 }
 
 replace_username() {
@@ -32,7 +32,7 @@ select_from_list() {
     local options=()
     local input
 
-    echo -e "${GREEN}\n${type_list}${RESET} :\n"
+    printf "%s\n\n" "${GREEN}${type_list}${RESET} :"
 
     for software in "${!item_list[@]}"; do
         printf "${PURPLE}%2d${RESET}) %s\n" "$i" "$software"
@@ -41,17 +41,16 @@ select_from_list() {
     done
 
     if [[ ${action_type} == "install" ]]; then
-        echo -en "\n${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        printf "\n%s" "${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "uninstall" ]]; then
-        echo -en "\n${BLUE}:: ${RESET}Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        printf "\n%s" "${BLUE}:: ${RESET}Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "copy_paste" ]]; then
-        echo -en "\n${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        printf "\n%s" "${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "config_system" ]]; then
-        echo -en "\n${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        printf "\n%s" "${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     fi
 
     read -ra input
-
     for choice in "${input[@]}"; do
         if [[ "$choice" =~ ^(all|a)$ ]]; then
             for software in "${!item_list[@]}"; do
@@ -67,6 +66,7 @@ select_from_list() {
             done
         fi
     done
+    printf "\n"
 }
 
 manage_lst() {

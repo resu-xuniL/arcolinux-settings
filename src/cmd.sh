@@ -7,7 +7,7 @@ step() {
         do dash_line+="-" ; 
     done
 
-    echo -e "\n${YELLOW}${message}\n${dash_line}${RESET}"
+    printf "\n%s\n%s\n\n" "${YELLOW}${message}" "${dash_line}${RESET}"
 
     ${function}
 }
@@ -60,7 +60,7 @@ prompt_default_yes() {
 exit_status() {
     local exit_status=$?
 
-    echo "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
+    printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "uninstall" ]]; then
             log_msg "${GREEN}${package} is not installed${RESET}"
@@ -73,20 +73,20 @@ exit_status() {
         if   [[ ${action_type} == "uninstall" && ("${package}" =~ "broadcom-wl-dkms" || "${package}" =~ "rtl8821cu-morrownr-dkms-git") ]]; then
             ((mkinitcpio_needed++))
         fi
-        #echo -e "${GREEN}Complete: ${package} installation succeeded${RESET}"
+        #printf "%s\n" "${GREEN}Complete: ${package} installation succeeded${RESET}"
     fi
 }
 
 log() {
     local -r comment="$1"
 
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
+    printf "%s\n" "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
 }
 
 log_msg() {
     local -r comment="$1"
 
-    echo -e "${comment}"
+    printf "%b\n" "${comment}"
     log "${comment}"
 }
 

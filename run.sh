@@ -55,5 +55,5 @@ if grep -q "ArcoLinux" /etc/os-release; then
     sleep 1
     endscript "${start_time}"
 else
-    exec_log "exit 1" "\n${RED}/!\ THIS IS NOT AN [${RESET}${YELLOW}ARCOLINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
+    exec_log "exit 1" "${RED}/!\ THIS IS NOT AN [${RESET}${YELLOW}ARCOLINUX${RESET}${RED}] DISTRO /!\ ${RESET}"
 fi

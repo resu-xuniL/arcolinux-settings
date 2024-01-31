@@ -46,7 +46,7 @@ install_software() {
     if [[ ${VM} = "none" ]];then
         select_from_list vm_list "VirtualBox"
     else
-        log_msg "${RED}\n[This is a virtual machine - Skipping VirtualBox installation]${RESET}"
+        log_msg "${RED}[This is a virtual machine - Skipping VirtualBox installation]${RESET}\n"
     fi
 
     select_from_list font_list "Font"
@@ -161,7 +161,7 @@ install_software() {
             check_dir ${HOME}/.local/share/applications "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/wine-regedit.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wine-regedit.desktop${RESET}] shortcut for .reg files to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
 
-            exec_log "grep -qxF 'text/x-ms-regedit=wine-regedit.desktop' ${HOME}/.config/mimeapps.list || echo 'text/x-ms-regedit=wine-regedit.desktop' | sudo tee -a ${HOME}/.config/mimeapps.list" "${GREEN}[+]${RESET} Adding [${YELLOW}regedit to wine${RESET}] association to [${YELLOW}mimeapps.list${RESET}]"
+            exec_log "grep -qxF 'text/x-ms-regedit=wine-regedit.desktop' ${HOME}/.config/mimeapps.list || printf '%s\n' 'text/x-ms-regedit=wine-regedit.desktop' | sudo tee -a ${HOME}/.config/mimeapps.list" "${GREEN}[+]${RESET} Adding [${YELLOW}regedit to wine${RESET}] association to [${YELLOW}mimeapps.list${RESET}]"
 
             ################################################################
             ##########       Youtube downloader: tracking.dat     ##########
