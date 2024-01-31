@@ -1,4 +1,6 @@
 export RESET=$(tput sgr0)
+export BLINK=$(tput blink)
+export BOLD=$(tput bold)
 export RED=$(tput setaf 1)
 export GREEN=$(tput setaf 2)
 export YELLOW=$(tput setaf 3)
