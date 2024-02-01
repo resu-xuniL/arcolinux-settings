@@ -13,9 +13,9 @@ export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 export VM=$(systemd-detect-virt)
 
 change_xfce_terminal_display() {
+    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}1${RESET}]"
+    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Setting use of system [${YELLOW}FONT${RESET}] to [${YELLOW}FALSE${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT${RESET}] name & size"
-    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : [${YELLOW}BACKGROUND DARKNESS${RESET}] set to [${YELLOW}1${RESET}]"
-    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Using system [${YELLOW}FONT${RESET}] set to [${YELLOW}FALSE${RESET}]"
 
     sleep 2
 }
