@@ -15,6 +15,10 @@ header() {
 EOF
 
     sleep 1
-    printf "\n${RED}${BOLD}${BLINK}%s${RESET} ${RED}%s ${BOLD}%s${RESET} ${RED}%s ${BOLD}%s ${BLINK}%s${RESET}\n" "/!\\" "THIS SCRIPT WILL MAKE" "CHANGES" "TO" "SYSTEM !" "/!\\"
-    printf "\n%s\n" "Some steps may take longer, depending on your Internet connection and CPU."
+    
+    printf "${BOLD}${RED}"
+    center_text "/!\ THIS SCRIPT WILL MAKE CHANGES TO THE SYSTEM ! /!\\" "$(tput cols)"
+    printf "${RESET}"
+    center_text "(Some steps may take longer, depending on your Internet connection and CPU.)" "$(tput cols)"
+    printf "\n\n\n\n\n"
 }

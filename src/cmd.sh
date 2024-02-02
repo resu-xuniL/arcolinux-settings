@@ -14,14 +14,31 @@ step() {
 
 display_step() {
     local -r message="$1"
+    local -r width="$(( $(tput cols) / 2 ))"
     clear
-    cat <<-EOF
-${YELLOW}################################################################
- 
-                        ${message}            
-                                                   
-################################################################${RESET}
-EOF
+
+    printf "${YELLOW}"
+    for i in $(seq 1 ${width}); do
+        printf "%0.1s" "#";
+    done
+    printf "\n"
+    center_text "${message}" "${width}"
+    printf "\n"
+    for i in $(seq 1 ${width}); do
+        printf "%0.1s" "#";
+    done
+    printf "\n${RESET}"
+}
+
+center_text() {
+    local -r message="$1"
+    local -r width=$2
+    #local -r padding=$(printf '%0.1s' \ {1..25}) #25 --> 100
+    
+    for i in $(seq 1 ${width}); do
+        local padding+=$(printf "%0.1s" " ");
+    done
+    printf "\n%0.*s %s %0.*s\n" "$(( (${width} - ${#message} - 2) /2 ))" "${padding}" "${message}" "$(( (${width} - ${#message} - 1) /2 ))" "${padding}"   
 }
 
 prompt_to_continue() {
