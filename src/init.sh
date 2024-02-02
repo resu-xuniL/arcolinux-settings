@@ -97,12 +97,14 @@ check_internet() {
 }
 
 init_log() {
+    local -r commit_hash=$(git rev-parse HEAD 2>&1)
+    
     if [[ -f "${LOG_FILE}" ]]; then
         rm -f "${LOG_FILE}"
     fi
 
     touch "${LOG_FILE}"
-    printf "%s\n" "Commit hash: $(git rev-parse HEAD)" >>"${LOG_FILE}"
+    printf "%s\n" "Commit SHA1 hash: ${commit_hash}" >>"${LOG_FILE}"
     printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
     log_msg "${GREEN}[+]${RESET} Log file created${RESET}"
 }
