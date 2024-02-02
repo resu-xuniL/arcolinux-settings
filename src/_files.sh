@@ -118,10 +118,12 @@ config_files() {
     if [[ "${packages}" =~ "plank/*" ]];then
         replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         
-        for i in {3..1}; do
-            printf "%s\r" "${RED}Wait for ${i} seconds...${RESET}"
-            sleep 1
-        done
+        {
+            for ((i = 0 ; i <= 100 ; i+=5)); do
+                sleep 0.1
+                printf "%s\n" "${i}"
+            done
+        } | whiptail --gauge "Please wait for 3 seconds..." 8 50 0
 
         if [[ ${CURRENT_USER} = "wam" ]];then
             exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
