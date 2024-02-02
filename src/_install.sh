@@ -26,6 +26,7 @@ set_install_list() {
         [Visual studio code]="visual-studio-code-bin"
         [VLC]="vlc"
         [Wine]="wine"
+        [Foliate]="foliate"
     )
 
     extra_list=(
