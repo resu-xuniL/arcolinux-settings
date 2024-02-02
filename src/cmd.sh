@@ -49,11 +49,12 @@ prompt_to_continue() {
 }
 
 prompt_default_no() {
-    printf "%b" "\n$1"
+    printf "\n%s" "$1"
     yes="y"
     no="n"
     read -rp " ($yes/${no^^}) : " choice
-
+    printf "\n"
+    
     if [ "${choice,,}" == "$yes" ]; then
         return 0
     else
@@ -62,10 +63,11 @@ prompt_default_no() {
 }
 
 prompt_default_yes() {
-    printf "%b" "\n$1"
+    printf "\n%s" "$1"
     yes="y"
     no="n"
     read -rp " (${yes^^}/$no) : " choice
+    printf "\n"
 
     if [ "${choice,,}" == "$no" ]; then
         return 1
