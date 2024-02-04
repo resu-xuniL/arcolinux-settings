@@ -140,9 +140,9 @@ install_software() {
             local -r file="YouTubeDownloader-x64.exe"
 
             if [[ -f ${HOME}/Downloads/${file} ]];then
-                log_msg "\n${GREEN}[OK] ${file} already exists${RESET}\n"
+                log_msg "${GREEN}[OK] ${file} already exists${RESET}\n"
             else
-                log_msg "\n${RED}[KO] ${file} doesn't exist - Downloading now${RESET}\n"
+                log_msg "${RED}[KO] ${file} doesn't exist - Downloading now${RESET}\n"
                 exec_log "wget -O ${HOME}/Downloads/${file} https://www.mediahuman.com/fr/download/${file}" "${GREEN}[+]${RESET} Downloading [${YELLOW}${file}${RESET}] ${RED}(might be long)${RESET}"
             fi
 
