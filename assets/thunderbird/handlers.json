@@ -1,0 +1,33 @@
+{
+    "defaultHandlersVersion": {},
+    "mimeTypes": {
+        "application/pdf": {
+            "action": 3,
+            "extensions": [
+                "pdf"
+            ]
+        }
+    },
+    "schemes": {
+        "http": {
+            "action": 2,
+            "handlers": [
+                {
+                    "name": "brave",
+                    "path": "/usr/bin/brave"
+                }
+            ]
+        },
+        "https": {
+            "action": 2,
+            "handlers": [
+                {
+                    "name": "brave",
+                    "path": "/usr/bin/brave"
+                }
+            ]
+        }
+    },
+    "isDownloadsImprovementsAlreadyMigrated": false,
+    "isSVGXMLAlreadyMigrated": true
+}

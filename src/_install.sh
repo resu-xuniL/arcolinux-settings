@@ -71,6 +71,19 @@ install_software() {
     fi
 
     ################################################################
+    ##########                Thunderbird                 ##########
+    ################################################################
+
+    if [[ ${packages} =~ "thunderbird" ]]; then
+        if ! exist ${HOME}/.thunderbird/*.default-*; then
+            exec_log "thunderbird" "Launching thunderbird"
+        fi
+
+        thunderbird_dir=$(find ~/.thunderbird/ -name '*.default-*' -type d)
+        exec_log "cp ${INSTALL_DIRECTORY}/thunderbird/handlers.json ${thunderbird_dir}"
+    fi
+
+    ################################################################
     ##########                 VirtualBox                 ##########
     ################################################################
 

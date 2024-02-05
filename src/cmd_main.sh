@@ -10,11 +10,17 @@ replace_username() {
     exec_log "sed -i 's/\*\*\*/${CURRENT_USER}/' ${file_to_edit}" "${message_log}"
 }
 
+exist() {
+    local -r folder=$1
+
+    [[ -d ${folder} ]];
+}
+
 check_dir() {
     local -r folder=$1
     local -r permission=$2
 
-    if [[ -d ${folder} ]]; then
+    if exist ${folder}; then
         log "Folder already exists : ${GREEN}${folder}${RESET}"
     else
         if [[ ${permission} == "user" ]]; then
