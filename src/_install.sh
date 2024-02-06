@@ -117,7 +117,8 @@ install_software() {
         ##########               Wine : Shortcut              ##########
         ################################################################
 
-        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?"; then
+        prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?" true
+        if [[ ${answer} == true ]]; then
             check_dir ${HOME}/.wine/drive_c/windows "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/shortcut/shortcut.exe ${HOME}/.wine/drive_c/windows" "${GREEN}[+]${RESET} Copying [${YELLOW}shortcut.exe${RESET}] file to [${YELLOW}WINE${RESET}] folder"
         fi
@@ -126,7 +127,8 @@ install_software() {
         ##########             Wine : Tag renamer             ##########
         ################################################################
 
-        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?"; then
+        prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?" true
+        if [[ ${answer} == true ]]; then
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
             [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
             exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
@@ -148,8 +150,8 @@ install_software() {
         ##########          Wine : Youtube downloader         ##########
         ################################################################
 
-        if prompt_default_yes "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?"; then
-
+        prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?" true
+        if [[ ${answer} == true ]]; then
             local -r file="YouTubeDownloader-x64.exe"
 
             if [[ -f ${HOME}/Downloads/${file} ]];then

@@ -48,32 +48,35 @@ prompt_to_continue() {
     [[ -n $choice ]] && exit 0
 }
 
-prompt_default_no() {
-    printf "\n%s" "$1"
-    yes="y"
-    no="n"
-    read -rp " ($yes/${no^^}) : " choice
-    printf "\n"
-    
-    if [ "${choice,,}" == "$yes" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
+prompt_choice() {
+    local -r question=$1
+    local default=$2
 
-prompt_default_yes() {
-    printf "\n%s" "$1"
-    yes="y"
-    no="n"
-    read -rp " (${yes^^}/$no) : " choice
-    printf "\n"
-
-    if [ "${choice,,}" == "$no" ]; then
-        return 1
+    if [[ ${default} == true ]]; then
+        options="[Y/n] : "
+        default="y"
     else
-        return 0
+        options="[y/N] : "
+        default="n"
     fi
+
+    while true; do
+        printf "\n"
+        read -p "${question} ${options}" -n 1 -s -r input
+        input=${input:-${default}}
+        printf "%s\n\n" ${input}
+
+        case $input in
+        [yY] )  answer=true;
+                break
+                ;;
+        [nN] )  answer=false;
+                break
+                ;;
+        * )     printf "%s\n" "${RED}Invalid selection${RESET}"
+                ;;
+        esac
+    done
 }
 
 exit_status() {
