@@ -30,7 +30,7 @@ config_settings() {
     ##########             Set filename order             ##########
     ################################################################
 
-    if [[ "${packages}" =~ "localectl[]set-locale[]LC_COLLATE=C" ]];then
+    if [[ ${packages} =~ "localectl[]set-locale[]LC_COLLATE=C" ]];then
         exec_log "gsettings set org.gtk.Settings.FileChooser sort-directories-first true" "${GREEN}[+]${RESET} Setting [${YELLOW}GTK FileChooser${RESET}] sort-directories-first : [${YELLOW}True${RESET}]"
     fi
 
@@ -38,7 +38,7 @@ config_settings() {
     ##########         Audio : set microphone off         ##########
     ################################################################
 
-    if [[ "${packages}" =~ "amixer[]set[]Master[]100%" && $microphone_state =~ '[on]' ]];then
+    if [[ ${packages} =~ "amixer[]set[]Master[]100%" && $microphone_state =~ "[on]" ]];then
         exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
         exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
     fi

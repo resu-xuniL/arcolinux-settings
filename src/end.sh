@@ -11,7 +11,7 @@ endscript() {
         printf "%s\n" "${GREEN}[OK]${RESET} Log file uploaded to [${GREEN}${url}${RESET}]"
     fi
 
-    if [[ "${NOREBOOT}" == "true" ]]; then
+    if [[ ${NOREBOOT} == "true" ]]; then
         ${GREEN}Script completed successfully.${RESET}; printf "\n"
         exit 0
     fi

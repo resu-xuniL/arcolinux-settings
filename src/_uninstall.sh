@@ -45,7 +45,7 @@ uninstall_software() {
     ##########            DKMS Uninstallation             ##########
     ################################################################
 
-    if [[ "${packages}" =~ "broadcom-wl-dkms" || "${packages}" =~ "rtl8821cu-morrownr-dkms-git" ]];then
+    if [[ ${packages} =~ "broadcom-wl-dkms" || "${packages}" =~ "rtl8821cu-morrownr-dkms-git" ]];then
         if [[ ${mkinitcpio_needed} -gt 0 ]]; then
             exec_log "sudo mkinitcpio -P" "${GREEN}[+]${RESET} Building [${YELLOW}initcpio${RESET}] image ${RED}(might be long)${RESET}"
         fi

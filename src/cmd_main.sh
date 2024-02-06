@@ -58,7 +58,7 @@ select_from_list() {
 
     read -ra input
     for choice in "${input[@]}"; do
-        if [[ "$choice" =~ ^(all|a)$ ]]; then
+        if [[ $choice =~ ^(all|a)$ ]]; then
             for software in "${!item_list[@]}"; do
                 selected_packages+=" ${item_list[$software]} "
             done
@@ -110,10 +110,10 @@ manage_one() {
     elif [[ ${action_type} == "uninstall" ]]; then
         exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package} ${warning_msg}"
     elif [[ ${action_type} == "copy_paste" ]]; then
-        if [[ "${target}" =~ "/*" ]]; then
+        if [[ ${target} =~ "/*" ]]; then
             file_name[1]="All files from ${file_name[0]^^} folder"
         fi
-        if [[ "${destination}" =~ .*${HOME}.* ]]; then
+        if [[ ${destination} =~ .*${HOME}.* ]]; then
             check_dir ${destination} "user"
         else
             check_dir ${destination} "root"

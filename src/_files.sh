@@ -49,11 +49,11 @@ config_files() {
     ##########             Personal bookmarks             ##########
     ################################################################
 
-    if [[ "${packages}" =~ "gtk3/bookmarks" ]];then
-        if [[ ${VM} = "none" ]];then
+    if [[ ${packages} =~ "gtk3/bookmarks" ]];then
+        if [[ ${VM} == "none" ]];then
             exec_log "printf '%s\n' 'file:///home/***/VirtualBox_VMs/_SharedFolder VM shared folder' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}VM shared folder${RESET}] bookmark"
             
-            if [[ ${CURRENT_RESOLUTION} = "1680x1050" ]];then
+            if [[ ${CURRENT_RESOLUTION} == "1680x1050" ]];then
                 exec_log "printf '%s\n' 'file:///mnt/Swap%20%5B511%20Go%5D/%5BFilms%5D' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}[Films]${RESET}] bookmark"
                 exec_log "printf '%s\n' 'file:///mnt/Swap%20%5B511%20Go%5D/%5BVU%5D' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}[VU]${RESET}] bookmark"
                 exec_log "printf '%s\n' 'file:///mnt/Storage%20%5B200%20Go%5D/Tools/%5BLinux%5D/%5BVideos%5D [Storage : Linux Videos]' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}[Storage : Linux Videos]${RESET}] bookmark"
@@ -79,7 +79,7 @@ config_files() {
     ##########           Autostart applications           ##########
     ################################################################
 
-    if [[ "${packages}" =~ "autostart" ]];then
+    if [[ ${packages} =~ "autostart" ]];then
         exec_log "cp $INSTALL_DIRECTORY/_extra/.login.sound.mp3 $HOME" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${destination}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
@@ -88,11 +88,11 @@ config_files() {
     ##########                   Conky                    ##########
     ################################################################
 
-    if [[ "${packages}" =~ "JA-Phone.conkyrc" && ! ${CURRENT_RESOLUTION} = "1680x1050" ]];then
+    if [[ ${packages} =~ "JA-Phone.conkyrc" && ! ${CURRENT_RESOLUTION} == "1680x1050" ]];then
         exec_log "sed -i 's/1300/1010/' ${HOME}/.config/conky/JA-Phone.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}JA-Phone.conkyrc${RESET}] X resolution for [${YELLOW}LAPTOP${RESET}]"
         exec_log "sed -i 's/750/480/' ${HOME}/.config/conky/JA-Phone.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}JA-Phone.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
     fi
-    if [[ "${packages}" =~ "conky-sessionfile" ]];then
+    if [[ ${packages} =~ "conky-sessionfile" ]];then
         replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
         
@@ -100,8 +100,8 @@ config_files() {
     ##########                    Grub                    ##########
     ################################################################
 
-    if [[ "${packages}" =~ "grub/theme.txt" ]];then
-        if [[ ! $CURRENT_USER = "wam" ]];then
+    if [[ ${packages} =~ "grub/theme.txt" ]];then
+        if [[ ! $CURRENT_USER == "wam" ]];then
             exec_log "sudo sed -i 's/archlinux03.jpg/archlinux04.jpg/' /boot/grub/themes/Vimix/theme.txt" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
         exec_log "sudo sed -i 's/quiet //' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : quiet boot for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
@@ -115,7 +115,7 @@ config_files() {
     ##########                   Plank                    ##########
     ################################################################
 
-    if [[ "${packages}" =~ "plank/*" ]];then
+    if [[ ${packages} =~ "plank/*" ]];then
         replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         
         {
@@ -125,7 +125,7 @@ config_files() {
             done
         } | whiptail --gauge "Please wait for 3 seconds..." 8 50 0
 
-        if [[ ${CURRENT_USER} = "wam" ]];then
+        if [[ ${CURRENT_USER} == "wam" ]];then
             exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
         else
             exec_log "rm -v ${HOME}/.config/plank/dock1/launchers/virtualbox.dockitem" "${RED}[-]${RESET} Removing [${YELLOW}virtualbox.dockitem${RESET}]"
@@ -143,10 +143,10 @@ config_files() {
     ##########                    SDDM                    ##########
     ################################################################
 
-    if [[ "${packages}" =~ "sddm/kde_settings.conf" ]];then
+    if [[ ${packages} =~ "sddm/kde_settings.conf" ]];then
         check_dir /usr/share/sddm/themes/arcolinux-sugar-candy "root"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy" "${GREEN}[+]${RESET} Copying [${YELLOW}theme.conf${RESET}] to [${YELLOW}/usr/share/sddm/themes/arcolinux-sugar-candy${RESET}]"
-        if [[ ! ${VM} = "none" ]]; then
+        if [[ ! ${VM} == "none" ]]; then
             exec_log "sudo sed -i 's/Mountain.jpg/background.jpg/' /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf" "${GREEN}[+]${RESET} Changing [${YELLOW}SDDM${RESET}] background for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
             exec_log "sudo sed -i 's/Bienvenue !/⚠ MACHINE VIRTUELLE ⚠/' /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf" "${GREEN}[+]${RESET} Changing [${YELLOW}SDDM${RESET}] welcome message for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
@@ -158,7 +158,7 @@ config_files() {
     ##########              and theme & icons             ##########
     ################################################################
 
-    if [[ "${packages}" =~ "xfce/*" ]];then
+    if [[ ${packages} =~ "xfce/*" ]];then
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
     fi
