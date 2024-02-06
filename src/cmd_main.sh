@@ -20,7 +20,7 @@ check_dir() {
     local -r folder=$1
     local -r permission=$2
 
-    if exist ${folder}; then
+    if exist "${folder}"; then
         log "Folder already exists : ${GREEN}${folder}${RESET}"
     else
         if [[ ${permission} == "user" ]]; then
