@@ -76,11 +76,11 @@ install_software() {
 
     if [[ ${packages} =~ "thunderbird" ]]; then
         if ! exist ${HOME}/.thunderbird/*.default-*; then
-            exec_log "thunderbird" "Launching thunderbird"
+            exec_log "thunderbird" "${GREEN}[+]${RESET} Starting [${YELLOW}thunderbird${RESET}]"
         fi
 
         thunderbird_dir=$(find ~/.thunderbird/ -name '*.default-*' -type d)
-        exec_log "cp ${INSTALL_DIRECTORY}/thunderbird/handlers.json ${thunderbird_dir}"
+        exec_log "cp ${INSTALL_DIRECTORY}/thunderbird/handlers.json ${thunderbird_dir}" "${GREEN}[+]${RESET} Copying [${YELLOW}handlers.json${RESET}] file to [${YELLOW}${thunderbird_dir}${RESET}] folder"
     fi
 
     ################################################################
