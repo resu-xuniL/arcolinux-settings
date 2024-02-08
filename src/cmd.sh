@@ -60,13 +60,13 @@ prompt_choice() {
         default="n"
     fi
 
-    while true; do
+    while [ : ]; do
         printf "\n"
         read -p "${question} ${options}" -n 1 -s -r input
         input=${input:-${default}}
         printf "%s\n\n" ${input}
 
-        case $input in
+        case ${input} in
         [yY] )  answer=true;
                 break
                 ;;

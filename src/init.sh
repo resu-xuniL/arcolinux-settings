@@ -20,6 +20,20 @@ change_xfce_terminal_display() {
     sleep 2
 }
 
+check_internet() {
+    local -r tool='curl'
+    local -r tool_opts='-s --connect-timeout 8'
+
+    if ! ${tool} ${tool_opts} https://archlinux.org/ >/dev/null 2>&1; then
+        log_msg "${RED}[KO] Error : No internet connection !${RESET}\n"
+        return 1
+    else
+        log_msg "${GREEN}[OK]${RESET} Internet connection detected\n"
+    fi
+
+    return 0
+}
+
 init() {
     init_log
     exec_log "find $INSTALL_DIRECTORY -type f -exec chmod 644 -- {} +" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}configuration${RESET}] files"
@@ -29,6 +43,19 @@ init() {
     fi
     check_dir ${HOME}/.config "user"
     check_dir ${HOME}/Documents/[Nextcloud] "user"
+}
+
+init_log() {
+    local -r commit_hash=$(git rev-parse HEAD 2>&1)
+    
+    if [[ -f "${LOG_FILE}" ]]; then
+        rm -f "${LOG_FILE}"
+    fi
+
+    touch "${LOG_FILE}"
+    printf "%s\n" "Commit SHA1 hash: ${commit_hash}" >>"${LOG_FILE}"
+    printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
+    log_msg "${GREEN}[+]${RESET} Log file created${RESET}"
 }
 
 usage() {
@@ -81,30 +108,3 @@ else
     printf "\n%s\n" "${RED}[KO]${RESET} Root privileges denied"
     exit 1
 fi
-
-check_internet() {
-    local -r tool='curl'
-    local -r tool_opts='-s --connect-timeout 8'
-
-    if ! ${tool} ${tool_opts} https://archlinux.org/ >/dev/null 2>&1; then
-        log_msg "${RED}[KO] Error : No internet connection !${RESET}\n"
-        return 1
-    else
-        log_msg "${GREEN}[OK]${RESET} Internet connection detected\n"
-    fi
-
-    return 0
-}
-
-init_log() {
-    local -r commit_hash=$(git rev-parse HEAD 2>&1)
-    
-    if [[ -f "${LOG_FILE}" ]]; then
-        rm -f "${LOG_FILE}"
-    fi
-
-    touch "${LOG_FILE}"
-    printf "%s\n" "Commit SHA1 hash: ${commit_hash}" >>"${LOG_FILE}"
-    printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
-    log_msg "${GREEN}[+]${RESET} Log file created${RESET}"
-}
