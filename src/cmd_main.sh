@@ -106,9 +106,17 @@ manage_one() {
     fi
 
     if [[ ${action_type} == "install" ]]; then
-        exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package} ${warning_msg}"
+        if pacman -Qi $1 &> /dev/null; then
+            log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
+        else
+            exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package} ${warning_msg}"
+        fi
     elif [[ ${action_type} == "uninstall" ]]; then
-        exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package} ${warning_msg}"
+        if pacman -Qi $1 &> /dev/null; then
+            exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package} ${warning_msg}"
+        else
+            log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"
+        fi
     elif [[ ${action_type} == "copy_paste" ]]; then
         if [[ ${target} =~ "/*" ]]; then
             file_name[1]="All files from ${file_name[0]^^} folder"

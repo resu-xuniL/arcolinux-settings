@@ -84,9 +84,7 @@ exit_status() {
 
     printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
-        if [[ ${action_type} == "uninstall" ]]; then
-            log_msg "${GREEN}${package} is not installed${RESET}"
-        elif [[ ${action_type} == "install" ]]; then
+        if [[ ${action_type} == "install" ]]; then
             log_msg "${RED}Error: ${package} installation failed${RESET}"
         else
             log_msg "${RED}Error: something went wrong${RESET}"
