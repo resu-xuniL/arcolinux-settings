@@ -7,9 +7,9 @@ endscript() {
 
     prompt_choice "${BLUE}:: ${RESET}Do you want to upload the log file to a pastebin?" false
     if [[ ${answer} == true ]]; then
-        printf "%s\n" "${GREEN}[+]${RESET} Uploading log file to [${GREEN}pastebin${RESET}] ..."
+        log_msg "${GREEN}[+]${RESET} Uploading log file to [${GREEN}pastebin${RESET}] ..."
         local -r url="$(curl -s -F'file=@'"${LOG_FILE}" -Fexpires=1 https://0x0.st)"
-        printf "%s\n" "${GREEN}[OK]${RESET} Log file uploaded to [${GREEN}${url}${RESET}]"
+        log_msg "${GREEN}[OK]${RESET} Log file uploaded to [${GREEN}${url}${RESET}]"
     fi
 
     if [[ ${NOREBOOT} == "true" ]]; then
