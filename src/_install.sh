@@ -89,13 +89,13 @@ install_software() {
 
     if [[ ${packages} =~ "virtualbox" ]]; then
         exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
-        exec_log "sudo pacman -S --noconfirm --needed virtualbox-host-dkms" "${GREEN}[+]${RESET} virtualbox-host-dkms${warning_msg}"
-        exec_log "sudo pacman -S --noconfirm --needed virtualbox-guest-iso" "${GREEN}[+]${RESET} virtualbox-guest-iso${warning_msg}"
+        manage_one "virtualbox-host-dkms"
+        manage_one "virtualbox-guest-iso"
         check_dir ${HOME}/VirtualBox_VMs "user"
         exec_log "tar -xzf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
 
         if pacman -Qi linux &> /dev/null; then
-            exec_log "sudo pacman -S --needed linux-headers" "${GREEN}[+]${RESET} linux-headers${warning_msg}"
+            manage_one "linux-headers"
         fi
     fi
 

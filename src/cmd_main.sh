@@ -98,6 +98,8 @@ manage_one() {
         broadcom-wl-dkms
         brave-bin
         thunderbird
+        virtualbox
+        virtualbox-host-dkms
         visual-studio-code-bin
         wine
     "
