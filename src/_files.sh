@@ -18,7 +18,7 @@ set_config_files_list() {
         [Thunar : Personal actions]="thunar/uca.xml[]${HOME}/.config/Thunar"
         [Personal aliases]="shell/.bashrc-personal[]${HOME}"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc[]${HOME}"
-        [Conky JA-Phone]="conky/JA-Phone.conkyrc[]${HOME}/.config/conky"
+        [Conky WAM]="conky/WAM.conkyrc[]${HOME}/.config/conky"
         [Conky : USER config.]="conky/conky-sessionfile[]${HOME}/.config/conky"
         [GTK-3.0 : Theme & icons]="gtk3/settings.ini[]${HOME}/.config/gtk-3.0"
         [Variety]="variety/variety.conf[]${HOME}/.config/variety"
@@ -88,10 +88,17 @@ config_files() {
     ##########                   Conky                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "JA-Phone.conkyrc" && ! ${CURRENT_RESOLUTION} == "1680x1050" ]];then
-        exec_log "sed -i 's/1300/1010/' ${HOME}/.config/conky/JA-Phone.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}JA-Phone.conkyrc${RESET}] X resolution for [${YELLOW}LAPTOP${RESET}]"
-        exec_log "sed -i 's/750/480/' ${HOME}/.config/conky/JA-Phone.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}JA-Phone.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
+    if [[ ${packages} =~ "WAM.conkyrc" ]]; then
+        exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+        exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+        exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
+    
+        if [[ ! ${CURRENT_RESOLUTION} == "1680x1050" ]];then
+            exec_log "sed -i 's/1250/960/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] X resolution for [${YELLOW}LAPTOP${RESET}]"
+            exec_log "sed -i 's/820/550' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
+        fi
     fi
+
     if [[ ${packages} =~ "conky-sessionfile" ]];then
         replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi

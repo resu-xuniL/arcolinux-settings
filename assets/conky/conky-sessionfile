@@ -1,1 +1,1 @@
-conky -c /home/***/.config/conky/JA-Phone.conkyrc & sleep 1s
+conky -c /home/***/.config/conky/WAM.conkyrc & sleep 1s

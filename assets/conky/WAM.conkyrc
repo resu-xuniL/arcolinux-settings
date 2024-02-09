@@ -1,5 +1,5 @@
 conky.config = {
--- By Jesse_Avalos , See me on Eye Candy Linux_  on Google +
+-- Modified by resu-xuniL
 	background = true,
 	use_xft = true,
 	xftalpha = 0.8,
@@ -22,8 +22,8 @@ conky.config = {
 	default_outline_color = '#000000',
 	minimum_width = 100, minimum_height = 100,
 	maximum_width = 430,
-	gap_x = 1300,
-	gap_y = 750,
+	gap_x = 1250,
+	gap_y = 820,
 	alignment = 'top_left',
 	no_buffers = true,
 	uppercase = false,
@@ -39,6 +39,7 @@ conky.config = {
 	xftalpha = 0,
 	override_utf8_locale = true,
 
+
 -- Color scheme #
 	default_color = 'white',
 	color1 = '#212021',
@@ -48,10 +49,13 @@ conky.config = {
 	own_window_argb_value = 0,
 	own_window_argb_visual = true,
 	own_window_colour = '#000000',
+
+	template9 = 'us_US.UTF-8'
 };
 
 conky.text = [[
-${offset 80}${color2}${font Aliquam:bold:size=104}${time %H}
-${offset 160}${voffset -80}${font Aliquam:size=80}${time %M}${font Aliquam::UltraLight:bold:size=18}
-${offset 48}${voffset 10}${time %p %A %d %B %Y}
+${color2}${goto 140}${font Bentoh:size=40}${execi 300 LANG=${template9} date +"%A"}
+${voffset -55}${goto 280}${font Rallifornia:size=90}${time %d}
+${voffset -140}${goto 20}${font Bentoh:size=110}${execi 300 LANG=${template9} date +"%B"}
+${voffset -100}${goto 200}${font Aliquam:bold:size=20}${time %H : %M}
 ]];
