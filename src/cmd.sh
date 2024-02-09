@@ -81,19 +81,21 @@ prompt_choice() {
 
 exit_status() {
     local exit_status=$?
-
+    local -r comment="$1"
+    
     printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "install" ]]; then
-            log_msg "${RED}Error: ${package} installation failed${RESET}"
+            log_msg "\033[1A${comment} ${RED}[KO]: ${package} installation failed${RESET}"
         else
-            log_msg "${RED}Error: something went wrong${RESET}"
+            log_msg "\033[1A${comment} ${RED}[KO]: something went wrong${RESET}"
         fi
     else
+        log_msg "\033[1A${comment} ${GREEN}\u2713${RESET}"
+        
         if   [[ ${action_type} == "uninstall" && ("${package}" =~ "broadcom-wl-dkms" || "${package}" =~ "rtl8821cu-morrownr-dkms-git") ]]; then
             ((mkinitcpio_needed++))
         fi
-        #printf "%s\n" "${GREEN}Complete: ${package} installation succeeded${RESET}"
     fi
 }
 
@@ -118,8 +120,6 @@ execute() {
     else
         eval "${command}" >>"${LOG_FILE}" 2>&1
     fi
-
-    exit_status
 }
 
 exec_log() {
@@ -128,4 +128,5 @@ exec_log() {
     
     log_msg "${comment}"
     execute "${command}"
+    exit_status "${comment}"
 }

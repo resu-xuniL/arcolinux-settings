@@ -55,7 +55,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     sleep 1
     endscript "${start_time}"
 else
-    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "\n${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
+    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
     exec_log "exit 1" "\n${RED}/!\ THIS IS NOT AN [${RESET}${BOLD}${BLINK}${YELLOW}ARCOLINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
 fi

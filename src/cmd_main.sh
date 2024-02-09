@@ -104,18 +104,18 @@ manage_one() {
         wine
     "
     if [[ ${warning} =~ ${package} ]]; then
-        warning_msg="${RED}(might be long)${RESET}"
+        warning_msg=" ${RED}(might be long)${RESET}"
     fi
 
     if [[ ${action_type} == "install" ]]; then
         if pacman -Qi $1 &> /dev/null; then
             log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
         else
-            exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package} ${warning_msg}"
+            exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
         fi
     elif [[ ${action_type} == "uninstall" ]]; then
         if pacman -Qi $1 &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package} ${warning_msg}"
+            exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
         else
             log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"
         fi

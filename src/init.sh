@@ -55,7 +55,7 @@ init_log() {
     touch "${LOG_FILE}"
     printf "%s\n" "Commit SHA1 hash: ${commit_hash}" >>"${LOG_FILE}"
     printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
-    log_msg "${GREEN}[+]${RESET} Log file created${RESET}"
+    log_msg "${GREEN}[+]${RESET} Log file created${RESET} ${GREEN}\u2713${RESET}"
 }
 
 usage() {
