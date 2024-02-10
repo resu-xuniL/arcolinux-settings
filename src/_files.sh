@@ -44,12 +44,19 @@ config_files() {
     selected_packages=""
 
     manage_lst "${packages}"
-        
+    set_config_files
+}
+
+set_config_files() {
+    action_type="config_files"
+
     ################################################################
     ##########             Personal bookmarks             ##########
     ################################################################
 
     if [[ ${packages} =~ "gtk3/bookmarks" ]];then
+        file_conf="Personal bookmarks"
+
         if [[ ${VM} == "none" ]];then
             exec_log "printf '%s\n' 'file:///home/***/VirtualBox_VMs/_SharedFolder VM shared folder' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}VM shared folder${RESET}] bookmark"
             
@@ -80,6 +87,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "autostart" ]];then
+        file_conf="Autostart applications"
+
         exec_log "cp $INSTALL_DIRECTORY/_extra/.login.sound.mp3 $HOME" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${destination}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
@@ -89,6 +98,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "WAM.conkyrc" ]]; then
+        file_conf="Conky"
+
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
@@ -108,6 +119,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "grub/theme.txt" ]];then
+        file_conf="Grub"
+
         if [[ ! $CURRENT_USER == "wam" ]];then
             exec_log "sudo sed -i 's/archlinux03.jpg/archlinux04.jpg/' /boot/grub/themes/Vimix/theme.txt" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
@@ -123,6 +136,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "plank/*" ]];then
+        file_conf="Plank"
+
         replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         
         {
@@ -151,6 +166,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "sddm/kde_settings.conf" ]];then
+        file_conf="SDDM"
+
         check_dir /usr/share/sddm/themes/arcolinux-sugar-candy "root"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy" "${GREEN}[+]${RESET} Copying [${YELLOW}theme.conf${RESET}] to [${YELLOW}/usr/share/sddm/themes/arcolinux-sugar-candy${RESET}]"
         if [[ ! ${VM} == "none" ]]; then
@@ -166,6 +183,8 @@ config_files() {
     ################################################################
 
     if [[ ${packages} =~ "xfce/*" ]];then
+        file_conf="XFCE"
+
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
     fi

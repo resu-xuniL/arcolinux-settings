@@ -51,19 +51,26 @@ install_software() {
     fi
 
     select_from_list font_list "Font"
-    select_from_list soft_list "Required"
+    select_from_list soft_list "Needed"
     select_from_list extra_list "Extra"
 
     local -r packages="${selected_packages}"
     selected_packages=""
 
     manage_lst "${packages}"
+    config_apps
+}
+
+config_apps() {
+    action_type="config_apps"
 
     ################################################################
     ##########                   Brave                    ##########
     ################################################################
 
     if [[ ${packages} =~ "brave-bin" ]]; then
+        app_conf="Brave"
+
         [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
         exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
         fetch_the_25th_word
@@ -75,6 +82,8 @@ install_software() {
     ################################################################
 
     if [[ ${packages} =~ "thunderbird" ]]; then
+        app_conf="Thunderbird"
+
         if ! exist ${HOME}/.thunderbird/*.default-*; then
             exec_log "thunderbird" "${GREEN}[+]${RESET} Starting [${YELLOW}thunderbird${RESET}]"
         fi
@@ -88,9 +97,10 @@ install_software() {
     ################################################################
 
     if [[ ${packages} =~ "virtualbox" ]]; then
+        app_conf="Virtualbox"
+
         exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
-        manage_one "virtualbox-host-dkms"
-        manage_one "virtualbox-guest-iso"
+        manage_lst "virtualbox-host-dkms virtualbox-guest-iso"
         check_dir ${HOME}/VirtualBox_VMs "user"
         exec_log "tar -xzf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
 
@@ -104,6 +114,8 @@ install_software() {
     ################################################################
 
     if [[ ${packages} =~ "vlc" ]]; then
+        app_conf="VLC 'pause on click' plug-in"
+
         exec_log "sudo pacman -U --noconfirm --needed ${INSTALL_DIRECTORY}/vlc/vlc-pause-click-plugin-2.2.0-1-x86_64.pkg.tar.zst" "${GREEN}[+]${RESET} Installing [${YELLOW}VLC${RESET}] pause-click plug-in"
     fi
 
@@ -111,7 +123,7 @@ install_software() {
     ##########                    Wine                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "wine" ]]; then   
+    if [[ ${packages} =~ "wine" ]]; then
 
         ################################################################
         ##########               Wine : Shortcut              ##########
@@ -119,6 +131,8 @@ install_software() {
 
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Shortcut${RESET}] (for WINE) ?" true
         if [[ ${answer} == true ]]; then
+            app_conf="Wine : Shortcut"
+
             check_dir ${HOME}/.wine/drive_c/windows "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/shortcut/shortcut.exe ${HOME}/.wine/drive_c/windows" "${GREEN}[+]${RESET} Copying [${YELLOW}shortcut.exe${RESET}] file to [${YELLOW}WINE${RESET}] folder"
         fi
@@ -129,6 +143,8 @@ install_software() {
 
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Tag renamer${RESET}] (for WINE) ?" true
         if [[ ${answer} == true ]]; then
+            app_conf="Wine : Tag renamer"
+
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
             [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
             exec_log "7z x -p${password} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
@@ -152,6 +168,8 @@ install_software() {
 
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?" true
         if [[ ${answer} == true ]]; then
+            app_conf="Wine : Youtube downloader"
+            
             local -r file="YouTubeDownloader-x64.exe"
 
             if [[ -f ${HOME}/Downloads/${file} ]];then
@@ -180,8 +198,10 @@ install_software() {
             exec_log "grep -qxF 'text/x-ms-regedit=wine-regedit.desktop' ${HOME}/.config/mimeapps.list || printf '%s\n' 'text/x-ms-regedit=wine-regedit.desktop' | sudo tee -a ${HOME}/.config/mimeapps.list" "${GREEN}[+]${RESET} Adding [${YELLOW}regedit to wine${RESET}] association to [${YELLOW}mimeapps.list${RESET}]"
 
             ################################################################
-            ##########       Youtube downloader: tracking.dat     ##########
+            ##########      Youtube downloader : tracking.dat     ##########
             ################################################################
+            
+            app_conf="Youtube downloader : tracking.dat"
 
             if [[ ${CURRENT_RESOLUTION} == "1680x1050" && ${CURRENT_USER} == "wam" ]];then
                 check_dir ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman "user"

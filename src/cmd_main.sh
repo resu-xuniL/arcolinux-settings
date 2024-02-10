@@ -129,7 +129,7 @@ manage_one() {
             check_dir ${destination} "root"
             sudo_str="sudo "
         fi
-        exec_log "${sudo_str}cp -a ${INSTALL_DIRECTORY}/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] to [${YELLOW}${destination}${RESET}]${warning_msg}"
+        exec_log "${sudo_str}cp -a ${INSTALL_DIRECTORY}/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] file to [${YELLOW}${destination}${RESET}] folder${warning_msg}"
     elif [[ ${action_type} == "config_system" ]]; then
         exec_log "sudo ${package//[]/ }" "${GREEN}[+]${RESET} Setting [${YELLOW}${package_split[-1]}${RESET}] on [${YELLOW}${package_split[0]}${RESET}]"
     fi
