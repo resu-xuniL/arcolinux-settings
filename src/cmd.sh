@@ -93,8 +93,15 @@ exit_status() {
     else
         log_msg "\033[1A${comment} ${GREEN}\u2713${RESET}"
         
-        if   [[ ${action_type} == "uninstall" && ("${package}" =~ "broadcom-wl-dkms" || "${package}" =~ "rtl8821cu-morrownr-dkms-git") ]]; then
-            ((mkinitcpio_needed++))
+        if   [[ ${action_type} == "uninstall" ]]; then
+            case ${package} in
+                rtl8821cu-morrownr-dkms-git )
+                    ((mkinitcpio_needed++));
+                    ;;
+                broadcom-wl-dkms )
+                    mkinitcpio_needed=0;
+                    ;;
+            esac
         fi
     fi
 }
