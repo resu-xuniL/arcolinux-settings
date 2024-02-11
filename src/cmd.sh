@@ -134,6 +134,7 @@ execute() {
     job_pid=$!
     
     progress_dots
+    wait -n
     exit_status "${comment}"
 }
 
