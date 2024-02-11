@@ -51,35 +51,35 @@ choose_steps() {
                 # Uninstall
                 display_step "Software uninstallation"
                 sleep 1
-                # step uninstall_software "Software uninstallation"
+                step uninstall_software "Software uninstallation"
                 prompt_to_continue
                 ;;
             3 )
                 # Update system
                 display_step "Updating system"
                 sleep 1
-                # step update_system      "Updating system"
+                step update_system      "Updating system"
                 prompt_to_continue
                 ;;
             4 )
                 # Install
                 display_step "Software installation"
                 sleep 1
-                # step install_software   "Software installation"
+                step install_software   "Software installation"
                 prompt_to_continue
                 ;;
             5 )
                 # Configuration
                 display_step "System configuration"
                 sleep 1
-                # step config_files       "Files system configuration"
-                # step config_settings    "System configuration"
+                step config_files       "Files system configuration"
+                step config_settings    "System configuration"
                 prompt_to_continue
                 ;;
             6 )
                 # End
                 sleep 1
-                # endscript "${start_time}"
+                endscript "${start_time}"
                 ;;
             7 )
                 all_steps
