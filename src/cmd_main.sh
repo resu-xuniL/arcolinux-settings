@@ -54,6 +54,8 @@ select_from_list() {
         printf "\n%s" "${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     elif [[ ${action_type} == "config_system" ]]; then
         printf "\n%s" "${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+    elif [[ ${action_type} == "steps" ]]; then
+        printf "\n%s" "${BLUE}:: ${RESET}Choose steps (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     fi
 
     read -ra input
@@ -85,14 +87,17 @@ manage_lst() {
 }
 
 manage_one() {
-    local -r package=$1
+    if [[ ${action_type} == "steps" ]]; then
+        local -r step=$1
+    else
+        local -r package=$1
+    fi
     local -r package_split=(${package//[]/ })
     local -r target=${package_split[0]}
     local -r destination=${package_split[1]}
     local file_name=(${target//// })
     local sudo_str=""
     local warning_msg=""
-
     local -r warning="
         rtl8821cu-morrownr-dkms-git
         broadcom-wl-dkms
@@ -132,5 +137,8 @@ manage_one() {
         exec_log "${sudo_str}cp -a ${INSTALL_DIRECTORY}/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] file to [${YELLOW}${destination}${RESET}] folder${warning_msg}"
     elif [[ ${action_type} == "config_system" ]]; then
         exec_log "sudo ${package//[]/ }" "${GREEN}[+]${RESET} Setting [${YELLOW}${package_split[-1]}${RESET}] on [${YELLOW}${package_split[0]}${RESET}]"
+    elif [[ ${action_type} == "steps" ]]; then
+        eval ${step}
+        action_type="steps"
     fi
 }

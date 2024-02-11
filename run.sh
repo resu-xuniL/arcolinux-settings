@@ -2,6 +2,7 @@
 
 source src/init.sh
 source src/header.sh
+source src/steps.sh
 source src/cmd.sh
 source src/cmd_main.sh
 source src/_uninstall.sh
@@ -18,48 +19,60 @@ change_xfce_terminal_display
 
 if grep -q "ArcoLinux" /etc/os-release; then
 
-    # choice
     header
     prompt_to_continue
 
-    all_steps() {
+    init_step() {
         # init
         display_step "Initialization"
         sleep 1
         step init               "Initialization"
         prompt_to_continue
+    }
 
+    uninstall_step() {
         # Uninstall
         display_step "Software uninstallation"
         sleep 1
         step uninstall_software "Software uninstallation"
         prompt_to_continue
-
+    }
+    
+    update_step() {
         # Update system
         display_step "Updating system"
         sleep 1
         step update_system      "Updating system"
         prompt_to_continue
-
+    }
+    
+    install_step() {
         # Install
         display_step "Software installation"
         sleep 1
         step install_software   "Software installation"
         prompt_to_continue
-
+    }
+    
+    configuration_step() {
         # Configuration
         display_step "System configuration"
         sleep 1
         step config_files       "Files system configuration"
         step config_settings    "System configuration"
         prompt_to_continue
-
+    }
+    
+    end_step() {
         # End
         sleep 1
         endscript "${start_time}"
     }
 
+    # choice
     choose_steps
+    steps_selection 
+
 else
     exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
