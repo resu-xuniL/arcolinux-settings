@@ -7,6 +7,17 @@ export YELLOW=$(tput setaf 3)
 export BLUE=$(tput setaf 4)
 export PURPLE=$(tput setaf 5)
 
+export NEWT_COLORS='
+    root=white,black
+    shadow=black,gray
+    title=black,lightgray
+    button=white,black
+    checkbox=black,lightgray
+    entry=black,lightgray
+    emptyscale=,gray
+    fullscale=,cyan
+    actcheckbox=lightgray,cyan
+'
 export INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))/assets
 export CURRENT_USER=$(whoami)
 export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
