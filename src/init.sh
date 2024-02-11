@@ -38,7 +38,7 @@ init() {
     init_log
     exec_log "find $INSTALL_DIRECTORY -type f -exec chmod 644 -- {} +" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}configuration${RESET}] files"
  
-    if [[ ! ${CURRENT_USER} == "wam" ]];then
+    if [[ ! ${CURRENT_USER} == "wam" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
     check_dir ${HOME}/.config "user"

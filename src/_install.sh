@@ -44,7 +44,7 @@ install_software() {
     
     set_install_list
 
-    if [[ ${VM} == "none" ]];then
+    if [[ ${VM} == "none" ]]; then
         select_from_list vm_list "VirtualBox"
     else
         log_msg "${RED}[This is a virtual machine - Skipping VirtualBox installation]${RESET}\n"
@@ -172,7 +172,7 @@ config_apps() {
             
             local -r file="YouTubeDownloader-x64.exe"
 
-            if [[ -f ${HOME}/Downloads/${file} ]];then
+            if [[ -f ${HOME}/Downloads/${file} ]]; then
                 log_msg "${GREEN}[OK] ${file} already exists${RESET}\n"
             else
                 log_msg "${RED}[KO] ${file} doesn't exist - Downloading now${RESET}\n"
@@ -203,13 +203,13 @@ config_apps() {
             
             app_conf="Youtube downloader : tracking.dat"
 
-            if [[ ${CURRENT_RESOLUTION} == "1680x1050" && ${CURRENT_USER} == "wam" ]];then
+            if [[ ${CURRENT_RESOLUTION} == "1680x1050" && ${CURRENT_USER} == "wam" ]]; then
                 check_dir ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman "user"
                 exec_log "ln -s /mnt/Win10/Users/${CURRENT_USER^}/AppData/Local/MediaHuman/YouTube\ Downloader ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman" "${GREEN}[+]${RESET} Create symbolic link to [${YELLOW}Win10${RESET}]"
             else
                 check_dir ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman/YouTube\ Downloader "user"
 
-                if [[ ${CURRENT_USER} == "wam" ]];then
+                if [[ ${CURRENT_USER} == "wam" ]]; then
                     exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/${CURRENT_USER}-user/tracking.dat ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman/YouTube\ Downloader" "${GREEN}[+]${RESET} Copying [${YELLOW}tracking.dat${RESET}] file to [${YELLOW}${CURRENT_USER^^}${RESET}] 'Youtube downloader' folder"
                 else
                     exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/tracking.dat ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman/YouTube\ Downloader" "${GREEN}[+]${RESET} Copying [${YELLOW}tracking.dat${RESET}] file to [${YELLOW}${CURRENT_USER^^}${RESET}] 'Youtube downloader' folder"
