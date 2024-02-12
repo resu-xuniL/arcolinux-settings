@@ -1,35 +1,3 @@
-step() {
-    local -r function=$1
-    local -r message=$2
-    local dash_line=""
-
-    for (( i=0; i<${#message}; i++ )); 
-        do dash_line+="-" ; 
-    done
-
-    printf "\n%s\n%s\n\n" "${YELLOW}${message}" "${dash_line}${RESET}"
-
-    ${function}
-}
-
-display_step() {
-    local -r message="$1"
-    local -r width="$(( $(tput cols) / 2 ))"
-    clear
-
-    printf "${YELLOW}"
-    for i in $(seq 1 ${width}); do
-        printf "%0.1s" "#";
-    done
-    printf "\n"
-    center_text "${message}" "${width}"
-    printf "\n"
-    for i in $(seq 1 ${width}); do
-        printf "%0.1s" "#";
-    done
-    printf "\n${RESET}"
-}
-
 center_text() {
     local -r message="$1"
     local -r width=$2
