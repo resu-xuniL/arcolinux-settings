@@ -52,8 +52,6 @@ init() {
     if [[ ! ${CURRENT_USER} == "wam" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
-    check_dir ${HOME}/.config "user"
-    check_dir ${HOME}/Documents/[Nextcloud] "user"
 }
 
 init_log() {
