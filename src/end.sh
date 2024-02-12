@@ -2,10 +2,7 @@ endscript() {
     local -r end_time="$(date +%s)"
     local -r duration="$((${end_time} - ${1}))"
 
-    printf "\n%s\n" "All done in ${GREEN}${duration}${RESET} seconds."
-    printf "%s\n" "All done in ${duration} seconds." >>"${LOG_FILE}"
-
-    exec_log "sudo sed -i -E 's/\\\n|\x1B\[[0-9;]*[JKmsu]|\x1B\(B//g' ${LOG_FILE}" "${GREEN}[+]${RESET} Removing [${YELLOW}ANSI code${RESET}] on [${YELLOW}${LOG_FILE}${RESET}] file"
+    log_msg "\nAll done in ${GREEN}${duration}${RESET} seconds."
 
     prompt_choice "${BLUE}:: ${RESET}Do you want to upload the log file to a pastebin?" false
     if [[ ${answer} == true ]]; then
@@ -15,7 +12,7 @@ endscript() {
     fi
 
     if [[ ${NOREBOOT} == "true" ]]; then
-        printf "%b\n\n" "${GREEN}Script completed successfully.${RESET}"
+        printf "%s\n\n" "${GREEN}Script completed successfully.${RESET}"
         exit 0
     fi
 

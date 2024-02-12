@@ -1,3 +1,10 @@
+prompt_to_continue() {
+    printf "%b" "\n${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
+
+    read -rp "" choice
+    [[ -n $choice ]] && exit 0
+}
+
 center_text() {
     local -r message="$1"
     local -r width=$2
@@ -9,11 +16,17 @@ center_text() {
     printf "\n%0.*s %s %0.*s\n" "$(( (${width} - ${#message} - 2) /2 ))" "${padding}" "${message}" "$(( (${width} - ${#message} - 1) /2 ))" "${padding}"   
 }
 
-prompt_to_continue() {
-    printf "%b" "\n${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
+progress_dots() {
+    local dots="....."
 
-    read -rp "" choice
-    [[ -n $choice ]] && exit 0
+    while kill -0 $job_pid 2> /dev/null; do
+        printf "%b [     ]%b\n" "\033[1A${comment}" "\033[6D${BOLD}${GREEN}${dots}${RESET}"
+        sleep 0.5
+        dots+="."
+        if [[ ${dots} == "......" ]]; then
+            dots=""
+        fi   
+    done  
 }
 
 prompt_choice() {
@@ -47,6 +60,50 @@ prompt_choice() {
     done
 }
 
+exec_log() {
+    local -r command="$1"
+    local -r comment="$2"
+    
+    log_msg "${comment}"
+    execute "${command}"
+}
+
+execute() {
+    local -r command="$1"
+
+    if [[ ${VERBOSE} == true ]]; then
+        eval "${command}" 2>&1 | tee -a "${LOG_FILE}"
+    else
+        eval "${command}" >>"${LOG_FILE}" 2>&1 &
+    fi
+    clean_log
+
+    job_pid=$!
+    
+    progress_dots
+    wait -n
+    exit_status "${comment}"
+}
+
+log_msg() {
+    local -r comment="$1"
+
+    printf "%b\n" "${comment}"
+    log "${comment}"
+}
+
+log() {
+    local -r comment="$1"
+
+    printf "%s\n" "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
+    clean_log
+
+}
+
+clean_log() {
+    sed -i -E "s/\\\n|\x1B\[[0-9;]*[JKmsu]|\x1B\(B//g" ${LOG_FILE} 
+}
+
 exit_status() {
     local exit_status=$?
     local -r comment="$1"
@@ -76,53 +133,4 @@ exit_status() {
             esac
         fi
     fi
-}
-
-log() {
-    local -r comment="$1"
-
-    printf "%s\n" "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
-}
-
-log_msg() {
-    local -r comment="$1"
-
-    printf "%b\n" "${comment}"
-    log "${comment}"
-}
-
-execute() {
-    local -r command="$1"
-
-    if [[ ${VERBOSE} == true ]]; then
-        eval "${command}" 2>&1 | tee -a "${LOG_FILE}"
-    else
-        eval "${command}" >>"${LOG_FILE}" 2>&1 &
-    fi
-    job_pid=$!
-    
-    progress_dots
-    wait -n
-    exit_status "${comment}"
-}
-
-exec_log() {
-    local -r command="$1"
-    local -r comment="$2"
-    
-    log_msg "${comment}"
-    execute "${command}"
-}
-
-progress_dots() {
-    local dots="....."
-
-    while kill -0 $job_pid 2> /dev/null; do
-        printf "%b [     ]%b\n" "\033[1A${comment}" "\033[6D${BOLD}${GREEN}${dots}${RESET}"
-        sleep 0.5
-        dots+="."
-        if [[ ${dots} == "......" ]]; then
-            dots=""
-        fi   
-    done  
 }
