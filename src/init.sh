@@ -64,18 +64,19 @@ init_log() {
     touch "${LOG_FILE}"
     printf "%s\n" "Commit SHA1 hash: ${commit_hash}" >>"${LOG_FILE}"
     printf "%s\n\n" "Log file: ${LOG_FILE}" >>"${LOG_FILE}"
-    log_msg "${GREEN}[+]${RESET} Log file created${RESET} ${GREEN}\u2713${RESET}"
+    log_msg "${GREEN}[+]${RESET} Log file tagged${RESET} ${GREEN}\u2713${RESET}"
 }
 
 usage() {
     printf "%s\n" "Usage : ./install.sh [OPTION]"
     printf "%s\n" "Options :"
     printf "%s\n" "  -h --help    : Display this help."
+    printf "%s\n" "  -t --test    : Test mode."
     printf "%s\n" "  -v --verbose : Verbose mode."
     printf "%s\n" "  --no-reboot  : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o hv --long help,verbose,no-reboot -- "$@")
+valid_args=$(getopt -o thv --long help,test,verbose,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -86,6 +87,10 @@ while [ : ]; do
     -h | --help)
         usage
         exit 1
+        ;;
+    -t | --test)
+        export TESTMODE=true
+        shift
         ;;
     -v | --verbose)
         export VERBOSE=true
@@ -100,6 +105,10 @@ while [ : ]; do
         ;;
   esac
 done
+
+if [[ -z ${TESTMODE+x} ]]; then
+    export TESTMODE=false
+fi
 
 if [[ -z ${VERBOSE+x} ]]; then
     export VERBOSE=false

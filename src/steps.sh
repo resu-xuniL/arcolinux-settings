@@ -48,33 +48,16 @@ choose_steps() {
         for step_sel in ${steps_sel}; do
             case "${step_sel}" in
             1 )
-                # Uninstall
-                display_step "Software uninstallation"
-                sleep 1
-                step uninstall_software "Software uninstallation"
-                prompt_to_continue
+                uninstall_step
                 ;;
             2 )
-                # Update system
-                display_step "Updating system"
-                sleep 1
-                step update_system      "Updating system"
-                prompt_to_continue
+                update_step
                 ;;
             3 )
-                # Install
-                display_step "Software installation"
-                sleep 1
-                step install_software   "Software installation"
-                prompt_to_continue
+                install_step
                 ;;
             4 )
-                # Configuration
-                display_step "System configuration"
-                sleep 1
-                step config_files       "Files system configuration"
-                step config_settings    "System configuration"
-                prompt_to_continue
+                configuration_step
                 ;;
             5 )
                 all_steps
