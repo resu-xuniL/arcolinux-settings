@@ -35,11 +35,15 @@ choose_steps() {
         --separate-output \
         --title "Step(s) to execute" \
         --checklist "Choose steps :" 10 60 0 \
-        "1" "Step 1 : Uninstall" OFF \
-        "2" "Step 2 : System update" OFF \
-        "3" "Step 3 : Install" OFF \
-        "4" "Step 4 : Configuration" OFF \
-        "5" "All steps" ON 3>&1 1>&2 2>&3
+        "1" "Step 1 : Start" OFF \
+        "2" "Step 2 : Header" OFF \
+        "3" "Step 3 : Init" OFF \
+        "4" "Step 4 : Uninstall" OFF \
+        "5" "Step 5 : System update" OFF \
+        "6" "Step 6 : Install" OFF \
+        "7" "Step 7 : Configuration" OFF \
+        "8" "Step 8 : End" OFF \
+        "9" "All steps" ON 3>&1 1>&2 2>&3
     )
 
     if [ -z "${steps_sel}" ]; then
@@ -48,18 +52,30 @@ choose_steps() {
         for step_sel in ${steps_sel}; do
             case "${step_sel}" in
             1 )
-                uninstall_step
+                start_step
                 ;;
             2 )
-                update_step
+                header_step
                 ;;
             3 )
-                install_step
+                init_step
                 ;;
             4 )
-                configuration_step
+                uninstall_step
                 ;;
             5 )
+                update_step
+                ;;
+            6 )
+                install_step
+                ;;
+            7 )
+                configuration_step
+                ;;
+            8 )
+                end_step
+                ;;
+            9 )
                 all_steps
                 ;;
             *)
