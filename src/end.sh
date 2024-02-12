@@ -5,7 +5,7 @@ endscript() {
     printf "\n%s\n" "All done in ${GREEN}${duration}${RESET} seconds."
     printf "%s\n" "All done in ${duration} seconds." >>"${LOG_FILE}"
 
-    exec_log "sudo sed -i -E 's/\\x1B\[[0-9;]*[JKmsu]|\x1B\(B//g' ${LOG_FILE}" "${GREEN}[+]${RESET} Removing [${YELLOW}ANSI code${RESET}] on [${YELLOW}${LOG_FILE}${RESET}] file"
+    exec_log "sudo sed -i -E 's/\\\n|\x1B\[[0-9;]*[JKmsu]|\x1B\(B//g' ${LOG_FILE}" "${GREEN}[+]${RESET} Removing [${YELLOW}ANSI code${RESET}] on [${YELLOW}${LOG_FILE}${RESET}] file"
 
     prompt_choice "${BLUE}:: ${RESET}Do you want to upload the log file to a pastebin?" false
     if [[ ${answer} == true ]]; then
