@@ -15,7 +15,7 @@ endscript() {
     fi
 
     if [[ ${NOREBOOT} == "true" ]]; then
-        ${GREEN}Script completed successfully.${RESET}; printf "\n"
+        printf "%b\n\n" "${GREEN}Script completed successfully.${RESET}"
         exit 0
     fi
 

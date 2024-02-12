@@ -108,6 +108,8 @@ done
 
 if [[ -z ${TESTMODE+x} ]]; then
     export TESTMODE=false
+else 
+    export NOREBOOT=true
 fi
 
 if [[ -z ${VERBOSE+x} ]]; then
