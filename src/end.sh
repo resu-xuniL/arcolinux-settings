@@ -16,7 +16,7 @@ endscript() {
         exit 0
     fi
 
-    printf "\n%s\n\n" "${BLUE}:: ${RESET}${GREEN}Script completed successfully, ${BOLD}${BLINK}the system must restart !${RESET}"
+    printf "\n%s\n\n" "${BLUE}:: ${RESET}${GREEN}Script completed successfully, ${BB}the system must restart !${RESET}"
     read -rp "Press [${GREEN}Enter${RESET}] to restart or [${RED}Ctrl+C${RESET}] to cancel."
     for i in {10..1}; do
         printf "%s\r" "${GREEN}Restarting in ${i} seconds...${RESET}"

@@ -111,13 +111,13 @@ exit_status() {
     printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "install" ]]; then
-            log_msg "${RED}${BOLD}[KO]: ${package} installation failed${RESET}"
+            log_msg "${BB}${RED}[KO]${RESET} ${RED}${package} installation failed${RESET}"
         elif [[ ${action_type} == "config_apps" ]]; then
-            log_msg "${RED}${BOLD}[KO]: Something went wrong on${RESET} [${YELLOW}${app_conf}${RESET}] ${RED}configuration${RESET}"
+            log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong on${RESET} [${YELLOW}${app_conf}${RESET}] ${RED}configuration${RESET}"
         elif [[ ${action_type} == "config_files" ]]; then
-            log_msg "${RED}${BOLD}[KO]: Something went wrong on${RESET} [${YELLOW}${file_conf}${RESET}] ${RED}configuration${RESET}"
+            log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong on${RESET} [${YELLOW}${file_conf}${RESET}] ${RED}configuration${RESET}"
         else
-            log_msg "${RED}${BOLD}[KO]: something went wrong${RESET}"
+            log_msg "${BB}${RED}[KO]${RESET} ${RED}something went wrong${RESET}"
         fi
     else
         printf "%b\n" "\033[1A\033[2K${comment} ${GREEN}\u2713${RESET}"
