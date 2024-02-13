@@ -86,7 +86,11 @@ if grep -q "ArcoLinux" /etc/os-release; then
     }
 
     if [[ ${TESTMODE} == "true" ]]; then
-        choose_steps
+        if [[ ${GUIMODE} == "true" ]]; then
+            gui_steps_selection
+        else    
+            steps_selection
+        fi
         exit 0;
     fi
 

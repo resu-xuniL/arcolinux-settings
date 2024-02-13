@@ -73,11 +73,12 @@ usage() {
     printf "%s\n" "Options :"
     printf "%s\n" "  -h --help    : Display this help."
     printf "%s\n" "  -t --test    : Test mode."
+    printf "%s\n" "  -g --gui     : Test mode with GUI selection."
     printf "%s\n" "  -v --verbose : Verbose mode."
     printf "%s\n" "  --no-reboot  : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o thv --long help,test,verbose,no-reboot -- "$@")
+valid_args=$(getopt -o htgv --long help,test,gui,verbose,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -91,6 +92,11 @@ while [ : ]; do
         ;;
     -t | --test)
         export TESTMODE=true
+        shift
+        ;;
+    -g | --gui)
+        export TESTMODE=true
+        export GUIMODE=true
         shift
         ;;
     -v | --verbose)
@@ -111,6 +117,10 @@ if [[ -z ${TESTMODE+x} ]]; then
     export TESTMODE=false
 else 
     export NOREBOOT=true
+fi
+
+if [[ -z ${GUIMODE+x} ]]; then
+    export GUIMODE=false
 fi
 
 if [[ -z ${VERBOSE+x} ]]; then

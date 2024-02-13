@@ -1,36 +1,37 @@
-step() {
-    local -r function=$1
-    local -r message=$2
-    local dash_line=""
+declare -A step_list
 
-    for (( i=0; i<${#message}; i++ )); 
-        do dash_line+="-" ; 
-    done
+selected_packages=""
 
-    printf "\n%s\n%s\n\n" "${YELLOW}${message}" "${dash_line}${RESET}"
+set_step_list() {
+    step_list=(
+        [Start]="start_step"
+        [Header]="header_step"
+        [Init]="init_step"
+        [Uninstall]="uninstall_step"
+        [System update]="update_step"
+        [Install]="install_step"
+        [Configuration]="configuration_step"
+        [End]="end_step"
+        [All steps]="all_steps"
+    )
+}
+ 
 
-    ${function}
+steps_selection() {
+    action_type="steps"
+    
+    set_step_list
+
+    select_from_list step_list "Choose step(s) to execute"
+
+    local -r packages="${selected_packages}"
+
+    selected_packages=""
+
+    manage_lst "${packages}"
 }
 
-display_step() {
-    local -r message="$1"
-    local -r width="$(( $(tput cols) / 2 ))"
-    clear
-
-    printf "${YELLOW}"
-    for i in $(seq 1 ${width}); do
-        printf "%0.1s" "#";
-    done
-    printf "\n"
-    center_text "${message}" "${width}"
-    printf "\n"
-    for i in $(seq 1 ${width}); do
-        printf "%0.1s" "#";
-    done
-    printf "\n${RESET}"
-}
-
-choose_steps() {
+gui_steps_selection() {
     steps_sel=$(whiptail \
         --separate-output \
         --title "Step(s) to execute" \
@@ -85,4 +86,36 @@ choose_steps() {
             esac
         done
     fi
+}
+
+step() {
+    local -r function=$1
+    local -r message=$2
+    local dash_line=""
+
+    for (( i=0; i<${#message}; i++ )); 
+        do dash_line+="-" ; 
+    done
+
+    printf "\n%s\n%s\n\n" "${YELLOW}${message}" "${dash_line}${RESET}"
+
+    ${function}
+}
+
+display_step() {
+    local -r message="$1"
+    local -r width="$(( $(tput cols) / 2 ))"
+    clear
+
+    printf "${YELLOW}"
+    for i in $(seq 1 ${width}); do
+        printf "%0.1s" "#";
+    done
+    printf "\n"
+    center_text "${message}" "${width}"
+    printf "\n"
+    for i in $(seq 1 ${width}); do
+        printf "%0.1s" "#";
+    done
+    printf "\n${RESET}"
 }
