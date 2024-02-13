@@ -32,6 +32,11 @@ change_xfce_terminal_display() {
     sleep 2
 }
 
+restore_xfce_terminal_display() {
+    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
+    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
+}
+
 check_internet() {
     local -r tool='curl'
     local -r tool_opts='-s --connect-timeout 8'
