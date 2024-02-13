@@ -97,11 +97,12 @@ while [ : ]; do
         ;;
     -t | --test)
         export TESTMODE=true
+        export NOREBOOT=true
         shift
         ;;
     -g | --gui)
-        export TESTMODE=true
         export GUIMODE=true
+        export NOREBOOT=true
         shift
         ;;
     -v | --verbose)
@@ -120,9 +121,6 @@ done
 
 if [[ -z ${TESTMODE+x} ]]; then
     export TESTMODE=false
-else 
-    export NOREBOOT=true
-fi
 
 if [[ -z ${GUIMODE+x} ]]; then
     export GUIMODE=false
