@@ -1,5 +1,5 @@
 prompt_to_continue() {
-    printf "%b" "\n${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
+    printf "\n%s" "${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
 
     read -rp "" choice
     [[ -n $choice ]] && exit 0

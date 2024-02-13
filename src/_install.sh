@@ -209,7 +209,7 @@ config_apps() {
             ##########      Youtube downloader : tracking.dat     ##########
             ################################################################
             
-            app_conf="Youtube downloader : tracking.dat"
+            app_conf="Wine : Youtube downloader - tracking.dat"
 
             if [[ ${CURRENT_RESOLUTION} == "1680x1050" && ${CURRENT_USER} == "wam" ]]; then
                 check_dir ${HOME}/.wine/drive_c/users/${CURRENT_USER}/AppData/Local/MediaHuman "user"

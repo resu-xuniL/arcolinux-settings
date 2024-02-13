@@ -80,7 +80,7 @@ gui_steps_selection() {
                 all_steps
                 ;;
             *)
-                printf "%b\n" "Unsupported item ${step_sel}!" >&2
+                printf "%s\n" "Unsupported item ${step_sel} !" >&2
                 exit 1
                 ;;
             esac
