@@ -76,8 +76,6 @@ execute() {
     else
         eval "${command}" >>"${LOG_FILE}" 2>&1 &
     fi
-    clean_log
-
     job_pid=$!
     
     progress_dots
@@ -96,12 +94,7 @@ log() {
     local -r comment="$1"
 
     printf "%s\n" "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
-    clean_log
-
-}
-
-clean_log() {
-    sed -i -E "s/\\\n|\x1B\[[0-9;]*[JKmsu]|\x1B\(B//g" ${LOG_FILE} 
+    sed -i -E "s/\x1B\[[0-9;]*[JKmsu]|\x1B\(B|\\\u[0-9]{0,4}|\\\n//g" ${LOG_FILE}
 }
 
 exit_status() {
