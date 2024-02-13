@@ -106,7 +106,7 @@ set_config_files() {
     
         if [[ ! ${CURRENT_RESOLUTION} == "1680x1050" ]]; then
             exec_log "sed -i 's/1250/960/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] X resolution for [${YELLOW}LAPTOP${RESET}]"
-            exec_log "sed -i 's/820/550' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
+            exec_log "sed -i 's/820/550/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
         fi
     fi
 
