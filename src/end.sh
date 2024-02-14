@@ -13,6 +13,7 @@ endscript() {
 
     if [[ ${NOREBOOT} == "true" ]]; then
         printf "%s\n\n" "${GREEN}Script completed successfully.${RESET}"
+        restore_xfce_terminal_display
         exit 0
     fi
 
