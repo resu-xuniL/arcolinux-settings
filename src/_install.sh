@@ -1,7 +1,7 @@
 source src/getLastSyncWord.sh
 
 declare -A vm_list
-declare -A font_list
+declare -A font_icon_list
 declare -A soft_list
 declare -A extra_list
 
@@ -12,7 +12,7 @@ set_install_list() {
         [VirtualBox \(+ template\)]="virtualbox"
     )
 
-    font_list=(
+    font_icon_list=(
         [Noto fonts - emoji]="noto-fonts-emoji"
         [we10x icon theme]="we10x-icon-theme-git"
     )
@@ -30,6 +30,7 @@ set_install_list() {
     )
 
     extra_list=(
+        [Simple scan]="simple-scan"
         [KeePassXC]="keepassxc"
         [Nextcloud]="nextcloud-client"
         [Qbittorrent]="qbittorrent"
@@ -46,13 +47,13 @@ install_software() {
 
     if [[ ${VM} == "none" ]]; then
         select_from_list vm_list "VirtualBox"
+        select_from_list extra_list "Extra"
     else
-        log_msg "${RED}[This is a virtual machine - Skipping VirtualBox installation]${RESET}\n"
+        log_msg "${RED}[This is a virtual machine] - Skipping VirtualBox and 'extra' installation${RESET}\n"
     fi
 
-    select_from_list font_list "Font"
+    select_from_list font_icon_list "Font & icons"
     select_from_list soft_list "Needed"
-    select_from_list extra_list "Extra"
 
     local -r packages="${selected_packages}"
     selected_packages=""
