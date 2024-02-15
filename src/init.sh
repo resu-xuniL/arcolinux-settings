@@ -121,6 +121,7 @@ done
 
 if [[ -z ${TESTMODE+x} ]]; then
     export TESTMODE=false
+fi
 
 if [[ -z ${GUIMODE+x} ]]; then
     export GUIMODE=false
