@@ -40,6 +40,7 @@ uninstall_software() {
     selected_packages=""
 
     manage_lst "${packages}"
+    
     mkinitcpio
 }
 

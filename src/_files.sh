@@ -44,6 +44,7 @@ config_files() {
     selected_packages=""
 
     manage_lst "${packages}"
+    
     set_config_files
 }
 
