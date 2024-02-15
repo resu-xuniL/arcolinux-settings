@@ -8,7 +8,7 @@ set_config_list() {
         [Adjust clock for dual-boot]="timedatectl[]set-local-rtc[]1[]--adjust-system-clock"
         [Set filenames order]="localectl[]set-locale[]LC_COLLATE=C"
         [Enable pacman cache cleanup]="systemctl[]enable[]--now[]paccache.timer"
-        [Audio : set speakers volume to 100%]="amixer[]set[]Master[]100%"
+        [Audio : set speakers volume to 100% & disable microphone]="amixer[]set[]Master[]100%"
     )
 }
 
@@ -38,7 +38,7 @@ config_settings() {
     ##########         Audio : set microphone off         ##########
     ################################################################
 
-    if [[ ${packages} =~ "amixer[]set[]Master[]100%" && $microphone_state =~ "[on]" ]]; then
+    if [[ ${packages} =~ "amixer[]set[]Master[]100%" && ${microphone_state} =~ "[on]" ]]; then
         exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
         exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
     fi
