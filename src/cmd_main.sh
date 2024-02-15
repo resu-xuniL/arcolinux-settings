@@ -80,8 +80,11 @@ select_from_list() {
 manage_lst() {
     local -r lst=$1
     local -r lst_split=(${lst// / })
+    declare -g -A extra_install
 
     for package in ${lst_split[@]}; do
+        extra_install[${package}]=true
+
         manage_one "${package}"
     done
 }
@@ -108,6 +111,7 @@ manage_one() {
         visual-studio-code-bin
         wine
     "
+
     if [[ ${warning} =~ ${package} ]]; then
         warning_msg=" ${RED}(might be long)${RESET}"
     fi
@@ -115,6 +119,7 @@ manage_one() {
     if [[ ${action_type} == "install" ]]; then
         if pacman -Qi $1 &> /dev/null; then
             log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
+            extra_install[${package}]=false
         else
             exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
         fi

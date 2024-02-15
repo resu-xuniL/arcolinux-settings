@@ -59,6 +59,7 @@ install_software() {
     selected_packages=""
 
     manage_lst "${packages}"
+
     config_apps
 }
 
@@ -69,7 +70,7 @@ config_apps() {
     ##########                   Brave                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "brave-bin" ]]; then
+    if [[ ${packages} =~ "brave-bin" && ${extra_install[brave-bin]} == true ]]; then
         app_conf="Brave"
 
         [[ -n "${password}" ]] || password=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
@@ -82,7 +83,7 @@ config_apps() {
     ##########                 Nextcloud                  ##########
     ################################################################
 
-    if [[ ${package} == "nextcloud-client" ]]; then
+    if [[ ${package} == "nextcloud-client" && ${extra_install[nextcloud-client]} == true ]]; then
         check_dir ${HOME}/Documents/[Nextcloud] "user"
     fi
 
@@ -90,7 +91,7 @@ config_apps() {
     ##########                Thunderbird                 ##########
     ################################################################
 
-    if [[ ${packages} =~ "thunderbird" ]]; then
+    if [[ ${packages} =~ "thunderbird" && ${extra_install[thunderbird]} == true ]]; then
         app_conf="Thunderbird"
 
         if ! exist ${HOME}/.thunderbird/*.default-*; then
@@ -105,7 +106,7 @@ config_apps() {
     ##########                 VirtualBox                 ##########
     ################################################################
 
-    if [[ ${packages} =~ "virtualbox" ]]; then
+    if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
         app_conf="Virtualbox"
 
         exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
@@ -122,7 +123,7 @@ config_apps() {
     ##########        VLC 'pause on click' plug-in        ##########
     ################################################################
 
-    if [[ ${packages} =~ "vlc" ]]; then
+    if [[ ${packages} =~ "vlc" && ${extra_install[vlc]} == true ]]; then
         app_conf="VLC 'pause on click' plug-in"
 
         exec_log "sudo pacman -U --noconfirm --needed ${INSTALL_DIRECTORY}/vlc/vlc-pause-click-plugin-2.2.0-1-x86_64.pkg.tar.zst" "${GREEN}[+]${RESET} Installing [${YELLOW}VLC${RESET}] pause-click plug-in"
@@ -132,7 +133,7 @@ config_apps() {
     ##########                    Wine                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "wine" ]]; then
+    if [[ ${packages} =~ "wine" && ${extra_install[wine]} == true ]]; then
 
         ################################################################
         ##########               Wine : Shortcut              ##########
