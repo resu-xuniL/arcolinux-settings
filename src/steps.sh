@@ -3,6 +3,17 @@ declare -A step_list
 selected_packages=""
 
 set_step_list() {
+    step_order=(
+        [1]="Start"
+        [2]="Header"
+        [3]="Init"
+        [4]="Uninstall"
+        [5]="System update"
+        [6]="Install"
+        [7]="Configuration"
+        [8]="End"
+    )
+
     step_list=(
         [Start]="start_step"
         [Header]="header_step"
@@ -12,7 +23,6 @@ set_step_list() {
         [Install]="install_step"
         [Configuration]="configuration_step"
         [End]="end_step"
-        [All steps]="all_steps"
     )
 }
  
@@ -22,7 +32,7 @@ steps_selection() {
     
     set_step_list
 
-    select_from_list step_list "Choose step(s) to execute"
+    select_from_list step_list "Choose step(s) to execute" step_order
 
     local -r packages="${selected_packages}"
 

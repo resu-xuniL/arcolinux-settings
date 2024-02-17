@@ -40,33 +40,48 @@ select_from_list() {
 
     printf "%s\n\n" "${GREEN}${type_list}${RESET} :"
 
-    for software in "${!item_list[@]}"; do
-        printf "${PURPLE}%2d${RESET}) %s\n" "$i" "$software"
-        options+=("$software")
-        ((i++))
-    done
+    if  [[ ${action_type} == "steps" ]]; then
+        declare -n item_order=$3
 
-    if [[ ${action_type} == "install" ]]; then
-        printf "\n%s" "${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
-    elif [[ ${action_type} == "uninstall" ]]; then
-        printf "\n%s" "${BLUE}:: ${RESET}Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
-    elif [[ ${action_type} == "copy_paste" ]]; then
-        printf "\n%s" "${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
-    elif [[ ${action_type} == "config_system" ]]; then
-        printf "\n%s" "${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
-    elif [[ ${action_type} == "steps" ]]; then
+        for software in "${item_order[@]}"; do
+            printf "${PURPLE}%2d${RESET}) %s\n" "$i" "${software}"
+            options+=("${software}")
+            ((i++))
+        done
         printf "\n%s" "${BLUE}:: ${RESET}Choose steps (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+    else
+        for software in "${!item_list[@]}"; do
+            printf "${PURPLE}%2d${RESET}) %s\n" "$i" "$software"
+            options+=("$software")
+            ((i++))
+        done
+        
+        if [[ ${action_type} == "install" ]]; then
+            printf "\n%s" "${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        elif [[ ${action_type} == "uninstall" ]]; then
+            printf "\n%s" "${BLUE}:: ${RESET}Packages to uninstall (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        elif [[ ${action_type} == "copy_paste" ]]; then
+            printf "\n%s" "${BLUE}:: ${RESET}Configuration files to copy/paste (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        elif [[ ${action_type} == "config_system" ]]; then
+            printf "\n%s" "${BLUE}:: ${RESET}Configurations to set (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
+        fi
     fi
 
     read -ra input
     for choice in "${input[@]}"; do
         if [[ $choice =~ ^(all|a)$ ]]; then
-            for software in "${!item_list[@]}"; do
-                selected_packages+="${item_list[$software]}&"
-            done
+            if  [[ ${action_type} == "steps" ]]; then
+                for software in "${item_order[@]}"; do
+                    selected_packages+="${item_list[${software}]}&"
+                done
+            else
+                for software in "${!item_list[@]}"; do
+                    selected_packages+="${item_list[${software}]}&"
+                done
+            fi
             break
         elif [[ $choice =~ ^[0-9]+$ ]]; then
-            selected_packages+="${item_list[${options[$choice - 1]}]}&"
+            selected_packages+="${item_list[${options[${choice} - 1]}]}&"
         elif [[ $choice =~ ^[0-9]+-[0-9]+$ ]]; then
             IFS='-' read -ra range <<<"$choice"
             for ((j = ${range[0]}; j <= ${range[1]}; j++)); do
