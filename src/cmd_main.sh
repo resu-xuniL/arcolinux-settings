@@ -62,15 +62,15 @@ select_from_list() {
     for choice in "${input[@]}"; do
         if [[ $choice =~ ^(all|a)$ ]]; then
             for software in "${!item_list[@]}"; do
-                selected_packages+=" ${item_list[$software]} "
+                selected_packages+="${item_list[$software]}&"
             done
             break
         elif [[ $choice =~ ^[0-9]+$ ]]; then
-            selected_packages+=" ${item_list[${options[$choice - 1]}]} "
+            selected_packages+="${item_list[${options[$choice - 1]}]}&"
         elif [[ $choice =~ ^[0-9]+-[0-9]+$ ]]; then
             IFS='-' read -ra range <<<"$choice"
             for ((j = ${range[0]}; j <= ${range[1]}; j++)); do
-                selected_packages+=" ${item_list[${options[$j - 1]}]} "
+                selected_packages+="${item_list[${options[$j - 1]}]}&"
             done
         fi
     done
@@ -79,71 +79,75 @@ select_from_list() {
 
 manage_lst() {
     local -r lst=$1
-    local -r lst_split=(${lst// / })
+    IFS="&"
+    local -r lst_split=(${lst})
     declare -g -A extra_install
 
     for package in ${lst_split[@]}; do
-        extra_install[${package}]=true
-
+        if [[ ${action_type} == "install" ]]; then
+            extra_install[${package}]=true
+        fi
         manage_one "${package}"
     done
 }
 
 manage_one() {
+    unset IFS
     if [[ ${action_type} == "steps" ]]; then
         local -r step=$1
-    else
-        local -r package=$1
-    fi
-    local -r package_split=(${package//[]/ })
-    local -r target=${package_split[0]}
-    local -r destination=${package_split[1]}
-    local file_name=(${target//// })
-    local sudo_str=""
-    local warning_msg=""
-    local -r warning="
-        rtl8821cu-morrownr-dkms-git
-        broadcom-wl-dkms
-        brave-bin
-        thunderbird
-        virtualbox
-        virtualbox-host-dkms
-        visual-studio-code-bin
-        wine
-    "
 
-    if [[ ${warning} =~ ${package} ]]; then
-        warning_msg=" ${RED}(might be long)${RESET}"
-    fi
-
-    if [[ ${action_type} == "install" ]]; then
-        if pacman -Qi $1 &> /dev/null; then
-            log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
-            extra_install[${package}]=false
-        else
-            exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
-        fi
-    elif [[ ${action_type} == "uninstall" ]]; then
-        if pacman -Qi $1 &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
-        else
-            log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"
-        fi
-    elif [[ ${action_type} == "copy_paste" ]]; then
-        if [[ ${target} =~ "/*" ]]; then
-            file_name[1]="All files from ${file_name[0]^^} folder"
-        fi
-        if [[ ${destination} =~ .*${HOME}.* ]]; then
-            check_dir ${destination} "user"
-        else
-            check_dir ${destination} "root"
-            sudo_str="sudo "
-        fi
-        exec_log "${sudo_str}cp -a ${INSTALL_DIRECTORY}/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] file to [${YELLOW}${destination}${RESET}] folder${warning_msg}"
-    elif [[ ${action_type} == "config_system" ]]; then
-        exec_log "sudo ${package//[]/ }" "${GREEN}[+]${RESET} Setting [${YELLOW}${package_split[-1]}${RESET}] on [${YELLOW}${package_split[0]}${RESET}]"
-    elif [[ ${action_type} == "steps" ]]; then
         eval ${step}
         action_type="steps"
+    else
+        local -r package=$1
+        local -r package_split=(${package})
+        local sudo_str=""
+        local warning_msg=""
+        local -r warning="
+            rtl8821cu-morrownr-dkms-git
+            broadcom-wl-dkms
+            brave-bin
+            thunderbird
+            virtualbox
+            virtualbox-host-dkms
+            visual-studio-code-bin
+            wine
+        "
+
+        if [[ ${warning} =~ ${package} ]]; then
+            warning_msg=" ${RED}(might be long)${RESET}"
+        fi
+
+        if [[ ${action_type} == "install" ]]; then
+            if pacman -Qi $1 &> /dev/null; then
+                log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
+                extra_install[${package}]=false
+            else
+                exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
+            fi
+        elif [[ ${action_type} == "uninstall" ]]; then
+            if pacman -Qi $1 &> /dev/null; then
+                exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
+            else
+                log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"
+            fi
+        elif [[ ${action_type} == "config_system" ]]; then
+            exec_log "sudo ${package}" "${GREEN}[+]${RESET} Setting [${YELLOW}${package_split[-1]}${RESET}] on [${YELLOW}${package_split[0]}${RESET}]"
+        elif [[ ${action_type} == "copy_paste" ]]; then
+            local -r target=${package_split[0]}
+            local -r destination=${package_split[1]}
+            local file_name=(${target//// })
+            
+            if [[ ${target} =~ "/*" ]]; then
+                file_name[1]="All files from ${file_name[0]^^} folder"
+            fi
+            if [[ ${destination} =~ .*${HOME}.* ]]; then
+                check_dir ${destination} "user"
+            else
+                check_dir ${destination} "root"
+                sudo_str="sudo "
+            fi
+            exec_log "${sudo_str}cp -a ${INSTALL_DIRECTORY}/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] file to [${YELLOW}${destination}${RESET}] folder${warning_msg}"
+        fi
     fi
 }

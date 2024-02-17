@@ -6,28 +6,28 @@ selected_packages=""
 set_config_files_list() {
 
     root_config_files_list=(
-        [Set DNS]="dns/resolv.conf[]/etc"
-        [GRUB : Change theme and edit settings]="grub/theme.txt[]/boot/grub/themes/Vimix"
-        [Samba : Edit config.]="samba/smb.conf[]/etc/samba"
-        [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf[]/etc/sddm.conf.d"
+        [Set DNS]="dns/resolv.conf /etc"
+        [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
+        [Samba : Edit config.]="samba/smb.conf /etc/samba"
+        [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
     )
 
     user_config_files_list=(
-        [Autostart applications]="autostart/*[]${HOME}/.config/autostart"
-        [Thunar bookmarks]="gtk3/bookmarks[]${HOME}/.config/gtk-3.0"
-        [Thunar : Personal actions]="thunar/uca.xml[]${HOME}/.config/Thunar"
-        [Personal aliases]="shell/.bashrc-personal[]${HOME}"
-        [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc[]${HOME}"
-        [Conky WAM]="conky/WAM.conkyrc[]${HOME}/.config/conky"
-        [Conky : USER config.]="conky/conky-sessionfile[]${HOME}/.config/conky"
-        [GTK-3.0 : Theme & icons]="gtk3/settings.ini[]${HOME}/.config/gtk-3.0"
-        [Variety]="variety/variety.conf[]${HOME}/.config/variety"
-        [VLC : Enable pause-click plug-in]="vlc/vlcrc[]${HOME}/.config/vlc"
-        [VLC : Customize interface]="vlc/vlc-qt-interface.conf[]${HOME}/.config/vlc"
-        [Plank]="plank/*[]${HOME}/.config/plank/dock1/launchers"
-        [XFCE settings : Keyboard shortcut - Thunar - Terminal - Theme - Icons]="xfce/*[]${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
-        [VSCode settings]="vscode/settings.json[]${HOME}/.config/Code/User"
-        [VSCode snippets]="vscode/shellscript.json[]${HOME}/.config/Code/User/snippets"
+        [Autostart applications]="autostart/* ${HOME}/.config/autostart"
+        [Thunar bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
+        [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
+        [Personal aliases]="shell/.bashrc-personal ${HOME}"
+        [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
+        [Conky WAM]="conky/WAM.conkyrc ${HOME}/.config/conky"
+        [Conky : USER config.]="conky/conky-sessionfile ${HOME}/.config/conky"
+        [GTK-3.0 : Theme & icons]="gtk3/settings.ini ${HOME}/.config/gtk-3.0"
+        [Variety]="variety/variety.conf ${HOME}/.config/variety"
+        [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
+        [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
+        [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
+        [XFCE settings : Keyboard shortcut - Thunar - Terminal - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
+        [VSCode settings]="vscode/settings.json ${HOME}/.config/Code/User"
+        [VSCode snippets]="vscode/shellscript.json ${HOME}/.config/Code/User/snippets"
     )
 }
 
@@ -90,7 +90,7 @@ set_config_files() {
     if [[ ${packages} =~ "autostart" ]]; then
         file_conf="Autostart applications"
 
-        exec_log "cp $INSTALL_DIRECTORY/_extra/.login.sound.mp3 $HOME" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${destination}${RESET}]"
+        exec_log "cp $INSTALL_DIRECTORY/_extra/.login.sound.mp3 ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${HOME}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
         
