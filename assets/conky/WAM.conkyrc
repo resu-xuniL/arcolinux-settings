@@ -42,9 +42,10 @@ conky.config = {
 
 -- Color scheme #
 	default_color = 'white',
-	color1 = '#212021',
-	color2 = 'white',
-
+	color1 = '#000000', -- black
+	color2 = '#FFFFFF', -- white
+	color3 = '#212021', -- black grey
+	color4 = '#424949', -- grey
 
 	own_window_argb_value = 0,
 	own_window_argb_visual = true,
