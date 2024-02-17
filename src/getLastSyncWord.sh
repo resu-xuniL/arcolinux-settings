@@ -2056,8 +2056,8 @@ word_list=(
 echo_whole_list() {
     len=${#word_list[@]}
 
-    for (( i=0; i<$len; i++ )); 
-        do printf "%s\n" "${word_list[$i]}" ; 
+    for (( i=0; i<$len; i++ )); do
+        printf "%s\n" "${word_list[$i]}" ; 
     done
 }
 

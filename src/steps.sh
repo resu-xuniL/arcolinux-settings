@@ -93,8 +93,8 @@ step() {
     local -r message=$2
     local dash_line=""
 
-    for (( i=0; i<${#message}; i++ )); 
-        do dash_line+="-" ; 
+    for (( i=0; i<${#message}; i++ )); do
+        dash_line+="-" ; 
     done
 
     printf "\n%s\n%s\n\n" "${YELLOW}${message}" "${dash_line}${RESET}"
