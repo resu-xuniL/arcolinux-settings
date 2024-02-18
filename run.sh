@@ -86,13 +86,17 @@ if grep -q "ArcoLinux" /etc/os-release; then
     }
 
     if [[ ${TESTMODE} == "true" ]]; then
-        steps_selection
+        start_step
+        display_step "TEST MODE"
+        step steps_selection "Testing step(s) mode"
         restore_xfce_terminal_display
         exit 0;
     fi
 
     if [[ ${GUIMODE} == "true" ]]; then
-        gui_steps_selection
+        start_step
+        display_step "TEST MODE"
+        step gui_steps_selection "Testing step(s) mode"
         restore_xfce_terminal_display
         exit 0;
     fi   
