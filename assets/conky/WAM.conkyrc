@@ -71,5 +71,5 @@ conky.text = [[
 	${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 LANG=${template9} date +"%B"}
 	${voffset -175}${goto 280}${font Rallifornia:size=90}${time %d}
 	${voffset -100}${goto 200}${font Aliquam:bold:size=20}${time %H : %M}
-	${voffset -15}${goto 250}${font Roboto:pixelsize=10}${execpi 12000 checkupdates | wc -l} available update(s)${color}${voffset -60}
+	${voffset -15}${goto 250}${font Roboto:pixelsize=10}${execpi 300 checkupdates | wc -l} available update(s)${color}${voffset -60}
 ]];
