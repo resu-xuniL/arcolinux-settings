@@ -52,7 +52,7 @@ conky.config = {
 		xftalpha = 0,															-- Alpha of Xft font. Must be a value at or between 1 and 0.
 		override_utf8_locale = true,											-- Force UTF8 (requires XFT).
 
-		template9 = 'us_US.UTF-8', 												-- Define a template for later use inside TEXT segments. Substitute N by a digit between 0 and 9, inclusively. 
+		-- template9 = 'us_US.UTF-8', 	 										-- Define a template for later use inside TEXT segments. Substitute N by a digit between 0 and 9, inclusively. 
 	
 	-- Color scheme #
 		default_color = 'white',
@@ -67,9 +67,17 @@ conky.config = {
 };
 	
 conky.text = [[
-	${color2}${goto 150}${font Bentoh:size=40}${execi 300 LANG=${template9} date +"%A"}
-	${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 LANG=${template9} date +"%B"}
-	${voffset -175}${goto 280}${font Rallifornia:size=90}${time %d}
-	${voffset -100}${goto 200}${font Aliquam:bold:size=20}${time %H : %M}
+	${color2}${goto 150}${font Bentoh:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
+	${voffset -25}${goto 20}${font Bentoh:size=110}${execi 300 date +"%B" | sed 's/^./\u&/' | sed 's/é/e/g'}
+	${voffset -175}${goto 250}${font Rallifornia:size=90}${time %d}
+	${voffset -100}${goto 200}${font desyrel:size=20}${time %H : %M}
 	${voffset -15}${goto 250}${font Roboto:pixelsize=10}${execpi 300 checkupdates | wc -l} available update(s)${color}${voffset -60}
 ]];
+
+-- conky.text = [[
+-- 	${color2}${goto 150}${font Bentoh:size=40}${execi 300 LANG=${template9} date +"%A"}
+-- 	${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 LANG=${template9} date +"%B"}
+-- 	${voffset -175}${goto 280}${font Rallifornia:size=90}${time %d}
+-- 	${voffset -100}${goto 200}${font Aliquam:bold:size=20}${time %H : %M}
+-- 	${voffset -15}${goto 250}${font Roboto:pixelsize=10}${execpi 300 checkupdates | wc -l} available update(s)${color}${voffset -60}
+-- ]];
