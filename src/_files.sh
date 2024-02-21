@@ -103,12 +103,8 @@ set_config_files() {
 
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+        exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Californication.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Californication.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
-    
-        if [[ ! ${CURRENT_RESOLUTION} == "1680x1050" ]]; then
-            exec_log "sed -i 's/1250/960/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] X resolution for [${YELLOW}LAPTOP${RESET}]"
-            exec_log "sed -i 's/820/550/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}WAM.conkyrc${RESET}] Y resolution for [${YELLOW}LAPTOP${RESET}]"
-        fi
     fi
 
     if [[ ${packages} =~ "conky-sessionfile" ]]; then
