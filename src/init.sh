@@ -21,6 +21,7 @@ export NEWT_COLORS='
 '
 export INSTALL_DIRECTORY=$(dirname $(readlink -f $(basename `pwd`)))/assets
 export CURRENT_USER=$(whoami)
+export PASSWORD=""
 export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 export VM=$(systemd-detect-virt)
 

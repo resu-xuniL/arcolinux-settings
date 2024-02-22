@@ -10,6 +10,10 @@ replace_username() {
     exec_log "sed -i 's/\*\*\*/${CURRENT_USER}/' ${file_to_edit}" "${message_log}"
 }
 
+fetch_password() {
+    PASSWORD=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+}
+
 exist() {
     local -r folder=$1
 
