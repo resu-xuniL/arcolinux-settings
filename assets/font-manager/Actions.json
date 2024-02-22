@@ -1,0 +1,9 @@
+[
+    {
+        "action-icon" : "org.xfce.thunar",
+        "action-name" : "Open in Thunar",
+        "comment" : "Open containing folder",
+        "executable" : "/usr/bin/thunar",
+        "arguments" : ""
+    }
+]

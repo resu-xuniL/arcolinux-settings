@@ -26,7 +26,8 @@ set_install_list() {
         [Visual studio code]="visual-studio-code-bin"
         [VLC]="vlc"
         [Wine]="wine"
-        [Foliate]="foliate"
+        [XPDF]="xpdf"
+        [Font manager]="font-manager"
     )
 
     extra_list=(
@@ -76,6 +77,17 @@ config_apps() {
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
         fetch_the_25th_word
         exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
+    fi
+
+    ################################################################
+    ##########                Font manager                ##########
+    ################################################################
+
+    if [[ ${packages} =~ "font-manager" && ${extra_install[font-manager]} == true ]]; then
+        app_conf="Font manager"
+
+        check_dir ${HOME}/.config/font-manager "user"
+        exec_log "cp ${INSTALL_DIRECTORY}/font-manager/Actions.json ${HOME}/.config/font-manager" "${GREEN}[+]${RESET} Copying [${YELLOW}Actions.json${RESET}] file to [${YELLOW}~/.config/font-manager${RESET}] folder"
     fi
 
     ################################################################
