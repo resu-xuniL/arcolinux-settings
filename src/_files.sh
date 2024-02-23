@@ -18,7 +18,7 @@ set_config_files_list() {
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Personal aliases]="shell/.bashrc-personal ${HOME}"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
-        [Conky : USER config. and conky WAM]="conky/conky-sessionfile ${HOME}/.config/conky"
+        [Conky : Conky WAM + WAM_dark & USER config.]="conky/conky-sessionfile ${HOME}/.config/conky"
         [GTK-3.0 : Theme & icons]="gtk3/settings.ini ${HOME}/.config/gtk-3.0"
         [Variety]="variety/variety.conf ${HOME}/.config/variety"
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
@@ -102,15 +102,24 @@ set_config_files() {
 
         check_dir ${HOME}/.cache/openweather "user"
 
-        fetch_password
-        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc.7z -o${HOME}/.config/conky" "${GREEN}[+]${RESET} Extracting [${YELLOW}WAM_dark.conkyrc.7z${RESET}] to [${YELLOW}${HOME}/.config/conky${RESET}]"
-        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/WAM.conkyrc.7z -o${HOME}/.config/conky" "${GREEN}[+]${RESET} Extracting [${YELLOW}WAM.conkyrc.7z${RESET}] to [${YELLOW}${HOME}/.config/conky${RESET}]"
-        exec_log "chmod 644 ${HOME}/.config/conky/WAM*.conkyrc" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}.conkyrc${RESET}] files"
-                
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Californication.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Californication.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
+
+        fetch_password
+        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/open_weather.json.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}open_weather.json.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
+        api_key=$(jq ".open_weather.API_key" ~/Documents/open_weather.json)
+        city_id=$(jq ".open_weather.City_ID" ~/Documents/open_weather.json)
+      
+        exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+        exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM_dark.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+        exec_log "sed -i 's/\"api_key\"/${api_key}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM conky${RESET}]"
+        exec_log "sed -i 's/\"api_key\"/${api_key}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
+        exec_log "sed -i 's/\"city_id\"/${city_id}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM conky${RESET}]"
+        exec_log "sed -i 's/\"city_id\"/${city_id}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
+
+        exec_log "shred -z -u ${HOME}/Documents/open_weather.json" "${RED}[-]${RESET} Removing [${YELLOW}open_weather.json${RESET}] from [${YELLOW}${HOME}/Documents${RESET}]"
     fi
 
     if [[ ${packages} =~ "conky-sessionfile" ]]; then
