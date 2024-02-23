@@ -115,7 +115,7 @@ ${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 date +"%B" | sed 's/^
 \
 ${voffset -190}${goto 250}${font Rallifornia:size=90}${time %d}
 \
-${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${blink ${exec echo checkupdates | wc -l} available update(s)}${else}System is up to date${endif}
+${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${blink ${exec checkupdates | wc -l} available update(s)}${else}System is up to date${endif}
 \
 ${voffset -35}${goto 250}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=20}${time %M}
 \
