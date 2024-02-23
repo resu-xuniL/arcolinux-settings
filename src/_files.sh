@@ -103,8 +103,9 @@ set_config_files() {
         check_dir ${HOME}/.cache/openweather "user"
 
         fetch_password
+        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc.7z -o${HOME}/.config/conky" "${GREEN}[+]${RESET} Extracting [${YELLOW}WAM_dark.conkyrc.7z${RESET}] to [${YELLOW}${HOME}/.config/conky${RESET}]"
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/WAM.conkyrc.7z -o${HOME}/.config/conky" "${GREEN}[+]${RESET} Extracting [${YELLOW}WAM.conkyrc.7z${RESET}] to [${YELLOW}${HOME}/.config/conky${RESET}]"
-        exec_log "chmod 644 ${HOME}/.config/conky/WAM.conkyrc"
+        exec_log "chmod 644 ${HOME}/.config/conky/WAM*.conkyrc" "${GREEN}[+]${RESET} Changing permissions on [${YELLOW}.conkyrc${RESET}] files"
                 
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
