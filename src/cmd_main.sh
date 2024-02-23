@@ -11,7 +11,7 @@ replace_username() {
 }
 
 fetch_password() {
-    PASSWORD=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
+    [[ -n "${PASSWORD}" ]] || PASSWORD=$(whiptail --nocancel --title "Password for 7z archives" --passwordbox "Enter your password below." 8 50 3>&1 1>&2 2>&3)
 }
 
 exist() {

@@ -73,7 +73,7 @@ config_apps() {
     if [[ ${packages} =~ "brave-bin" && ${extra_install[brave-bin]} == true ]]; then
         app_conf="Brave"
 
-        [[ -n "${PASSWORD}" ]] || fetch_password
+        fetch_password
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
         fetch_the_25th_word
         exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
@@ -167,7 +167,7 @@ config_apps() {
             app_conf="Wine : Tag renamer"
 
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
-            [[ -n "${PASSWORD}" ]] || fetch_password
+            fetch_password
             exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
             
             check_dir ${HOME}/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename "user"

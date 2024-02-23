@@ -102,7 +102,7 @@ set_config_files() {
 
         check_dir ${HOME}/.cache/openweather "user"
 
-        [[ -n "${PASSWORD}" ]] || fetch_password
+        fetch_password
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/WAM.conkyrc.7z -o${HOME}/.config/conky" "${GREEN}[+]${RESET} Extracting [${YELLOW}WAM.conkyrc.7z${RESET}] to [${YELLOW}${HOME}/.config/conky${RESET}]"
         exec_log "chmod 644 ${HOME}/.config/conky/WAM.conkyrc"
                 
