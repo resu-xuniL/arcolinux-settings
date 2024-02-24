@@ -1,16 +1,32 @@
 {
+	"Display array": {
+		"prefix": "array_echo",
+		"body": [
+			"echo \"\\${YELLOW}DEBUG ARRAY:\\${RESET} ${1:ARRAY} --> \\${BOLD}\\${PURPLE}\"; declare -p ${1:ARRAY}; echo \"\\${RESET}\""
+		],
+		"description": "Display array keys and values"
+	},
+
 	"Echo debug to console": {
 		"prefix": "debug",
 		"body": [
-			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BLUE}\\${${1:VAR}}\\${RESET}\""
+			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BOLD}\\${PURPLE}\\${${1:VAR}}\\${RESET}\""
 		],
 		"description": "Echo debug to console"
 	},
 
+	"Echo debug to console without var": {
+		"prefix": "debug_simple",
+		"body": [
+			"echo \"\\${YELLOW}DEBUG:\\${RESET} --> \\${BOLD}\\${PURPLE}${1:TOTO}\\${RESET}\""
+		],
+		"description": "Echo debug to console without"
+	},
+	
 	"Echo debug to console with pause": {
 		"prefix": "debug_sleep",
 		"body": [
-			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BLUE}\\${${1:VAR}}\\${RESET}\"",
+			"echo \"\\${YELLOW}DEBUG:\\${RESET} ${1:VAR} --> \\${BOLD}\\${PURPLE}\\${${1:VAR}}\\${RESET}\"",
 			"sleep ${2:3}"
 		],
 		"description": "Echo debug to console with pause"
