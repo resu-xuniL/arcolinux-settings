@@ -94,7 +94,7 @@ config_apps() {
     ##########                 Nextcloud                  ##########
     ################################################################
 
-    if [[ ${package} == "nextcloud-client" && ${extra_install[nextcloud-client]} == true ]]; then
+    if [[ ${package} =~ "nextcloud-client" && ${extra_install[nextcloud-client]} == true ]]; then
         check_dir ${HOME}/Documents/[Nextcloud] "user"
     fi
 
