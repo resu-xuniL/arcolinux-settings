@@ -41,7 +41,7 @@ total_run_times = 0,													-- Total number of times for Conky to update be
 -------------------------------------
 alignment = 'bottom_right',												-- Aligned position on screen, may be top_left, top_right, top_middle, bottom_left, bottom_right, bottom_middle, middle_left, middle_middle, middle_right, or none (also can be abreviated as tl, tr, tm, bl, br, bm, ml, mm, mr).
 -- gap_x = 1250,														-- Gap, in pixels, between right or left border of screen, same as passing -x at command line, e.g. gap_x 10. For other position related stuff, see 'alignment'.
-gap_y = 40,																-- Gap, in pixels, between top or bottom border of screen, same as passing -y at command line, e.g. gap_y 10. For other position related stuff, see 'alignment'.
+gap_y = 35,																-- Gap, in pixels, between top or bottom border of screen, same as passing -y at command line, e.g. gap_y 10. For other position related stuff, see 'alignment'.
 
 own_window = true,														-- Boolean, create own window to draw.
 own_window_type = 'normal',												-- normal/override/dock/desktop/panel.
@@ -117,9 +117,9 @@ ${voffset -190}${goto 250}${font Rallifornia:size=90}${time %d}
 \
 ${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${color5}${blink ${exec checkupdates | wc -l} available update(s)}${color}${else}System is up to date${endif}
 \
-${voffset -35}${goto 250}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=20}${time %M}
+${voffset -33}${goto 250}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=20}${time %M:}${font The Californication:bold:size=10}${time %S}
 \
-${voffset -345}
+${voffset -330}
 ]];
 
 --${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/openweather/forecast.json}\
