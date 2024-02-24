@@ -72,6 +72,7 @@ color1 = '#000000', 													-- black
 color2 = '#ffffff', 													-- white
 color3 = '#212021', 													-- black grey
 color4 = '#424949', 													-- grey
+color5 = '#ff0000',                                                     -- yellow
 
 -------------------------------------
 --  Icon Sources
@@ -105,17 +106,17 @@ template9 = "fr_FR.UTF-8",
 
 conky.text = [[
 ${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&units=${template8}&lang=$l" -o ~/.cache/openweather/weather.json}\
-\
+
 ${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/openweather/weather.json).png ~/.cache/openweather/current.png}${image ~/.cache/openweather/current.png -s 48x43}\
-${goto 60}${font Technical CE:bold:size=15}${execi 300 jq ".main.temp" ~/.cache/openweather/weather.json | awk '{printf("%.1f",$1)}'}°\
+${voffset -12}${goto 55}${font Technical CE:bold:size=15}${execi 300 jq ".main.temp" ~/.cache/openweather/weather.json | awk '{printf("%.1f",$1)}'}°\
 \
-${goto 105}${font Bentoh:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
+${goto 110}${font Bentoh:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
 \
 ${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 date +"%B" | sed 's/^./\u&/' | sed 's/é/e/g'}
 \
 ${voffset -190}${goto 250}${font Rallifornia:size=90}${time %d}
 \
-${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${blink ${exec checkupdates | wc -l} available update(s)}${else}System is up to date${endif}
+${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${color5}${blink ${exec checkupdates | wc -l} available update(s)}${color}${else}System is up to date${endif}
 \
 ${voffset -35}${goto 250}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=20}${time %M}
 \
