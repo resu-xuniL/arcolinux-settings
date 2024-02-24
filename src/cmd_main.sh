@@ -140,7 +140,9 @@ manage_one() {
         if [[ ${action_type} == "install" ]]; then
             if pacman -Qi $1 &> /dev/null; then
                 log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
-                extra_install[${package}]=false
+                if [[ ${FORCEMODE} == false ]]; then
+                    extra_install[${package}]=false
+                fi
             else
                 exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
             fi

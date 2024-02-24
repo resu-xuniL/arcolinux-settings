@@ -80,11 +80,12 @@ usage() {
     printf "%s\n" "  -h --help    : Display this help."
     printf "%s\n" "  -t --test    : Test mode."
     printf "%s\n" "  -g --gui     : Test mode with GUI selection."
+    printf "%s\n" "  -f --force   : Force extra-installation."
     printf "%s\n" "  -v --verbose : Verbose mode."
     printf "%s\n" "  --no-reboot  : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o htgv --long help,test,gui,verbose,no-reboot -- "$@")
+valid_args=$(getopt -o htgfv --long help,test,gui,force,verbose,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -104,6 +105,10 @@ while [ : ]; do
     -g | --gui)
         export GUIMODE=true
         export NOREBOOT=true
+        shift
+        ;;
+    -f | --force)
+        export FORCEMODE=true
         shift
         ;;
     -v | --verbose)
@@ -128,6 +133,9 @@ if [[ -z ${GUIMODE+x} ]]; then
     export GUIMODE=false
 fi
 
+if [[ -z ${FORCEMODE+x} ]]; then
+    export FORCEMODE=false
+fi
 if [[ -z ${VERBOSE+x} ]]; then
     export VERBOSE=false
 fi
