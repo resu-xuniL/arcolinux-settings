@@ -105,8 +105,7 @@ template9 = "fr_FR.UTF-8",
 };
 
 conky.text = [[
-${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&units=${template8}&lang=$l" -o ~/.cache/openweather/weather.json}\
-
+${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&units=${template8}&lang=$l" -o ~/.cache/openweather/weather.json}
 ${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/openweather/weather.json).png ~/.cache/openweather/current.png}${image ~/.cache/openweather/current.png -s 48x43}\
 ${voffset -10}${goto 60}${font Technical CE:bold:size=15}${execi 300 jq ".main.temp" ~/.cache/openweather/weather.json | awk '{printf("%.1f",$1)}'}°\
 \
@@ -124,11 +123,3 @@ ${voffset -345}
 ]];
 
 --${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/openweather/forecast.json}\
-
---[[
-# ${color2}${goto 150}${font Bentoh:size=40}${execi 300 LANG=${template9} date +"%A"}
-# ${voffset -20}${goto 20}${font Bentoh:size=110}${execi 300 LANG=${template9} date +"%B"}
-# ${voffset -175}${goto 280}${font Rallifornia:size=90}${time %d}
-# ${voffset -100}${goto 200}${font Aliquam:bold:size=20}${time %H : %M}
-# ${voffset -15}${goto 250}${font Roboto:pixelsize=10}${execpi 300 checkupdates | wc -l} available update(s)${color}${voffset -60}
-]]
