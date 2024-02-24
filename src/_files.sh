@@ -109,15 +109,15 @@ set_config_files() {
 
         fetch_password
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/open_weather.json.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}open_weather.json.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
-        api_key=$(jq ".open_weather.API_key" ~/Documents/open_weather.json)
-        city_id=$(jq ".open_weather.City_ID" ~/Documents/open_weather.json)
+        api_key=$(jq -r ".open_weather.API_key" ~/Documents/open_weather.json)
+        city_id=$(jq -r ".open_weather.City_ID" ~/Documents/open_weather.json)
       
         exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
         exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM_dark.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-        exec_log "sed -i 's/\"api_key\"/${api_key}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM conky${RESET}]"
-        exec_log "sed -i 's/\"api_key\"/${api_key}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
-        exec_log "sed -i 's/\"city_id\"/${city_id}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM conky${RESET}]"
-        exec_log "sed -i 's/\"city_id\"/${city_id}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
+        exec_log "sed -i 's/api_key/${api_key}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM conky${RESET}]"
+        exec_log "sed -i 's/api_key/${api_key}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
+        exec_log "sed -i 's/city_id/${city_id}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM conky${RESET}]"
+        exec_log "sed -i 's/city_id/${city_id}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
 
         exec_log "shred -z -u ${HOME}/Documents/open_weather.json" "${RED}[-]${RESET} Removing [${YELLOW}open_weather.json${RESET}] from [${YELLOW}${HOME}/Documents${RESET}]"
     fi
