@@ -34,12 +34,12 @@ change_xfce_terminal_display() {
 }
 
 restore_xfce_terminal_display() {
+    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
+    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
+    
     if [[ ${NOLOG} == "true" ]]; then
         rm ${LOG_FILE}; printf "%s %b\n" "${RED}[-]${RESET} Deleting log file" "${GREEN}\u2713${RESET}"
     fi
-    
-    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
-    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
 }
 
 check_internet() {
