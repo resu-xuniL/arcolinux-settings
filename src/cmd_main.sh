@@ -102,12 +102,16 @@ manage_lst() {
     local -r lst_split=(${lst})
     declare -g -A extra_install
 
-    for package in ${lst_split[@]}; do
-        if [[ ${action_type} == "install" ]]; then
-            extra_install[${package}]=true
-        fi
-        manage_one "${package}"
-    done
+    if [ ${#lst_split[@]} -eq 0 ]; then
+        unset IFS
+    else
+        for package in ${lst_split[@]}; do
+            if [[ ${action_type} == "install" ]]; then
+                extra_install[${package}]=true
+            fi
+            manage_one "${package}"
+        done
+    fi
 }
 
 manage_one() {
