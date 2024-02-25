@@ -19,11 +19,13 @@ endscript() {
 
     printf "\n%s\n\n" "${BLUE}:: ${RESET}${GREEN}Script completed successfully, ${BB}the system must restart !${RESET}"
     read -rp "Press [${GREEN}Enter${RESET}] to restart or [${RED}Ctrl+C${RESET}] to cancel."
+
+    restore_xfce_terminal_display
+    
     for i in {10..1}; do
         printf "%s\r" "${GREEN}Restarting in ${i} seconds...${RESET}"
         sleep 1
     done
 
-    restore_xfce_terminal_display
     reboot
 }

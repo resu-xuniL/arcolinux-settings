@@ -34,6 +34,10 @@ change_xfce_terminal_display() {
 }
 
 restore_xfce_terminal_display() {
+    if [[ ${NOLOG} == "true" ]]; then
+        rm ${LOG_FILE}; printf "%s %b\n" "${RED}[-]${RESET} Deleting log file" "${GREEN}\u2713${RESET}"
+    fi
+    
     exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
     exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
 }
@@ -77,15 +81,19 @@ init_log() {
 usage() {
     printf "%s\n" "Usage : ./install.sh [OPTION]"
     printf "%s\n" "Options :"
-    printf "%s\n" "  -h --help    : Display this help."
-    printf "%s\n" "  -t --test    : Test mode."
-    printf "%s\n" "  -g --gui     : Test mode with GUI selection."
-    printf "%s\n" "  -f --force   : Force extra-installation."
-    printf "%s\n" "  -v --verbose : Verbose mode."
-    printf "%s\n" "  --no-reboot  : Do not reboot the system at the end of the script."
+    printf "%s\n" "  -h --help      : Display this help."
+    printf "%s\n" "  -t --test      : Test mode."
+    printf "%s\n" "  -g --gui       : Test mode with GUI selection."
+    printf "%s\n" "  -f --force     : Force extra-installation."
+    printf "%s\n" "  -i --install   : Install step only"
+    printf "%s\n" "  -u --uninstall : Uninstall step only"
+    printf "%s\n" "  -c --config    : configuration step only"
+    printf "%s\n" "  -v --verbose   : Verbose mode."
+    printf "%s\n" "  -n --no-log    : Delete log file."
+    printf "%s\n" "  --no-reboot    : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o htgfv --long help,test,gui,force,verbose,no-reboot -- "$@")
+valid_args=$(getopt -o htgfiucnv --long help,test,gui,force,install,uninstall,config,verbose,no-log,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -111,8 +119,24 @@ while [ : ]; do
         export FORCEMODE=true
         shift
         ;;
+    -i | --install)
+        export INSTALLMODE=true
+        shift
+        ;;
+    -u | --uninstall)
+        export UNINSTALLMODE=true
+        shift
+        ;;
+    -c | --config)
+        export CONFIGMODE=true
+        shift
+        ;;
     -v | --verbose)
         export VERBOSE=true
+        shift
+        ;;
+    -n | --no-log)
+        export NOLOG=true
         shift
         ;;
     --no-reboot)
@@ -136,8 +160,25 @@ fi
 if [[ -z ${FORCEMODE+x} ]]; then
     export FORCEMODE=false
 fi
+
+if [[ -z ${INSTALLMODE+x} ]]; then
+    export INSTALLMODE=false
+fi
+
+if [[ -z ${UNINSTALLMODE+x} ]]; then
+    export UNINSTALLMODE=false
+fi
+
+if [[ -z ${CONFIGMODE+x} ]]; then
+    export CONFIGMODE=false
+fi
+
 if [[ -z ${VERBOSE+x} ]]; then
     export VERBOSE=false
+fi
+
+if [[ -z ${NOLOG+x} ]]; then
+    export NOLOG=false
 fi
 
 if [[ -z ${NOREBOOT+x} ]]; then

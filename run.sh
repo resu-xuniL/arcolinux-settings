@@ -99,12 +99,31 @@ if grep -q "ArcoLinux" /etc/os-release; then
         step gui_steps_selection "Testing step(s) mode"
         restore_xfce_terminal_display
         exit 0;
-    fi   
+    fi
+
+    if [[ ${INSTALLMODE} == "true" ]]; then
+        display_step "INSTALL MODE"
+        step install_step "Install step mode"
+        restore_xfce_terminal_display
+        exit 0;
+    fi
+
+    if [[ ${UNINSTALLMODE} == "true" ]]; then
+        display_step "UNINSTALL MODE"
+        step uninstall_step "Uninstall step mode"
+        restore_xfce_terminal_display
+        exit 0;
+    fi
+    
+    if [[ ${CONFIGMODE} == "true" ]]; then
+        display_step "CONFIGUATION MODE"
+        step configuration_step "Configutation step mode"
+        restore_xfce_terminal_display
+        exit 0;
+    fi
 
     all_steps
-
 else
+    exec_log "exit 1" "${RED}/!\ THIS IS NOT AN [${RESET}${BB}${YELLOW}ARCOLINUX${RESET}${RED}] DISTRO /!\ ${RESET}"
     restore_xfce_terminal_display
-
-    exec_log "exit 1" "\n${RED}/!\ THIS IS NOT AN [${RESET}${BB}${YELLOW}ARCOLINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
 fi
