@@ -161,11 +161,15 @@ manage_one() {
         elif [[ ${action_type} == "copy_paste" ]]; then
             local -r target=${package_split[0]}
             local -r destination=${package_split[1]}
-            local file_name=(${target//// })
-            
             if [[ ${target} =~ "/*" ]]; then
-                file_name[1]="All files from ${file_name[0]^^} folder"
+                local folder=${target/\/*}
+                local file_name[1]="All files from ${folder^^}"
+                local file_or_folder="folder"
+            else
+                local file_name=(${target//// })
+                local file_or_folder="file"
             fi
+
             if [[ ${destination} =~ .*${HOME}.* ]]; then
                 check_dir ${destination} "user"
             else
