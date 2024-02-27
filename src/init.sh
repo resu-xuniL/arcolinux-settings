@@ -79,8 +79,8 @@ init_log() {
 }
 
 usage() {
-    printf "%s\n" "Usage : ./install.sh [OPTION]"
-    printf "%s\n" "Options :"
+    printf "\n%s\n" "Usage : ./run.sh [OPTION(s)]"
+    printf "\n%s\n" "Options :"
     printf "%s\n" "  -h --help      : Display this help."
     printf "%s\n" "  -t --test      : Test mode."
     printf "%s\n" "  -g --gui       : Test mode with GUI selection."
