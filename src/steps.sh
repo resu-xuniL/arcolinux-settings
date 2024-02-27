@@ -115,7 +115,7 @@ step() {
 display_step() {
     local -r message="$1"
     local -r width="$(( $(tput cols) / 2 ))"
-    clear
+    clear_noclear
 
     printf "${YELLOW}"
     for i in $(seq 1 ${width}); do

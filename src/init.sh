@@ -90,10 +90,11 @@ usage() {
     printf "%s\n" "  -c --config    : configuration step only"
     printf "%s\n" "  -v --verbose   : Verbose mode."
     printf "%s\n" "  -n --no-log    : Delete log file."
+    printf "%s\n" "  --no-clear     : Do not clear display between steps"
     printf "%s\n" "  --no-reboot    : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o htgfiucnv --long help,test,gui,force,install,uninstall,config,verbose,no-log,no-reboot -- "$@")
+valid_args=$(getopt -o htgfiucnv --long help,test,gui,force,install,uninstall,config,verbose,no-log,no-clear,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -139,6 +140,10 @@ while [ : ]; do
         export NOLOG=true
         shift
         ;;
+    --no-clear)
+        export NOCLEAR=true
+        shift
+        ;;
     --no-reboot)
         export NOREBOOT=true
         shift
@@ -181,15 +186,18 @@ if [[ -z ${NOLOG+x} ]]; then
     export NOLOG=false
 fi
 
+if [[ -z ${NOCLEAR+x} ]]; then
+    export NOCLEAR=false
+fi
 if [[ -z ${NOREBOOT+x} ]]; then
     export NOREBOOT=false
 fi
 
 if sudo -v; then
-    clear
+    clear_noclear
     printf "\n%s\n" "${GREEN}[OK]${RESET} Root privileges granted"
 else
-    clear
+    clear_noclear
     printf "\n%s\n" "${RED}[KO]${RESET} Root privileges denied"
     exit 1
 fi
