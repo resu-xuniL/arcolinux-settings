@@ -89,7 +89,7 @@ set_config_files() {
     if [[ ${packages} =~ "autostart" ]]; then
         file_conf="Autostart applications"
 
-        exec_log "cp $INSTALL_DIRECTORY/_extra/.login.sound.mp3 ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${HOME}${RESET}]"
+        exec_log "cp ${INSTALL_DIRECTORY}/_extra/.login.sound.mp3 ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${HOME}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
         
@@ -133,7 +133,7 @@ set_config_files() {
     if [[ ${packages} =~ "grub/theme.txt" ]]; then
         file_conf="Grub"
 
-        if [[ ! $CURRENT_USER == "wam" ]]; then
+        if [[ ! ${CURRENT_USER} == "wam" ]]; then
             exec_log "sudo sed -i 's/archlinux03.jpg/archlinux04.jpg/' /boot/grub/themes/Vimix/theme.txt" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
         exec_log "sudo sed -i 's/quiet //' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : quiet boot for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
