@@ -19,6 +19,8 @@ set_install_list() {
 
     soft_list=(
         [Brave]="brave-bin"
+        [Catfish]="catfish"
+        [Font manager]="font-manager"
         [Galculator]="galculator"
         [Meld]="meld"
         [Plank]="plank"
@@ -27,14 +29,13 @@ set_install_list() {
         [VLC]="vlc"
         [Wine]="wine"
         [XPDF]="xpdf"
-        [Font manager]="font-manager"
     )
 
     extra_list=(
-        [Simple scan]="simple-scan"
         [KeePassXC]="keepassxc"
         [Nextcloud]="nextcloud-client"
         [Qbittorrent]="qbittorrent"
+        [Simple scan]="simple-scan"
         [Ventoy]="ventoy-bin"
         [Veracrypt]="veracrypt"
     )
