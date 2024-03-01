@@ -117,7 +117,7 @@ ${voffset -190}${goto 250}${font Rallifornia:size=90}${time %d}
 \
 ${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${color5}${blink ${exec checkupdates | wc -l} available update(s)}${color}${else}System is up to date${endif}
 \
-${voffset -33}${goto 250}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=25}${time %M:}${font The Californication:bold:size=20}${time %S}
+${voffset -33}${goto 240}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=25}${time %M:}${font The Californication:bold:size=20}${time %S}
 \
 ${voffset -330}
 ]];
