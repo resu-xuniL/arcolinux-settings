@@ -6,7 +6,7 @@ selected_packages=""
 set_config_files_list() {
 
     root_config_files_list=(
-        [Set DNS]="dns/resolv.conf /etc"
+        [Set 1.1.1.1 DNS]="dns/resolv.conf /etc"
         [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
@@ -126,6 +126,16 @@ set_config_files() {
         replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
         
+    ################################################################
+    ##########                    DNS                     ##########
+    ################################################################
+
+    if [[ ${packages} =~ "dns/resolv.conf" ]]; then
+        file_conf="DNS"
+
+        exec_log "grep -qxF 'dns=none' /etc/NetworkManager/NetworkManager.conf || printf '\n%s\n%s' '[main]' 'dns=none' | sudo tee -a /etc/NetworkManager/NetworkManager.conf" "${GREEN}[+]${RESET} Adding [${YELLOW}DNS configuration${RESET}] on [${YELLOW}/etc/NetworkManager/NetworkManager.conf${RESET}]"
+    fi
+
     ################################################################
     ##########                    Grub                    ##########
     ################################################################
