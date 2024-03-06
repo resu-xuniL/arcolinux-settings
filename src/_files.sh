@@ -100,7 +100,7 @@ set_config_files() {
     if [[ ${packages} =~ "conky/conky-sessionfile" ]]; then
         file_conf="Conky"
 
-        check_dir ${HOME}/.cache/openweather "user"
+        check_dir ${HOME}/.cache/openmeteo "user"
 
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh_mod.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh_mod.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
@@ -108,21 +108,12 @@ set_config_files() {
         exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
 
         fetch_password
-        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/open_weather.json.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}open_weather.json.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
-        api_key=$(jq -r ".open_weather.API_key" ~/Documents/open_weather.json)
-        city_id=$(jq -r ".open_weather.City_ID" ~/Documents/open_weather.json)
+        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/meteo-icons.7z -o${HOME}/.config/conky/images" "${GREEN}[+]${RESET} Extracting [${YELLOW}meteo-icons.7z${RESET}] to [${YELLOW}${HOME}/.config/conky/images/meteo-icons${RESET}]"
       
         exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
         exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM_dark.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-        exec_log "sed -i 's/api_key/${api_key}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM conky${RESET}]"
-        exec_log "sed -i 's/api_key/${api_key}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather API key${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
-        exec_log "sed -i 's/city_id/${city_id}/' ${HOME}/.config/conky/WAM.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM conky${RESET}]"
-        exec_log "sed -i 's/city_id/${city_id}/' ${HOME}/.config/conky/WAM_dark.conkyrc" "${GREEN}[+]${RESET} Adding [${YELLOW}OpenWeather city ID${RESET}] on [${YELLOW}WAM_dark conky${RESET}]"
+        exec_log "cp ${INSTALL_DIRECTORY}/conky/wam.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
 
-        exec_log "shred -z -u ${HOME}/Documents/open_weather.json" "${RED}[-]${RESET} Removing [${YELLOW}open_weather.json${RESET}] from [${YELLOW}${HOME}/Documents${RESET}]"
-    fi
-
-    if [[ ${packages} =~ "conky-sessionfile" ]]; then
         replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
         

@@ -75,39 +75,27 @@ color4 = '#424949', 													-- grey
 color5 = '#ffff00',                                                     -- yellow
 
 -------------------------------------
---  Icon Sources
+--  Icons Source
 -------------------------------------
-template0 = "~/.config/conky/images/weather-icons/64px-white",
+template0 = "~/.config/conky/images/meteo-icons",
 
 -------------------------------------
---  API Key
---  To get API Key, first you have to sign up here https://openweathermap.org/appid
+--  API url
 -------------------------------------
-template6 = "api_key",
+template1 = "api.open-meteo.com/v1/meteofrance",
 
 -------------------------------------
---  City ID
---  Find your City ID here https://openweathermap.org/city
+--  City coordinates
 -------------------------------------
-template7 = "city_id",
-
--------------------------------------
---  Temp Unit (default, metric, imperial)
--------------------------------------
-template8 = "metric",
-
--------------------------------------
---  Locale (e.g. "es_ES.UTF-8")
---  Leave empty for default
--------------------------------------
-template9 = "fr_FR.UTF-8",
+template2 = "latitude=43.6757",
+template3 = "longitude=4.1318",
 
 };
 
 conky.text = [[
-${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/weather?APPID=${template6}&id=${template7}&units=${template8}&lang=$l" -o ~/.cache/openweather/weather.json}
-${execi 300 cp -f ${template0}/$(jq .weather[0].id ~/.cache/openweather/weather.json).png ~/.cache/openweather/current.png}${image ~/.cache/openweather/current.png -s 48x43}\
-${voffset -10}${goto 60}${font Technical CE:bold:size=15}${execi 300 jq ".main.temp" ~/.cache/openweather/weather.json | awk '{printf("%.1f",$1)}'}°\
+${execi 300 curl -s "${template1}?${template2}&${template3}&current=temperature_2m,weather_code&timezone=auto&forecast_days=1" -o ~/.cache/openmeteo/weather.json}
+${execi 300 ~/.config/conky/wam.sh}${image ~/.cache/openmeteo/current.png -s 60x60}\
+${voffset -10}${goto 60}${font Technical CE:bold:size=15}${execi 300 jq ".current.temperature_2m" ~/.cache/openmeteo/weather.json | awk '{printf("%.1f",$1)}'}°\
 \
 ${goto 105}${font Bentoh_mod:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
 \
@@ -121,5 +109,3 @@ ${voffset -33}${goto 240}${font The Californication:bold:size=30}${time %H:}${fo
 \
 ${voffset -330}
 ]];
-
---${execi 300 l=${template9}; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast?APPID=${template6}&id=${template7}&cnt=5&units=${template8}&lang=$l" -o ~/.cache/openweather/forecast.json}\
