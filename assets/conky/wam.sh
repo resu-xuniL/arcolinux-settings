@@ -6,6 +6,8 @@ weather_icon() {
 
     if [[ $(date +"%H") > 07 && $(date +"%H") < 22 ]]; then
         cp -f ${icons_path}/${icon_name}.png ~/.cache/openmeteo/current.png
+    elif [ ! -f ${icons_path}/${icon_name}n.png ]; then
+        cp -f ${icons_path}/${icon_name}.png ~/.cache/openmeteo/current.png
     else
         cp -f ${icons_path}/${icon_name}n.png ~/.cache/openmeteo/current.png
     fi
