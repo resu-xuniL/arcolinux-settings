@@ -1,9 +1,3 @@
-clear_noclear() {
-    if [[ ${NOCLEAR} == false ]]; then
-        clear
-    fi
-}
-
 prompt_to_continue() {
     printf "\n%s" "${BLUE}:: ${RESET}Press [${GREEN}Enter${RESET}] to continue, or [${RED}Ctrl+C${RESET}] to cancel."
 

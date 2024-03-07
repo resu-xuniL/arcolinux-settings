@@ -42,6 +42,12 @@ restore_xfce_terminal_display() {
     fi
 }
 
+clear_noclear() {
+    if [[ ${NOCLEAR} == false ]]; then
+        clear
+    fi
+}
+
 check_internet() {
     local -r tool='curl'
     local -r tool_opts='-s --connect-timeout 8'
