@@ -94,8 +94,8 @@ template3 = "longitude=4.1318",
 
 conky.text = [[
 ${execi 300 curl -s "${template1}?${template2}&${template3}&current=temperature_2m,weather_code&timezone=auto&forecast_days=1" -o ~/.cache/openmeteo/weather.json}
-${execi 300 ~/.config/conky/wam.sh}${image ~/.cache/openmeteo/current.png -s 60x60}\
-${voffset -10}${goto 60}${font Technical CE:bold:size=15}${execi 300 jq ".current.temperature_2m" ~/.cache/openmeteo/weather.json | awk '{printf("%.1f",$1)}'}°\
+${execi 300 ~/.config/conky/wam.sh}${image ~/.cache/openmeteo/current.png -s 60x60}${image ~/.cache/openmeteo/therm.png -p 47,8 -s 25x25}\
+${voffset -10}${goto 70}${font Technical CE:bold:size=13}${execi 300 jq .current.temperature_2m ~/.cache/openmeteo/weather.json | awk '{printf("%.1f",$1)}'}°\
 \
 ${goto 105}${font Bentoh_mod:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
 \
