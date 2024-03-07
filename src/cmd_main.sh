@@ -1,4 +1,6 @@
 update_system() {
+    action_type="sys_update"
+    
     exec_log "sudo pacman -Syyu --noconfirm" "${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
     log_msg "\n${GREEN}System is up-to-date${RESET}"
 }
