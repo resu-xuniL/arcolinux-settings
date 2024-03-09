@@ -8,7 +8,7 @@
   <property name="dropdown-width" type="uint" value="60"/>
   <property name="dropdown-height" type="uint" value="60"/>
   <property name="dropdown-always-show-tabs" type="bool" value="false"/>
-  <property name="font-name" type="string" value="Monospace 10"/>
+  <property name="font-name" type="string" value="Ubuntu Mono Bold 9"/>
   <property name="font-use-system" type="bool" value="true"/>
   <property name="misc-always-show-tabs" type="bool" value="false"/>
   <property name="misc-bell" type="bool" value="false"/>
@@ -40,4 +40,6 @@
   <property name="scrolling-lines" type="uint" value="10000"/>
   <property name="scrolling-on-output" type="bool" value="false"/>
   <property name="scrolling-unlimited" type="bool" value="true"/>
+  <property name="run-custom-command" type="bool" value="true"/>
+  <property name="custom-command" type="string" value="/usr/bin/zsh"/>
 </channel>
