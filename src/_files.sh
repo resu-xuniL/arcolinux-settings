@@ -18,7 +18,7 @@ set_config_files_list() {
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Personal aliases]="shell/.bashrc-personal ${HOME}"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
-        [Conky : Conky WAM + WAM_dark & USER config.]="conky/conky-sessionfile ${HOME}/.config/conky"
+        [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
         [GTK-3.0 : Theme & icons]="gtk3/settings.ini ${HOME}/.config/gtk-3.0"
         [Variety]="variety/variety.conf ${HOME}/.config/variety"
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
@@ -111,8 +111,10 @@ set_config_files() {
         exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/meteo-icons.7z -o${HOME}/.config/conky/images" "${GREEN}[+]${RESET} Extracting [${YELLOW}meteo-icons.7z${RESET}] to [${YELLOW}${HOME}/.config/conky/images/meteo-icons${RESET}]"
       
         exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-        exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM_dark.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM_dark.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-        exec_log "cp ${INSTALL_DIRECTORY}/conky/wam.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+        exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+        exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+        exec_log "grep -qxF '# Switch conky colors' ${HOME}/.bashrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}${HOME}/.bashrc-personal${RESET}]"
+        exec_log "grep -qxF '# Switch conky colors' ${HOME}/.zshrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.zshrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}${HOME}/.zshrc-personal${RESET}]"
 
         replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
