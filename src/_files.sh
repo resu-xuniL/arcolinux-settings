@@ -211,6 +211,7 @@ set_config_files() {
     if [[ ${packages} =~ "terminal/xfce4-terminal.xml" ]]; then
         file_conf="ZSH"
 
+        exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline theme${RESET}]"
         exec_log "sed -i 's/ZSH_THEME=\"random\"/ZSH_THEME=\"powerline\"/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}Powerline theme${RESET}] to [${YELLOW}ZSH shell${RESET}]"
 
         check_dir ${HOME}/.config/zsh "user"
