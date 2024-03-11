@@ -28,7 +28,7 @@ set_install_list() {
         [Visual studio code]="visual-studio-code-bin"
         [VLC]="vlc"
         [Wine]="wine"
-        [XPDF]="xpdf"
+        [Xreader]="xreader"
     )
 
     extra_list=(
