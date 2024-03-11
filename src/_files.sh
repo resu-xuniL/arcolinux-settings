@@ -14,10 +14,11 @@ set_config_files_list() {
 
     user_config_files_list=(
         [Autostart applications]="autostart/* ${HOME}/.config/autostart"
-        [Thunar bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
+        [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
-        [BASH : Personal aliases]="shell/.bashrc-personal ${HOME}"
-        [ZSH : Personal aliases]="shell/.zshrc-personal ${HOME}"
+        [Personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
+        [Personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
+        [Shell : ZSH (with powerline theme)]="terminal/xfce4-terminal.xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
         [GTK-3.0 : Theme & icons]="gtk3/settings.ini ${HOME}/.config/gtk-3.0"
@@ -25,7 +26,7 @@ set_config_files_list() {
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
         [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
-        [XFCE settings : Keyboard shortcut - Thunar - Shell terminal - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
+        [XFCE settings : Keyboard shortcut - Thunar config - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
         [VSCode settings]="vscode/settings.json ${HOME}/.config/Code/User"
         [VSCode snippets]="vscode/shellscript.json ${HOME}/.config/Code/User/snippets"
     )
@@ -193,9 +194,7 @@ set_config_files() {
     fi
   
     ################################################################
-    ##########                XFCE settings               ##########
-    ##########         Keyboard shortcut - Thunar         ##########
-    ##########      Shell terminal and theme & icons      ##########
+    ##########            XFCE - Theme & icons            ##########
     ################################################################
 
     if [[ ${packages} =~ "xfce/*" ]]; then
@@ -203,9 +202,17 @@ set_config_files() {
 
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
-    
+    fi
+
+    ################################################################
+    ##########                     ZSH                    ##########
+    ################################################################
+
+    if [[ ${packages} =~ "terminal/xfce4-terminal.xml" ]]; then
+        file_conf="ZSH"
+
         exec_log "sed -i 's/ZSH_THEME=\"random\"/ZSH_THEME=\"powerline\"/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}Powerline theme${RESET}] to [${YELLOW}ZSH shell${RESET}]"
-        
+
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
     fi
