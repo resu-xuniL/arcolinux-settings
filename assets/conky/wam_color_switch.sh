@@ -2,7 +2,7 @@
 
 switch_conky() {
 
-    state=$(grep 'default_color' ${HOME}/.config/conky/WAM.conkyrc | cut -d '=' -f 2- | sed -E "s/[^a-zA-Z0-9]//g") 
+    state=$(grep 'default_color' ${HOME}/.config/conky/WAM.conkyrc | cut -d "'" -f 2)
     
     if [[ ${state} == "black" ]]; then
         sed -i "s/draw_shades = true/draw_shades = false/" ${HOME}/.config/conky/WAM.conkyrc
