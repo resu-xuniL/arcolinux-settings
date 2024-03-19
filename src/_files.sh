@@ -186,6 +186,11 @@ set_config_files() {
         file_conf="SDDM"
 
         check_dir /usr/share/sddm/themes/arcolinux-sugar-candy "root"
+
+        if [ -z "$(ls -A /usr/share/sddm/themes/arcolinux-sugar-candy)" ]; then
+            exec_log "sudo pacman -S --noconfirm --needed arcolinux-sddm-sugar-candy-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Sugar candy SDDM${RESET}] theme"
+        fi
+
         exec_log "sudo cp -a ${INSTALL_DIRECTORY}/sddm/theme.conf /usr/share/sddm/themes/arcolinux-sugar-candy" "${GREEN}[+]${RESET} Copying [${YELLOW}theme.conf${RESET}] to [${YELLOW}/usr/share/sddm/themes/arcolinux-sugar-candy${RESET}]"
         if [[ ! ${VM} == "none" ]]; then
             exec_log "sudo sed -i 's/Mountain.jpg/background.jpg/' /usr/share/sddm/themes/arcolinux-sugar-candy/theme.conf" "${GREEN}[+]${RESET} Changing [${YELLOW}SDDM${RESET}] background for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
@@ -211,7 +216,7 @@ set_config_files() {
     if [[ ${packages} =~ "terminal/xfce4-terminal.xml" ]]; then
         file_conf="ZSH"
 
-        exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline theme${RESET}]"
+        exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline${RESET}] theme"
         exec_log "sed -i 's/ZSH_THEME=\"random\"/ZSH_THEME=\"powerline\"/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}Powerline theme${RESET}] to [${YELLOW}ZSH shell${RESET}]"
 
         check_dir ${HOME}/.config/zsh "user"
