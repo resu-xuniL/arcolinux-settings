@@ -220,7 +220,6 @@ set_config_files() {
         exec_log "sed -i 's/ZSH_THEME=\"random\"/ZSH_THEME=\"powerline\"/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}Powerline theme${RESET}] to [${YELLOW}ZSH shell${RESET}]"
 
         check_dir ${HOME}/.config/zsh "user"
-        exec_log "cp ${INSTALL_DIRECTORY}/shell/ohmyzsh_zdotdir.sh ${HOME}/.config/zsh" "${GREEN}[+]${RESET} Copying [${YELLOW}ohmyzsh_zdotdir.sh${RESET}] file to [${YELLOW}${HOME}/.config/zsh${RESET}] folder"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
     fi
 }

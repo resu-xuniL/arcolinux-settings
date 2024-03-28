@@ -8,3 +8,9 @@ alias updtae-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Cleanup orphaned packages
 alias cleanorphaned='pacman -Qtdq | sudo pacman -Rns -'
+
+# Switch conky colors
+alias conky-switch=". ~/.config/conky/wam_color_switch.sh"
+
+# Change ZDOTDIR path
+alias zdotdir-change="sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh; echo 'ZDOTDIR : path changed'"
