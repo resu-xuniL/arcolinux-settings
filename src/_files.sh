@@ -217,7 +217,8 @@ set_config_files() {
         file_conf="ZSH"
 
         exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline${RESET}] theme"
-        exec_log "sed -i 's/ZSH_THEME=\"random\"/ZSH_THEME=\"powerline\"/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}Powerline theme${RESET}] to [${YELLOW}ZSH shell${RESET}]"
+        
+        exec_log "sed -i 's/# ZSH_THEME_RANDOM_CANDIDATES=( \"robbyrussell\" \"agnoster\" )/ZSH_THEME_RANDOM_CANDIDATES=( \"powerline\" \"xiong-chiamiov-plus\" )/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Setting [${YELLOW}random themes${RESET}] to [${YELLOW}ZSH shell${RESET}]"
 
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
