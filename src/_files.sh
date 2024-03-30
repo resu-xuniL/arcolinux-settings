@@ -21,7 +21,6 @@ set_config_files_list() {
         [Shell : ZSH (with powerline theme)]="terminal/xfce4-terminal.xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
-        [GTK-3.0 : Theme & icons]="gtk3/settings.ini ${HOME}/.config/gtk-3.0"
         [Variety]="variety/variety.conf ${HOME}/.config/variety"
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
