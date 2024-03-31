@@ -154,6 +154,10 @@ set_config_files() {
     if [[ ${packages} =~ "plank/*" ]]; then
         file_conf="Plank"
 
+        if ! pacman -Qi plank &> /dev/null; then
+            exec_log "sudo pacman -S --noconfirm --needed plank" "${GREEN}[+]${RESET} Installing [${YELLOW}Plank${RESET}]"
+        fi
+
         replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         
         {
