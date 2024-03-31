@@ -116,7 +116,7 @@ if grep -q "ArcoLinux" /etc/os-release; then
     fi
     
     if [[ ${CONFIGMODE} == "true" ]]; then
-        display_step "CONFIGUATION MODE"
+        display_step "CONFIGURATION MODE"
         step configuration_step "Configutation step mode"
         restore_xfce_terminal_display
         exit 0;
