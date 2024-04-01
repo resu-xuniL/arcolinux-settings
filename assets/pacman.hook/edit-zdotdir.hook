@@ -1,0 +1,13 @@
+#/etc/pacman.d/hooks/edit-zdotdir.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = oh-my-zsh-git
+
+[Action]
+Description = Change ZDOTDIR
+When = PostTransaction
+Exec = /usr/bin/bash -c 'sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh; echo -e "\e[32;1m---> ZDOTDIR : path changed\e[0m"'

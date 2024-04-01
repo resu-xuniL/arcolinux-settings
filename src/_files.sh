@@ -10,6 +10,7 @@ set_config_files_list() {
         [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
+        [Pacman hook : check for orphans at update]="pacman.hook/orphaned.hook /etc/pacman.d/hooks"
     )
 
     user_config_files_list=(
@@ -225,5 +226,7 @@ set_config_files() {
 
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
+    
+        exec_log "sudo cp -a ${INSTALL_DIRECTORY}/pacman.hook/edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}edit-zdotdir Pacman hook${RESET}] to [${YELLOW}/etc/pacman.d/hooks${RESET}]"
     fi
 }
