@@ -11,6 +11,7 @@ set_config_files_list() {
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
         [Pacman hook : check for orphans at update]="pacman.hook/orphaned.hook /etc/pacman.d/hooks"
+        [Shell : ZSH (with powerline theme)]="pacman.hook/edit-zdotdir.hook /etc/pacman.d/hooks"
     )
 
     user_config_files_list=(
@@ -19,7 +20,6 @@ set_config_files_list() {
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
         [Personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
-        [Shell : ZSH (with powerline theme)]="terminal/xfce4-terminal.xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
         [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
         [Variety]="variety/variety.conf ${HOME}/.config/variety"
@@ -217,7 +217,7 @@ set_config_files() {
     ##########                     ZSH                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "terminal/xfce4-terminal.xml" ]]; then
+    if [[ ${packages} =~ "pacman.hook/edit-zdotdir.hook" ]]; then
         file_conf="ZSH"
 
         exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline${RESET}] theme"
@@ -227,6 +227,7 @@ set_config_files() {
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
     
-        exec_log "sudo cp -a ${INSTALL_DIRECTORY}/pacman.hook/edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}edit-zdotdir Pacman hook${RESET}] to [${YELLOW}/etc/pacman.d/hooks${RESET}]"
+        exec_log "xfconf-query -c xfce4-terminal -p /run-custom-command -n -t bool -s true" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}RUN CUSTOM COMMAND${RESET}] to [${YELLOW}TRUE${RESET}]"
+        exec_log "xfconf-query -c xfce4-terminal -p /custom-command -n -t string -s /usr/bin/zsh" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}CUSTOM COMMAND${RESET}] to [${YELLOW}/usr/bin/zsh${RESET}]"
     fi
 }
