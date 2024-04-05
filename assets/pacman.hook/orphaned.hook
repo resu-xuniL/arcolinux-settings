@@ -10,4 +10,4 @@ Target = *
 [Action]
 Description = Orphaned package notification
 When = PostTransaction
-Exec = /usr/bin/bash -c 'pacman -Qtd || echo -e "\e[32;1m---> No orphans found !\e[0m"'
+Exec = /usr/bin/bash -c 'printf "\e[32;1m%s\e[0m" "Orphaned packages -> "; pacman -Qtd || printf "\e[32;1m%s\e[0m" "  -> No orphans found !"'
