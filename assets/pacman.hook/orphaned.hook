@@ -8,6 +8,6 @@ Type = Package
 Target = *
 
 [Action]
-Description = Orphaned package notification
+Description = Checking for orphaned package
 When = PostTransaction
-Exec = /usr/bin/bash -c 'printf "\e[32;1m%s\e[0m" "Orphaned packages -> "; pacman -Qtd || printf "\e[32;1m%s\e[0m" "  -> No orphans found !"'
+Exec = /usr/bin/bash -c 'if pacman -Qtd; then orphaned=$(pacman -Qtdq); printf "\e[32m%s\e[0m\n" "Orphaned package(s) found : ${orphaned//[$\'\n\']/ | }."; else printf "\e[32m%s\e[0m\n" "None orphaned package found."; fi'
