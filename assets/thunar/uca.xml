@@ -103,6 +103,29 @@
 	<image-files/>
 </action>
 <action>
+	<icon>system-reboot</icon>
+	<name>Convert webp to jpg</name>
+	<submenu></submenu>
+	<unique-id>1510662686010963-2</unique-id>
+	<command>convert %f -quality 90 `basename %f .webp`.jpg</command>
+	<description>Convert webp to jpg</description>
+	<range></range>
+	<patterns>*.webp</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>application-x-executable</icon>
+	<name>Make executable</name>
+	<submenu></submenu>
+	<unique-id>1526670239648084-2</unique-id>
+	<command>chmod +x %f</command>
+	<description>Make a file executable</description>
+	<range></range>
+	<patterns>*</patterns>
+	<other-files/>
+	<text-files/>
+</action>
+<action>
 	<icon>com.deepin.ScreenShot</icon>
 	<name>Set as wallpaper DS</name>
 	<submenu></submenu>
