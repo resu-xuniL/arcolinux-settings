@@ -124,7 +124,7 @@ config_apps() {
         exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
         manage_lst "virtualbox-host-dkms virtualbox-guest-iso"
         check_dir ${HOME}/VirtualBox_VMs "user"
-        exec_log "tar -xzf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
+        exec_log "tar -xf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
 
         if pacman -Qi linux &> /dev/null; then
             manage_one "linux-headers"
