@@ -179,7 +179,7 @@ manage_one() {
                 sudo_str="sudo "
             fi
 
-            exec_log "${sudo_str}cp -a '${INSTALL_DIRECTORY}'/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] ${file_or_folder} to [${YELLOW}${destination/${HOME}/'~'}${RESET}] folder${warning_msg}"
+            exec_log "${sudo_str}cp '${INSTALL_DIRECTORY}'/${target} ${destination}" "${GREEN}[+]${RESET} Copying [${YELLOW}${file_name[1]}${RESET}] ${file_or_folder} to [${YELLOW}${destination/${HOME}/'~'}${RESET}] folder${warning_msg}"
         fi
     fi
 }
