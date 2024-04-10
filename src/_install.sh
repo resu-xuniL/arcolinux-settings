@@ -120,15 +120,16 @@ config_apps() {
 
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
         app_conf="Virtualbox"
-
-        exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
-        manage_lst "virtualbox-host-dkms virtualbox-guest-iso"
-        check_dir ${HOME}/VirtualBox_VMs "user"
-        exec_log "tar -xf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
-
+   
+        manage_one "virtualbox-host-modules-arch"
         if pacman -Qi linux &> /dev/null; then
             manage_one "linux-headers"
         fi
+
+        exec_log "sudo gpasswd -a $USER vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
+
+        check_dir ${HOME}/VirtualBox_VMs "user"
+        exec_log "tar -xf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
     fi
 
     ################################################################
