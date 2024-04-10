@@ -1,0 +1,13 @@
+#/etc/pacman.d/hooks/orphans.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for orphaned package
+When = PostTransaction
+Exec = /usr/bin/bash -c 'orphaned=$(pacman -Qtdq); if [[ -n "$orphaned" ]]; then printf "\e[32m%s\e[0m\n" "Orphaned package(s) found : ${orphaned//[$\'\n\']/ | }."; else printf "\e[32m%s\e[0m\n" "None orphaned package found."; fi'

@@ -10,7 +10,7 @@ set_config_files_list() {
         [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
-        [Pacman hook : check for orphans at update]="pacman.hook/orphaned.hook /etc/pacman.d/hooks"
+        [Pacman hook : check for orphans at update]="pacman.hook/check-orphaned.hook /etc/pacman.d/hooks"
     )
 
     user_config_files_list=(
