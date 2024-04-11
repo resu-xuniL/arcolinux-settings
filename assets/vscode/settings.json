@@ -1,5 +1,11 @@
 {
-    "workbench.startupEditor": "none",
     "files.autoSave": "onFocusChange",
-    "editor.multiCursorModifier": "ctrlCmd"
+    "editor.multiCursorModifier": "ctrlCmd",
+    "workbench.startupEditor": "none",
+    "git.openRepositoryInParentFolders": "never",
+    "workbench.iconTheme": "material-icon-theme",
+    "git.autofetch": true,
+    "explorer.confirmDelete": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.emptySelectionClipboard": false
 }
