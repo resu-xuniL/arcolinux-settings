@@ -1,4 +1,4 @@
-#/etc/pacman.d/hooks/orphans.hook
+#/etc/pacman.d/hooks/check-orphaned.hook
 
 [Trigger]
 Operation = Install
