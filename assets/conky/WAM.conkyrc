@@ -90,6 +90,11 @@ template1 = "api.open-meteo.com/v1/meteofrance",
 template2 = "latitude=43.6757",
 template3 = "longitude=4.1318",
 
+-------------------------------------
+-- Check for system updates every 30 secondes
+-------------------------------------
+template5 = [[ ${execi 30 checkupdates | wc -l} ]]
+
 };
 
 conky.text = [[
@@ -103,7 +108,7 @@ ${voffset -20}${if_match ${exec date +"%B" | wc -m} > 7}${goto 20}${else}${goto 
 \
 ${voffset -190}${goto 250}${font Rallifornia:size=90}${time %d}
 \
-${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${execpi 300 checkupdates | wc -l} > 0}${color5}${blink ${exec checkupdates | wc -l} available update(s)}${color}${else}System is up to date${endif}
+${voffset -80}${goto 100}${font Roboto:pixelsize=10}${if_match ${template5} > 0}${color5}${blink ${template5} available update(s)}${color}${else}System is up to date${endif}
 \
 ${voffset -33}${goto 240}${font The Californication:bold:size=30}${time %H:}${font The Californication:bold:size=25}${time %M:}${font The Californication:bold:size=20}${time %S}
 \
