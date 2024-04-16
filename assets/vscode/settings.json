@@ -7,5 +7,8 @@
     "git.autofetch": true,
     "explorer.confirmDelete": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.emptySelectionClipboard": false
+    "editor.emptySelectionClipboard": false,
+    "files.associations": {
+        "*.conkyrc": "shellscript"
+    }
 }
