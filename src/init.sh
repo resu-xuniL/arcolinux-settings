@@ -67,6 +67,10 @@ init() {
     exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod 644 {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
     exec_log "find ${INSTALL_DIRECTORY} -type f -name '*.sh' -exec chmod +x {} +" "${GREEN}[+]${RESET} Adding [${YELLOW}execution permission${RESET}] on [${YELLOW}BASH script${RESET}] files"
 
+    if ! pacman -Qi p7zip &> /dev/null; then
+        exec_log "sudo pacman -S --noconfirm --needed p7zip" "${GREEN}[+]${RESET} Installing [${YELLOW}7-Zip${RESET}]"
+    fi
+    
     if [[ ! ${CURRENT_USER} == "wam" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
