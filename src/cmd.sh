@@ -104,19 +104,23 @@ exit_status() {
     printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "install" ]]; then
+            printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}${package} installation failed !${RESET}"
         elif [[ ${action_type} == "config_apps" ]]; then
+            printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong on${RESET} [${YELLOW}${app_conf}${RESET}] ${RED}configuration !${RESET}"
         elif [[ ${action_type} == "config_files" ]]; then
+            printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong on${RESET} [${YELLOW}${file_conf}${RESET}] ${RED}configuration !${RESET}"
         elif [[ ${action_type} == "sys_update" ]]; then
+            printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong while${RESET} [${YELLOW}updating system${RESET}] ${RED}! Aborting.${RESET}"
             exit 1
         else
             log_msg "${BB}${RED}[KO]${RESET} ${RED}something went wrong !${RESET}"
         fi
     else
-        printf "%b\n" "\033[1A\033[2K${comment} ${GREEN}\u2713${RESET}"
+        printf "%b\n" "\033[1A\033[2K${comment} ${GREEN}\u2714${RESET}"
         
         if   [[ ${action_type} == "uninstall" ]]; then
             case ${package} in
