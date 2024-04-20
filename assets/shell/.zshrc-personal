@@ -17,3 +17,6 @@ alias zdotdir-change="sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.co
 
 # Reset MediaHuman YouTube Downloader
 alias RAZ-mhytd="wine regedit ~/.wine/drive_c/MediaHuman\ YouTube\ Downloader\ RAZ.reg && echo 'MediaHuman YouTube Downloader has been reset successfully !'"
+
+# Check if [package] is installed
+alias pacgrep='sudo pacman -Q | grep ' # [package]
