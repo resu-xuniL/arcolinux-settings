@@ -92,8 +92,7 @@ check_required_dep() {
 init() {
     init_log
     check_required_dep
-    exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod 644 {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
-    exec_log "find ${INSTALL_DIRECTORY} -type f -executable -exec chmod +x {} +" "${GREEN}[+]${RESET} Setting [${YELLOW}execution permission${RESET}] on [${YELLOW}BASH script${RESET}] files"
+    exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod u+w,a+r {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
   
     if [[ ! ${CURRENT_USER} == "wam" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
