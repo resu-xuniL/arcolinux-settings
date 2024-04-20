@@ -65,20 +65,24 @@ check_internet() {
 check_required_dep() {
     declare -a required_dep_list
     required_dep_list=(
-        p7zip
-        zip
-        unzip
         file-roller
+        p7zip
+        unzip
+        virtualbox-guest-utils
+        zip
     )
 
     log_msg "${GREEN}[+]${RESET} Checking for required packages :${RESET}"
 
     for required_dep in "${required_dep_list[@]}"; do
-        if ! pacman -Q ${required_dep} &> /dev/null; then
-            exec_log "sudo pacman -S --noconfirm --needed ${required_dep}" "${GREEN}[+]${RESET} Installing [${YELLOW}${required_dep}${RESET}] as a required package"
-        else
-            log_msg "${GREEN}[OK]${RESET} No need to install [${YELLOW}${required_dep}${RESET}] : already present${RESET} ${GREEN}\u2713${RESET}"
+        if [[ ${required_dep} == "virtualbox-guest-utils" ]]; then
+            if pacman -Q virtualbox-guest-utils-nox &> /dev/null; then
+                action_type="uninstall"
+                manage_one "virtualbox-guest-utils-nox"
+            fi
         fi
+        action_type="install"
+        manage_one "${required_dep}"
     done
 }
 
