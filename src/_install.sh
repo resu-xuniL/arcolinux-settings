@@ -86,7 +86,8 @@ config_apps() {
     ################################################################
     # [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
     if [[ ${packages} =~ "conky-lua-archers" && ${extra_install[conky-lua-archers]} == true ]]; then
-
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/conky/am-conky-session /usr/bin" "${GREEN}[+]${RESET} Copying [${YELLOW}am-conky-session${RESET}] file to [${YELLOW}/usr/bin{RESET}] folder"
+        
         ################################################################
         ##########                Conky : WAM                 ##########
         ##########            User config & alias             ##########
