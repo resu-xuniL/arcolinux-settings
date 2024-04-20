@@ -62,15 +62,32 @@ check_internet() {
     return 0
 }
 
+check_required_dep() {
+    declare -a required_dep_list
+    required_dep_list=(
+        p7zip
+        zip
+        unzip
+        file-roller
+    )
+
+    log_msg "${GREEN}[+]${RESET} Checking for required packages :${RESET}"
+
+    for required_dep in "${required_dep_list[@]}"; do
+        if ! pacman -Q ${required_dep} &> /dev/null; then
+            exec_log "sudo pacman -S --noconfirm --needed ${required_dep}" "${GREEN}[+]${RESET} Installing [${YELLOW}${required_dep}${RESET}] as a required package"
+        else
+            log_msg "${GREEN}[OK]${RESET} No need to install [${YELLOW}${required_dep}${RESET}] : already present${RESET} ${GREEN}\u2713${RESET}"
+        fi
+    done
+}
+
 init() {
     init_log
+    check_required_dep
     exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod 644 {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
     exec_log "find ${INSTALL_DIRECTORY} -type f -name '*.sh' -exec chmod +x {} +" "${GREEN}[+]${RESET} Adding [${YELLOW}execution permission${RESET}] on [${YELLOW}BASH script${RESET}] files"
-
-    if ! pacman -Qi p7zip &> /dev/null; then
-        exec_log "sudo pacman -S --noconfirm --needed p7zip" "${GREEN}[+]${RESET} Installing [${YELLOW}7-Zip${RESET}]"
-    fi
-    
+  
     if [[ ! ${CURRENT_USER} == "wam" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
