@@ -64,6 +64,8 @@ check_internet() {
 
 check_required_dep() {
     declare -a required_dep_list
+    local packages
+
     required_dep_list=(
         file-roller
         p7zip
@@ -81,9 +83,10 @@ check_required_dep() {
                 manage_one "virtualbox-guest-utils-nox"
             fi
         fi
-        action_type="install"
-        manage_one "${required_dep}"
+        packages+="${required_dep}&"
     done
+    action_type="install"
+    manage_lst "${packages}"
 }
 
 init() {
