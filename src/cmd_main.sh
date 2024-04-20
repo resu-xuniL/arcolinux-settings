@@ -136,6 +136,7 @@ manage_one() {
             virtualbox
             virtualbox-host-dkms
             visual-studio-code-bin
+            we10x-icon-theme-git
             wine
         "
 
