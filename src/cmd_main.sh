@@ -144,7 +144,7 @@ manage_one() {
         fi
 
         if [[ ${action_type} == "install" ]]; then
-            if pacman -Qi $1 &> /dev/null; then
+            if pacman -Q $1 &> /dev/null; then
                 log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
                 if [[ ${FORCEMODE} == false ]]; then
                     extra_install[${package}]=false
@@ -153,7 +153,7 @@ manage_one() {
                 exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
             fi
         elif [[ ${action_type} == "uninstall" ]]; then
-            if pacman -Qi $1 &> /dev/null; then
+            if pacman -Q $1 &> /dev/null; then
                 exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
             else
                 log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"

@@ -130,7 +130,7 @@ set_config_files() {
     if [[ ${packages} =~ "plank/*" ]]; then
         file_conf="Plank"
 
-        if ! pacman -Qi plank &> /dev/null; then
+        if ! pacman -Q plank &> /dev/null; then
             exec_log "sudo pacman -S --noconfirm --needed plank" "${GREEN}[+]${RESET} Installing [${YELLOW}Plank${RESET}]"
         fi
 

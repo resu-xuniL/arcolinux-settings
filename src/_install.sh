@@ -161,7 +161,7 @@ config_apps() {
         app_conf="Virtualbox"
 
         manage_one "virtualbox-host-modules-arch"
-        if pacman -Qi linux &> /dev/null; then
+        if pacman -Q linux &> /dev/null; then
             manage_one "linux-headers"
         fi
 
