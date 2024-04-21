@@ -8,7 +8,6 @@ set_config_list() {
         [Adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock"
         [Set filenames order]="localectl set-locale LC_COLLATE=C"
         [Enable pacman cache cleanup]="systemctl enable --now paccache.timer"
-        [Audio : set speakers volume to 100%]="amixer set Master 100%"
     )
 }
 
@@ -30,6 +29,14 @@ config_settings() {
 }
 
 extra_config_settings() {
+    ################################################################
+    ##########                   Audio                    ##########
+    ##############  Set volume 100 % & microphone off ##############        
+    ################################################################
+
+    exec_log "amixer set Master 100%" "${GREEN}[+]${RESET} Setting [${YELLOW}speakers${RESET}] volume to : [${YELLOW}100%${RESET}]"
+    exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
+    exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
 
     ################################################################
     ##########                 Sync time                  ##########
@@ -43,14 +50,5 @@ extra_config_settings() {
 
     if [[ ${packages} =~ "localectl set-locale LC_COLLATE=C" ]]; then
         exec_log "gsettings set org.gtk.Settings.FileChooser sort-directories-first true" "${GREEN}[+]${RESET} Setting [${YELLOW}GTK FileChooser${RESET}] sort-directories-first : [${YELLOW}True${RESET}]"
-    fi
-
-    ################################################################
-    ##########         Audio : set microphone off         ##########
-    ################################################################
-
-    if [[ ${packages} =~ "amixer set Master 100%" && $microphone_state =~ "[on]" ]]; then
-        exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
-        exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
     fi
 }
