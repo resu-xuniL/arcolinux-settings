@@ -60,6 +60,7 @@ set_config_files() {
         file_conf="Personal bookmarks"
 
         if [[ ${VM} == "none" ]]; then
+            check_dir ${HOME}/VirtualBox_VMs/_SharedFolder "user"
             exec_log "printf '%s\n' 'file:///home/***/VirtualBox_VMs/_SharedFolder VM shared folder' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}VM shared folder${RESET}] bookmark"
             
             if [[ ${CURRENT_RESOLUTION} == "1680x1050" ]]; then
