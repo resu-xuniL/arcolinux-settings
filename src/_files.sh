@@ -115,7 +115,7 @@ set_config_files() {
     if [[ ${packages} =~ "grub/theme.txt" ]]; then
         file_conf="Grub"
 
-        if [[ ! ${VM} == "none" ]]; then
+        if [[ ${VM} == "none" ]]; then
             exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/fallout-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}fallout-grub-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
             exec_log "sudo sed -i 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
