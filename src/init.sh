@@ -70,9 +70,11 @@ check_required_dep() {
         file-roller
         p7zip
         unzip
-        virtualbox-guest-utils
         zip
     )
+    if [[ ! ${VM} == "none" ]]; then
+        required_dep_list+=(virtualbox-guest-utils)
+    fi
 
     log_msg "${GREEN}[+]${RESET} Checking for required packages :${RESET}"
 
