@@ -174,6 +174,7 @@ config_apps() {
 
         check_dir ${HOME}/VirtualBox_VMs "user"
         exec_log "tar -xf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
+        exec_log "vboxmanage setproperty machinefolder ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Change [${YELLOW}VirtualBox VMs${RESET}] path"
     fi
 
     ################################################################
