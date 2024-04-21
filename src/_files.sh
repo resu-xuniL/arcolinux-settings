@@ -28,6 +28,7 @@ set_config_files_list() {
         [VSCode settings]="vscode/settings.json ${HOME}/.config/Code/User"
         [VSCode snippets]="vscode/shellscript.json ${HOME}/.config/Code/User/snippets"
         [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
+        [Dark theme for Qt applications]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
     )
 }
 
@@ -157,6 +158,20 @@ set_config_files() {
         exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme Transparent" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] theme: [${YELLOW}Transparent${RESET}]"
     fi
         
+    ################################################################
+    ##########                     QT                     ##########
+    ################################################################
+
+    if [[ ${packages} =~ "qt5ct/qt5ct.conf" ]]; then
+        file_conf="QT5CT"
+
+        if ! pacman -Q qt5ct &> /dev/null; then
+            exec_log "sudo pacman -S --noconfirm --needed qt5ct" "${GREEN}[+]${RESET} Installing [${YELLOW}qt5ct${RESET}] for [${YELLOW}dark theme${RESET}] on Qt applications"
+        fi
+
+        exec_log "sudo sed -i 's/QT_STYLE_OVERRIDE=kvantum/#QT_STYLE_OVERRIDE=kvantum/' /etc/environment" "${GREEN}[+]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file"
+    fi
+
     ################################################################
     ##########                    SDDM                    ##########
     ################################################################
