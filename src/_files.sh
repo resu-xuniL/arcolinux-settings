@@ -111,7 +111,7 @@ set_config_files() {
     if [[ ${packages} =~ "grub/theme.txt" ]]; then
         file_conf="Grub"
 
-        if [[ ! ${CURRENT_USER} == "wam" ]]; then
+        if [[ ! ${VM} == "none" ]]; then
             exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/fallout-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}fallout-grub-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
             exec_log "sudo sed -i 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         fi
@@ -143,7 +143,7 @@ set_config_files() {
             done
         } | whiptail --gauge "Please wait for 3 seconds..." 8 50 0
 
-        if [[ ${CURRENT_USER} == "wam" ]]; then
+        if [[ ${VM} == "none" ]]; then
             exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'MediaHuman YouTube Downloader.dockitem', 'virtualbox.dockitem', 'code.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
         else
             exec_log "rm -v ${HOME}/.config/plank/dock1/launchers/virtualbox.dockitem" "${RED}[-]${RESET} Removing [${YELLOW}virtualbox.dockitem${RESET}]"
