@@ -62,6 +62,36 @@ check_internet() {
     return 0
 }
 
+remove_useless_kernels() {
+    declare -a kernel_to_remove_list
+    local packages
+
+    kernel_to_remove_list=(
+    linux-lts-headers
+    linux-lts
+    linux-zen-headers
+    linux-zen
+    linux-hardened-headers
+    linux-hardened
+    linux-rt-headers
+    linux-rt
+    linux-rt-lts-headers
+    linux-rt-lts
+    linux-cachyos-headers
+    linux-cachyos
+    linux-xanmod-headers
+    linux-xanmod
+    )
+
+    log_msg "${GREEN}[+]${RESET} Checking for kernel(s) to remove :${RESET}"
+
+    for kernel in "${kernel_to_remove_list[@]}"; do
+        packages+="${kernel}&"
+    done
+    action_type="uninstall"
+    manage_lst "${packages}"
+}
+
 check_required_dep() {
     declare -a required_dep_list
     local packages
@@ -72,6 +102,7 @@ check_required_dep() {
         unzip
         zip
     )
+
     if [[ ! ${VM} == "none" ]]; then
         required_dep_list+=(virtualbox-guest-utils)
     fi
@@ -93,6 +124,7 @@ check_required_dep() {
 
 init() {
     init_log
+    remove_useless_kernels
     check_required_dep
     exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod u+w,a+r {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
   
