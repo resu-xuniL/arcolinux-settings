@@ -223,7 +223,6 @@ set_config_files() {
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
 
-        exec_log "xfconf-query -c xfce4-terminal -p /run-custom-command -n -t bool -s true" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}RUN CUSTOM COMMAND${RESET}] to [${YELLOW}TRUE${RESET}]"
-        exec_log "xfconf-query -c xfce4-terminal -p /custom-command -n -t string -s /usr/bin/zsh" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}CUSTOM COMMAND${RESET}] to [${YELLOW}/usr/bin/zsh${RESET}]"
+        exec_log "chsh -s /bin/zsh" "${GREEN}[+]${RESET} Setting default [${YELLOW}shell${RESET}] to [${YELLOW}ZSH${RESET}]"
     fi
 }
