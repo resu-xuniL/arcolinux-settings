@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=arcolinux-settings-in-VSCode
+Comment=
+Exec=code .
+Icon=format-text-code
+Path=/home/***/Documents/arcolinux-settings
+Terminal=false
+StartupNotify=true
