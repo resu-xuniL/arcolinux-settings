@@ -25,8 +25,8 @@ set_config_files_list() {
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
         [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
         [XFCE settings : Keyboard shortcut - Thunar config - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
-        [VSCode settings]="vscode/settings.json ${HOME}/.config/Code/User"
-        [VSCode snippets]="vscode/shellscript.json ${HOME}/.config/Code/User/snippets"
+        [VSCodium settings]="vscodium/settings.json ${HOME}/.config/VSCodium/User"
+        [VSCodium snippets]="vscodium/shellscript.json ${HOME}/.config/VSCodium/User/snippets"
         [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
         [Dark theme for Qt applications]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
     )
@@ -139,12 +139,12 @@ set_config_files() {
         fi
 
         replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCode.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
-        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscode/arcolinux-settings-in-VSCode.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-settings-in-VSCode.desktop${RESET}] file to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
-        replace_username "${HOME}/.local/share/applications/arcolinux-settings-in-VSCode.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCode.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/arcolinux-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
+        replace_username "${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         if [[ ${VM} == "none" ]]; then
-            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/arcolinux-settings-in-VSCode.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCode.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         fi
 
         {
@@ -155,10 +155,10 @@ set_config_files() {
         } | whiptail --gauge "Please wait for 3 seconds..." 8 50 0
 
         if [[ ${VM} == "none" ]]; then
-            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'code.dockitem', 'arcolinux-settings-in-VSCode.dockitem', 'mediaHuman.YouTubeDownloader.dockitem', 'virtualbox.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
+            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem', 'mediaHuman.YouTubeDownloader.dockitem', 'virtualbox.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
         else
             exec_log "rm -v ${HOME}/.config/plank/dock1/launchers/virtualbox.dockitem" "${RED}[-]${RESET} Removing [${YELLOW}virtualbox.dockitem${RESET}]"
-            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'code.dockitem', 'arcolinux-settings-in-VSCode.dockitem', 'mediaHuman.YouTubeDownloader.dockitem']\"" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
+            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem', 'mediaHuman.YouTubeDownloader.dockitem']\"" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
         fi
         exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-delay: [${YELLOW}300${RESET}]"
         exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-mode: [${YELLOW}Auto${RESET}]"

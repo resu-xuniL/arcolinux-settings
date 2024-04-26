@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=arcolinux-settings-in-VSCode
+Name=Arcolinux-settings in VSCodium
 Comment=
-Exec=code .
+Exec=codium .
 Icon=format-text-code
 Path=/home/***/Documents/arcolinux-settings
 Terminal=false

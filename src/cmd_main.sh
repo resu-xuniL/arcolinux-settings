@@ -135,7 +135,7 @@ manage_one() {
             thunderbird
             virtualbox
             virtualbox-host-dkms
-            visual-studio-code-bin
+            vscodium-bin
             we10x-icon-theme-git
             wine
         "

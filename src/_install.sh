@@ -26,7 +26,7 @@ set_install_list() {
         [Meld]="meld"
         [Plank]="plank"
         [Thunderbird]="thunderbird"
-        [Visual studio code]="visual-studio-code-bin"
+        [Visual studio code]="vscodium-bin"
         [VLC]="vlc"
         [Wine]="wine"
         [Xreader]="xreader"
