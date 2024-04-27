@@ -163,12 +163,11 @@ config_apps() {
     ################################################################
 
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
-        app_conf="Virtualbox"
+        app_conf="VirtualBox"
 
-        manage_one "virtualbox-host-modules-arch"
-        if pacman -Q linux &> /dev/null; then
-            manage_one "linux-headers"
-        fi
+        required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
+        action_type="install"
+        manage_lst "${required_vbox_packages}"
 
         exec_log "sudo gpasswd -a ${USER} vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
 
