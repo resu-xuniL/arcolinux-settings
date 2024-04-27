@@ -134,7 +134,7 @@ manage_one() {
             brave-bin
             thunderbird
             virtualbox
-            virtualbox-host-dkms
+            virtualbox-host-modules-arc
             vscodium-bin
             we10x-icon-theme-git
             wine

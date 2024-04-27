@@ -165,6 +165,11 @@ config_apps() {
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
         app_conf="VirtualBox"
 
+        if pacman -Q virtualbox-host-dkms &> /dev/null; then
+            action_type="uninstall"
+            manage_one "virtualbox-host-dkms"
+        fi
+
         required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
         action_type="install"
         manage_lst "${required_vbox_packages}"
