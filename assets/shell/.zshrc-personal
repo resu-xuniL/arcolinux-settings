@@ -2,6 +2,7 @@
 ### ALIASES ###
 
 alias updtae='sudo pacman -Syyu'
+alias updnewer='sudo pacman -Syuu'
 
 alias grub-updtae="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias updtae-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
