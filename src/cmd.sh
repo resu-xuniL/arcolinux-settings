@@ -106,7 +106,7 @@ exit_status() {
         if [[ ${action_type} == "install" ]]; then
             printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}${package} installation failed !${RESET}"
-        elif [[ ${action_type} == "config_apps" ]]; then
+        elif [[ ${action_type} == "post_config_apps" ]]; then
             printf "%b\n" "\033[1A\033[2K${comment} ${RED}\u2718${RESET}"
             log_msg "${BB}${RED}[KO]${RESET} ${RED}Something went wrong on${RESET} [${YELLOW}${app_conf}${RESET}] ${RED}configuration !${RESET}"
         elif [[ ${action_type} == "config_files" ]]; then

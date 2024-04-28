@@ -60,13 +60,36 @@ install_software() {
     local -r packages="${selected_packages}"
     selected_packages=""
 
+    pre_config_apps
+
     manage_lst "${packages}"
 
-    config_apps
+    post_config_apps
+}
+    
+pre_config_apps() {
+    action_type="pre_config_apps"
+
+    ################################################################
+    ##########                 VirtualBox                 ##########
+    ################################################################
+
+    if [[ ${packages} =~ "virtualbox" ]]; then
+        app_conf="Pre-VirtualBox"
+        
+        if pacman -Q virtualbox-host-dkms &> /dev/null; then
+            action_type="uninstall"
+            manage_one "virtualbox-host-dkms"
+        fi
+
+        required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
+        action_type="install"
+        manage_lst "${required_vbox_packages}"
+    fi 
 }
 
-config_apps() {
-    action_type="config_apps"
+post_config_apps() {
+    action_type="post_config_apps"
 
     ################################################################
     ##########                   Brave                    ##########
@@ -163,16 +186,7 @@ config_apps() {
     ################################################################
 
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
-        app_conf="VirtualBox"
-
-        if pacman -Q virtualbox-host-dkms &> /dev/null; then
-            action_type="uninstall"
-            manage_one "virtualbox-host-dkms"
-        fi
-
-        required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
-        action_type="install"
-        manage_lst "${required_vbox_packages}"
+        app_conf="Post-VirtualBox"
 
         exec_log "sudo gpasswd -a ${USER} vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
 

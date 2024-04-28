@@ -127,6 +127,7 @@ manage_one() {
         local -r package=$1
         local -r package_split=(${package})
         local sudo_str=""
+        local asdeps_str=""
         local warning_msg=""
         local -r warning="
             rtl8821cu-morrownr-dkms-git
@@ -134,7 +135,6 @@ manage_one() {
             brave-bin
             thunderbird
             virtualbox
-            virtualbox-host-modules-arc
             vscodium-bin
             we10x-icon-theme-git
             wine
@@ -151,7 +151,10 @@ manage_one() {
                     extra_install[${package}]=false
                 fi
             else
-                exec_log "sudo pacman -S --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
+                if [[ ${package} =~ "virtualbox-host-modules-arch" ]]; then
+                    asdeps_str="--asdeps"
+                fi
+                exec_log "sudo pacman -S ${asdeps_str} --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
             fi
         elif [[ ${action_type} == "uninstall" ]]; then
             if pacman -Q ${package} &> /dev/null; then
