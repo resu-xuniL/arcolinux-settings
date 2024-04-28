@@ -5,9 +5,10 @@ selected_packages=""
 set_config_list() {
 
     sys_config_list=(
-        [Adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock"
-        [Set filenames order]="localectl set-locale LC_COLLATE=C"
-        [Enable pacman cache cleanup]="systemctl enable --now paccache.timer"
+        [Localectl : set filenames order]="localectl set-locale LC_COLLATE=C"
+        [Pacman : enable cache cleanup]="systemctl enable --now paccache.timer"
+        [Timedatectl : adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock"
+        [Timedatectl : enable sync. time]="timedatectl set-ntp true"
     )
 }
 
@@ -37,12 +38,6 @@ extra_config_settings() {
     exec_log "amixer set Master 100%" "${GREEN}[+]${RESET} Setting [${YELLOW}speakers${RESET}] volume to : [${YELLOW}100%${RESET}]"
     exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
     exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
-
-    ################################################################
-    ##########                 Sync time                  ##########
-    ################################################################
-
-    exec_log "sudo timedatectl set-ntp true" "${GREEN}[+]${RESET} Enabling and starting [${YELLOW}Sync time${RESET}]"
 
     ################################################################
     ##########             Set filename order             ##########

@@ -9,7 +9,7 @@ selected_packages=""
 
 set_install_list() {
     vm_list=(
-        [VirtualBox \(+ template\)]="virtualbox"
+        [VirtualBox (+ template)]="virtualbox"
     )
 
     font_icon_list=(

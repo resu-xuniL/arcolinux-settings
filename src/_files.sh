@@ -6,29 +6,29 @@ selected_packages=""
 set_config_files_list() {
 
     root_config_files_list=(
-        [Set 1.1.1.1 DNS]="dns/resolv.conf /etc"
         [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
+        [Pacman hook : check for orphans at update]="pacman.hook/check-orphaned.hook /etc/pacman.d/hooks"
+        [Resolv : set 1.1.1.1 DNS]="dns/resolv.conf /etc"
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
-        [Pacman hook : check for orphans at update]="pacman.hook/check-orphaned.hook /etc/pacman.d/hooks"
     )
 
     user_config_files_list=(
         [Autostart applications]="autostart/* ${HOME}/.config/autostart"
+        [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
+        [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
+        [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
+        [Shell : personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
+        [Shell : personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
+        [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
-        [Personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
-        [Personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
-        [Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Variety]="variety/variety.conf ${HOME}/.config/variety"
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
-        [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
-        [XFCE settings : Keyboard shortcut - Thunar config - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
         [VSCodium settings]="vscodium/settings.json ${HOME}/.config/VSCodium/User"
         [VSCodium snippets]="vscodium/shellscript.json ${HOME}/.config/VSCodium/User/snippets"
-        [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
-        [Dark theme for Qt applications]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
+        [XFCE settings : Keyboard shortcut - Thunar config - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
     )
 }
 
