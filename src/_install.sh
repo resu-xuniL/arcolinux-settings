@@ -3,6 +3,7 @@ source src/getLastSyncWord.sh
 declare -A vm_list
 declare -A font_icon_list
 declare -A soft_list
+declare -A special_list
 declare -A extra_list
 
 selected_packages=""
@@ -25,11 +26,14 @@ set_install_list() {
         [Galculator]="galculator"
         [Meld]="meld"
         [Plank]="plank"
-        [Thunderbird]="thunderbird"
         [Visual studio code]="vscodium-bin"
         [VLC]="vlc"
-        [Wine]="wine"
         [Xreader]="xreader"
+    )
+
+    special_list=(
+        [Thunderbird]="thunderbird"
+        [Wine]="wine"
     )
 
     extra_list=(
@@ -55,7 +59,8 @@ install_software() {
     fi
 
     select_from_list font_icon_list "Font & icons"
-    select_from_list soft_list "Needed"
+    select_from_list soft_list "Softwares"
+    select_from_list special_list "Specials"
 
     local -r packages="${selected_packages}"
     selected_packages=""
@@ -68,7 +73,6 @@ install_software() {
 }
     
 pre_config_apps() {
-    action_type="pre_config_apps"
 
     ################################################################
     ##########                 VirtualBox                 ##########
@@ -90,6 +94,7 @@ pre_config_apps() {
 
 post_config_apps() {
     action_type="post_config_apps"
+    plank_dockitem=""
 
     ################################################################
     ##########                   Brave                    ##########
@@ -172,6 +177,7 @@ post_config_apps() {
 
     if [[ ${packages} =~ "thunderbird" && ${extra_install[thunderbird]} == true ]]; then
         app_conf="Thunderbird"
+        plank_dockitem+="thunderbird "
 
         if ! exist ${HOME}/.thunderbird/*.default-*; then
             exec_log "thunderbird" "${GREEN}[+]${RESET} Starting [${YELLOW}thunderbird${RESET}]"
@@ -255,6 +261,7 @@ post_config_apps() {
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}Youtube downloader${RESET}] (for WINE) ?" true
         if [[ ${answer} == true ]]; then
             app_conf="Wine : Youtube downloader"
+            plank_dockitem+="wine_mhyd "
             
             local -r file="YouTubeDownloader-x64.exe"
 
@@ -302,5 +309,47 @@ post_config_apps() {
                 fi
             fi
         fi
+    fi
+
+    ################################################################
+    ##########                   Plank                    ##########
+    ################################################################
+
+    if [[ ${packages} =~ "plank" && ${extra_install[plank]} == true ]]; then
+        app_conf="Plank"
+
+        check_dir ${HOME}/.local/share/applications "user"
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/arcolinux-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}~/.local/share/applications${RESET}] folder"
+        replace_username "${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        if [[ ${VM} == "none" ]]; then
+            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        fi
+        
+        exec_log "rsync '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+        replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+
+        dock_item_string="'xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem'"
+        if [[ ${plank_dockitem} =~ "thunderbird" ]]; then
+            exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/org.mozilla.Thunderbird.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}org.mozilla.Thunderbird.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+            dock_item_string+=", 'org.mozilla.Thunderbird.dockitem'"
+        fi
+        dock_item_string+=", 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem'"
+        if [[ ${plank_dockitem} =~ "wine_mhyd" ]]; then
+            exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/mediaHuman.YouTubeDownloader.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}mediaHuman.YouTubeDownloader.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+            replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            dock_item_string+=", 'mediaHuman.YouTubeDownloader.dockitem'"
+        fi
+        if [[ ${VM} == "none" ]]; then
+            exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/virtualbox.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}virtualbox.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+            dock_item_string+=", 'virtualbox.dockitem'"
+        fi
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"[${dock_item_string}]\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
+
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-delay: [${YELLOW}300${RESET}]"
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-mode: [${YELLOW}Auto${RESET}]"
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ lock-items true" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] lock-items: [${YELLOW}True${RESET}]"
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ pinned-only true" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] pinned-only: [${YELLOW}True${RESET}]"
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position top" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] position: [${YELLOW}Top${RESET}]"
+        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme Transparent" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] theme: [${YELLOW}Transparent${RESET}]"
     fi
 }

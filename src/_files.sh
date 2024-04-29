@@ -16,7 +16,6 @@ set_config_files_list() {
     user_config_files_list=(
         [Autostart applications]="autostart/* ${HOME}/.config/autostart"
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
-        [Plank]="plank/* ${HOME}/.config/plank/dock1/launchers"
         [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
         [Shell : personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
         [Shell : personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
@@ -125,48 +124,6 @@ set_config_files() {
         exec_log "sudo sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=${CURRENT_RESOLUTION}/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_GFXMODE=${CURRENT_RESOLUTION} for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
         exec_log "sudo grub-mkconfig -o /boot/grub/grub.cfg" "${GREEN}[+]${RESET} Saving [${YELLOW}GRUB${RESET}] config."
-    fi
-
-    ################################################################
-    ##########                   Plank                    ##########
-    ################################################################
-
-    if [[ ${packages} =~ "plank/*" ]]; then
-        file_conf="Plank"
-
-        if ! pacman -Q plank &> /dev/null; then
-            exec_log "sudo pacman -S --noconfirm --needed plank" "${GREEN}[+]${RESET} Installing [${YELLOW}Plank${RESET}]"
-        fi
-
-        replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-
-        check_dir ${HOME}/.local/share/applications "user"
-        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/arcolinux-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
-        replace_username "${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        if [[ ${VM} == "none" ]]; then
-            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        fi
-
-        {
-            for ((i = 0 ; i <= 100 ; i+=5)); do
-                sleep 0.1
-                printf "%s\n" "${i}"
-            done
-        } | whiptail --gauge "Please wait for 3 seconds..." 8 50 0
-
-        if [[ ${VM} == "none" ]]; then
-            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem', 'mediaHuman.YouTubeDownloader.dockitem', 'virtualbox.dockitem']\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
-        else
-            exec_log "rm -v ${HOME}/.config/plank/dock1/launchers/virtualbox.dockitem" "${RED}[-]${RESET} Removing [${YELLOW}virtualbox.dockitem${RESET}]"
-            exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"['xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem', 'org.mozilla.Thunderbird.dockitem', 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem', 'mediaHuman.YouTubeDownloader.dockitem']\"" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
-        fi
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-delay 300" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-delay: [${YELLOW}300${RESET}]"
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode auto" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] hide-mode: [${YELLOW}Auto${RESET}]"
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ lock-items true" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] lock-items: [${YELLOW}True${RESET}]"
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ pinned-only true" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] pinned-only: [${YELLOW}True${RESET}]"
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position top" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] position: [${YELLOW}Top${RESET}]"
-        exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme Transparent" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] theme: [${YELLOW}Transparent${RESET}]"
     fi
 
     ################################################################
