@@ -62,6 +62,7 @@ set_config_files() {
         if [[ ${VM} == "none" ]]; then
             check_dir ${HOME}/VirtualBox_VMs/_SharedFolder "user"
             exec_log "printf '%s\n' 'file:///home/***/VirtualBox_VMs/_SharedFolder VM shared folder' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}VM shared folder${RESET}] bookmark"
+            exec_log "printf '%s\n' 'file:///home/***/Documents/%5BNextcloud%5D/%5BLinux%5D/%5BScripts%5D' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}VM shared folder${RESET}] bookmark"
 
             if [[ ${CURRENT_RESOLUTION} == "1680x1050" ]]; then
                 exec_log "printf '%s\n' 'file:///mnt/Swap%20%5B511%20Go%5D/%5BFilms%5D' >> ${HOME}/.config/gtk-3.0/bookmarks" "${GREEN}[+]${RESET} Adding [${YELLOW}[Films]${RESET}] bookmark"
