@@ -20,8 +20,8 @@ ZSH_THEME="random"
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # If set to an empty array, this variable will have no effect.
 
-ZSH_THEME_RANDOM_CANDIDATES=(powerline xiong-chiamiov-plus frisk fino-time linuxonly afowler gentoo frontcube murilasso trapd00r jonathan nebirhos rkj-repos takashiyoshida obraun blinks darkblood gnzh simonoff jreese smt xiong-chiamiov fino intheloop lukerandall duellj crcandy adben fox funky candy kiwi rkj mikeh)
-ZSH_THEME_RANDOM_IGNORED=(half-life re5et gianu dallas skaro josh daveverwer mortalscumbag crunch macovsky sorin kphoen tonotdo edvardm terminalparty dpoggi miloshadzic minimal kolo risto nanotech jbergantine lambda sporty_256 mgutz candy-kingdom bira kardan oldgallois peepcode af-magic jtriley cloud gallois philips emotty agnoster amuse rixius aussiegeek nicoulaj wuffers fwalch kennethreitz mira 3den garyblessington geoffgarside tjkirch_mod avit suvash norm itchy fishy eastwood junkfood mrtazz dstufft pygmalion pygmalion-virtualenv wedisagree cypher arrow evan theunraveler steeef fletcherm strug sonicradish example ys imajes dst gallifrey Soliah bureau humza muse refined michelebologna superjarin jispwoso tjkirch sunrise simple jaischeema gozilla pmcgee clean robbyrussell jnrowe mh rgm kafeitu macovsky-ruby juanghurtado wezm wezm+ flazz sammy zhann mlh maran essembeh alanpeabody dieter apple sunaku dogenpunk awesomepanda)
+ZSH_THEME_RANDOM_CANDIDATES=(powerline xiong-chiamiov-plus frisk fino-time linuxonly afowler gentoo murilasso trapd00r jonathan nebirhos rkj-repos takashiyoshida obraun blinks darkblood gnzh simonoff jreese smt xiong-chiamiov fino intheloop lukerandall duellj crcandy adben fox funky candy kiwi rkj mikeh)
+ZSH_THEME_RANDOM_IGNORED=(frontcube half-life re5et gianu dallas skaro josh daveverwer mortalscumbag crunch macovsky sorin kphoen tonotdo edvardm terminalparty dpoggi miloshadzic minimal kolo risto nanotech jbergantine lambda sporty_256 mgutz candy-kingdom bira kardan oldgallois peepcode af-magic jtriley cloud gallois philips emotty agnoster amuse rixius aussiegeek nicoulaj wuffers fwalch kennethreitz mira 3den garyblessington geoffgarside tjkirch_mod avit suvash norm itchy fishy eastwood junkfood mrtazz dstufft pygmalion pygmalion-virtualenv wedisagree cypher arrow evan theunraveler steeef fletcherm strug sonicradish example ys imajes dst gallifrey Soliah bureau humza muse refined michelebologna superjarin jispwoso tjkirch sunrise simple jaischeema gozilla pmcgee clean robbyrussell jnrowe mh rgm kafeitu macovsky-ruby juanghurtado wezm wezm+ flazz sammy zhann mlh maran essembeh alanpeabody dieter apple sunaku dogenpunk awesomepanda)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -75,7 +75,7 @@ HIST_STAMPS="%d-%m-%Y %T"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(z)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
   source $ZSH/oh-my-zsh.sh
@@ -104,6 +104,10 @@ export PAGER='most'
 
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 setopt GLOB_DOTS
