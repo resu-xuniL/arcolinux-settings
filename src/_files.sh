@@ -93,8 +93,10 @@ set_config_files() {
 
         exec_log "cp ${INSTALL_DIRECTORY}/_extra/.login.sound.mp3 ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${HOME}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-    
-        exec_log "rm -v ${HOME}/.config/autostart/xfce4-clipman-plugin-autostart.desktop" "${RED}[-]${RESET} Removing [${YELLOW}xfce4-clipman-plugin${RESET}] from autostart folder"
+        
+        if [[ -f ${HOME}/.config/autostart/xfce4-clipman-plugin-autostart.desktop ]]; then
+            exec_log "rm -v ${HOME}/.config/autostart/xfce4-clipman-plugin-autostart.desktop" "${RED}[-]${RESET} Removing [${YELLOW}xfce4-clipman-plugin${RESET}] from autostart folder"
+        fi
     fi
 
     ################################################################
