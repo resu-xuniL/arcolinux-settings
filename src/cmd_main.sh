@@ -104,7 +104,7 @@ manage_lst() {
     local -r lst_split=(${lst})
     declare -g -A extra_install
 
-    if [ ${#lst_split[@]} -eq 0 ]; then
+    if [[ ${#lst_split[@]} -eq 0 ]]; then
         unset IFS
     else
         for package in ${lst_split[@]}; do

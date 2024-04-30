@@ -57,7 +57,7 @@ gui_steps_selection() {
         "9" "All steps" ON 3>&1 1>&2 2>&3
     )
 
-    if [ -z "${steps_sel}" ]; then
+    if [[ -z "${steps_sel}" ]]; then
          printf "%b\n\n" "\033[2B${RED}No option was selected${RESET} (user hit Cancel or unselected all options)"
     else
         for step_sel in ${steps_sel}; do

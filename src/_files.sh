@@ -153,7 +153,7 @@ set_config_files() {
 
         check_dir /usr/share/sddm/themes/arcolinux-sugar-candy "root"
 
-        if [ -z "$(ls -A /usr/share/sddm/themes/arcolinux-sugar-candy)" ]; then
+        if [[ -z "$(ls -A /usr/share/sddm/themes/arcolinux-sugar-candy)" ]]; then
             exec_log "sudo pacman -S --noconfirm --needed arcolinux-sddm-sugar-candy-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Sugar candy SDDM${RESET}] theme"
         fi
 
