@@ -325,7 +325,7 @@ post_config_apps() {
             exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}arcolinux-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         fi
         
-        exec_log "rsync '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+        exec_log "rsync --mkpath '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
         replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
         dock_item_string="'xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem'"
