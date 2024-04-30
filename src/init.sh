@@ -26,16 +26,27 @@ export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 export VM=$(systemd-detect-virt)
 
 change_xfce_terminal_display() {
-    exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}1${RESET}]"
-    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Setting use of system [${YELLOW}FONT${RESET}] to [${YELLOW}FALSE${RESET}]"
-    exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT${RESET}] name & size"
-
+    if [[ $(xfconf-query -c xfce4-terminal -l | grep -c background-darkness) -eq 0 ]]; then
+        exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -n -t double -s 1" "${GREEN}[+]${RESET} XFCE terminal : Creating property [${YELLOW}BACKGROUND DARKNESS${RESET}] and setting it at [${YELLOW}1${RESET}]"
+    else
+        exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 1" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}1${RESET}]"
+    fi
+    if [[ $(xfconf-query -c xfce4-terminal -l | grep -c font-use-system) -eq 0 ]]; then
+        exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -n -t bool -s false" "${GREEN}[+]${RESET} XFCE terminal : Creating property [${YELLOW}USE SYSTEM FONT${RESET}] and setting it at [${YELLOW}FALSE${RESET}]"
+    else
+        exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s false" "${GREEN}[+]${RESET} XFCE terminal : Setting [${YELLOW}USE SYSTEM FONT${RESET}] to [${YELLOW}FALSE${RESET}]"
+    fi
+    if [[ $(xfconf-query -c xfce4-terminal -l | grep -c font-name) -eq 0 ]]; then
+        exec_log "xfconf-query -c xfce4-terminal -p /font-name -n -t string -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Creating property [${YELLOW}FONT-NAME${RESET}] and setting it at [${YELLOW}Ubuntu Mono Bold 9${RESET}]"
+    else
+        exec_log "xfconf-query -c xfce4-terminal -p /font-name -s Ubuntu\ Mono\ Bold\ 9" "${GREEN}[+]${RESET} XFCE terminal : Changing [${YELLOW}FONT-NAME${RESET}] for [${YELLOW}Ubuntu Mono Bold 9${RESET}]"
+    fi
     sleep 2
 }
 
 restore_xfce_terminal_display() {
     exec_log "xfconf-query -c xfce4-terminal -p /background-darkness -s 0.85" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}BACKGROUND DARKNESS${RESET}] to [${YELLOW}0.85${RESET}]"
-    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring use of system [${YELLOW}FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
+    exec_log "xfconf-query -c xfce4-terminal -p /font-use-system -s true" "${GREEN}[+]${RESET} XFCE terminal : Restoring [${YELLOW}USE SYSTEM FONT${RESET}] to [${YELLOW}TRUE${RESET}]"
     
     if [[ ${NOLOG} == "true" ]]; then
         rm ${LOG_FILE}; printf "%s %b\n" "${RED}[-]${RESET} Deleting log file" "${GREEN}\u2713${RESET}"
