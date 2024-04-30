@@ -144,10 +144,10 @@ post_config_apps() {
             
             check_dir ${HOME}/.cache/openmeteo "user"
             
-            exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Bentoh_mod.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh_mod.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
-            exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Californication.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Californication.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
-            exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
-            exec_log "sudo cp -a ${INSTALL_DIRECTORY}/fonts/TechnicalCE.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}TechnicalCE.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+            exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/Bentoh_mod.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh_mod.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+            exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/Californication.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Californication.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+            exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/Rallifornia.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Rallifornia.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
+            exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/TechnicalCE.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}TechnicalCE.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
             exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
         fi
     fi
