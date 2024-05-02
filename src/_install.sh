@@ -169,6 +169,8 @@ post_config_apps() {
 
     if [[ ${package} =~ "nextcloud-client" && ${extra_install[nextcloud-client]} == true ]]; then
         check_dir ${HOME}/Documents/[Nextcloud] "user"
+
+        exec_log "cp ${INSTALL_DIRECTORY}/nextcloud/sync-exclude.lst ${HOME}/.config/Nextcloud" "${GREEN}[+]${RESET} Copying [${YELLOW}sync-exclude.lst${RESET}] file to [${YELLOW}~/.config/Nextcloud${RESET}] folder"
     fi
 
     ################################################################
