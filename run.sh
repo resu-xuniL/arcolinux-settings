@@ -5,6 +5,7 @@ source src/header.sh
 source src/steps.sh
 source src/cmd.sh
 source src/cmd_main.sh
+source src/_dep.sh
 source src/_uninstall.sh
 source src/_install.sh
 source src/_settings.sh
