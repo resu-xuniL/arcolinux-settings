@@ -21,3 +21,6 @@ alias RAZ-mhytd="wine regedit ~/.wine/drive_c/MediaHuman\ YouTube\ Downloader\ R
 
 # Check if [package] is installed
 alias pacgrep='sudo pacman -Q | grep ' # [package]
+
+# Perform unrecoverable file delete
+alias destroy='shred -uvz ' # [file]
