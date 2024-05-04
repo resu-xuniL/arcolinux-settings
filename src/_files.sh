@@ -27,7 +27,7 @@ set_config_files_list() {
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
         [VSCodium settings]="vscodium/settings.json ${HOME}/.config/VSCodium/User"
         [VSCodium snippets]="vscodium/shellscript.json ${HOME}/.config/VSCodium/User/snippets"
-        [XFCE settings : Keyboard shortcut - Thunar config - Theme - Icons]="xfce/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
+        [XFCE settings : Task-bar - Keyboard shortcuts - Thunar config - Theme - Icons]="xfce/xfconf/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
     )
 }
 
@@ -167,11 +167,13 @@ set_config_files() {
     fi
 
     ################################################################
-    ##########            XFCE - Theme & icons            ##########
+    ##########                    XFCE                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "xfce/*" ]]; then
+    if [[ ${packages} =~ "xfce/xfconf/*" ]]; then
         file_conf="XFCE"
+
+        exec_log "cp ${INSTALL_DIRECTORY}/xfce/helpers.rc ${HOME}/.config/xfce4" "${GREEN}[+]${RESET} Copying [${YELLOW}helpers.rc${RESET}] to [${YELLOW}~/.config/xfce4${RESET}]"
 
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
