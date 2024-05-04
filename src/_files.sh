@@ -184,18 +184,18 @@ set_config_files() {
     if [[ ${packages} =~ "shell/.zshrc" ]]; then
         file_conf="ZSH"
 
-        zsh_packages=(
+        zsh_packages_list=(
             zsh-autosuggestions
             zsh-completions
             zsh-syntax-highlighting
             oh-my-zsh-powerline-theme-git
         )
 
-        for zsh_package in "${zsh_packages[@]}"; do
-            packages+="${zsh_package}&"
+        for zsh_package in "${zsh_packages_list[@]}"; do
+            zsh_packages+="${zsh_package}&"
         done
         action_type="install"
-        manage_lst "${packages}"
+        manage_lst "${zsh_packages}"
         
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
