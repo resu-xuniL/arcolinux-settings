@@ -41,6 +41,7 @@ check_required_dep() {
         gvfs-nfs
         gvfs-smb
         p7zip
+        tldr
         unzip
         zip
     )
