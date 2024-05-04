@@ -104,7 +104,7 @@ post_config_apps() {
         app_conf="Brave"
 
         fetch_password
-        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}${HOME}/Documents${RESET}]"
+        exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/brave/sync_code.7z -o${HOME}/Documents" "${GREEN}[+]${RESET} Extracting [${YELLOW}sync_code.7z${RESET}] to [${YELLOW}~/Documents${RESET}]"
         fetch_the_25th_word
         exec_log "sed -i 's/the25thWord/${the25thWord}/' ${HOME}/Documents/sync_code.txt" "${GREEN}[+]${RESET} Adding today's 25th word [${YELLOW}${the25thWord^^}${RESET}] to [${YELLOW}sync_code.txt${RESET}]"
     fi
@@ -125,22 +125,22 @@ post_config_apps() {
             app_conf="Conky : WAMconky"
 
             check_dir ${HOME}/.config/conky "user"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/conky-sessionfile ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}conky-sessionfile${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/conky-sessionfile ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}conky-sessionfile${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
             replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}${HOME}/.config/conky${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
 
             if [[ -f "${HOME}/.bashrc-personal" ]]; then
-                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.bashrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}${HOME}/.bashrc-personal${RESET}]"
+                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.bashrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}~/.bashrc-personal${RESET}]"
             fi
             if [[ -f "${HOME}/.zshrc-personal" ]]; then
-                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.zshrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.zshrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}${HOME}/.zshrc-personal${RESET}]"
+                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.zshrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.zshrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}~/.zshrc-personal${RESET}]"
             fi
 
             check_dir ${HOME}/.config/conky/images "user"
             fetch_password
-            exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/meteo-icons.7z -o${HOME}/.config/conky/images" "${GREEN}[+]${RESET} Extracting [${YELLOW}meteo-icons.7z${RESET}] to [${YELLOW}${HOME}/.config/conky/images/meteo-icons${RESET}]"
+            exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/meteo-icons.7z -o${HOME}/.config/conky/images" "${GREEN}[+]${RESET} Extracting [${YELLOW}meteo-icons.7z${RESET}] to [${YELLOW}~/.config/conky/images/meteo-icons${RESET}]"
             
             check_dir ${HOME}/.cache/openmeteo "user"
             
@@ -285,10 +285,10 @@ post_config_apps() {
             exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop ${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] file to [${YELLOW}${CURRENT_USER^^}${RESET}] folder"
             replace_username "${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] : changing username to [${YELLOW}${CURRENT_USER^^}${RESET}]"
         
-            exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader\ RAZ.reg ${HOME}/.wine/drive_c" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader RAZ.reg${RESET}] file to [${YELLOW}${HOME}/.wine/drive_c${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader\ RAZ.reg ${HOME}/.wine/drive_c" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader RAZ.reg${RESET}] file to [${YELLOW}~/.wine/drive_c${RESET}] folder"
             
             check_dir ${HOME}/.local/share/applications "user"
-            exec_log "cp ${INSTALL_DIRECTORY}/wine/wine-regedit.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wine-regedit.desktop${RESET}] shortcut for .reg files to [${YELLOW}${HOME}/.local/share/applications${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/wine/wine-regedit.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wine-regedit.desktop${RESET}] shortcut for .reg files to [${YELLOW}~/.local/share/applications${RESET}] folder"
 
             exec_log "grep -qxF 'text/x-ms-regedit=wine-regedit.desktop' ${HOME}/.config/mimeapps.list || printf '%s\n' 'text/x-ms-regedit=wine-regedit.desktop' | sudo tee -a ${HOME}/.config/mimeapps.list" "${GREEN}[+]${RESET} Adding [${YELLOW}regedit to wine${RESET}] association to [${YELLOW}mimeapps.list${RESET}]"
 
