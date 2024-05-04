@@ -23,10 +23,10 @@ remove_useless_kernels() {
     log_msg "${GREEN}[+]${RESET} Checking for kernel(s) to remove :${RESET}"
 
     for kernel in "${kernel_to_remove_list[@]}"; do
-        packages+="${kernel}&"
+        kernels+="${kernel}&"
     done
     action_type="uninstall"
-    manage_lst "${packages}"
+    manage_lst "${kernels}"
 }
 
 check_required_dep() {
@@ -58,8 +58,8 @@ check_required_dep() {
                 manage_one "virtualbox-guest-utils-nox"
             fi
         fi
-        packages+="${required_dep}&"
+        required_deps+="${required_dep}&"
     done
     action_type="install"
-    manage_lst "${packages}"
+    manage_lst "${required_deps}"
 }
