@@ -184,8 +184,19 @@ set_config_files() {
     if [[ ${packages} =~ "shell/.zshrc" ]]; then
         file_conf="ZSH"
 
-        exec_log "sudo pacman -S --noconfirm --needed oh-my-zsh-powerline-theme-git" "${GREEN}[+]${RESET} Installing [${YELLOW}Oh-my-zsh Powerline${RESET}] theme"
+        zsh_packages=(
+            zsh-autosuggestions
+            zsh-completions
+            zsh-syntax-highlighting
+            oh-my-zsh-powerline-theme-git
+        )
 
+        for zsh_package in "${zsh_packages[@]}"; do
+            packages+="${zsh_package}&"
+        done
+        action_type="install"
+        manage_lst "${packages}"
+        
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
