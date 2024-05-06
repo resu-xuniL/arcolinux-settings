@@ -23,11 +23,11 @@ set_config_files_list() {
         [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
-        [Variety]="variety/variety.conf ${HOME}/.config/variety"
+        [Variety : configuration file]="variety/variety.conf ${HOME}/.config/variety"
         [VLC : Enable pause-click plug-in]="vlc/vlcrc ${HOME}/.config/vlc"
         [VLC : Customize interface]="vlc/vlc-qt-interface.conf ${HOME}/.config/vlc"
-        [VSCodium settings]="vscodium/settings.json ${HOME}/.config/VSCodium/User"
-        [VSCodium snippets]="vscodium/shellscript.json ${HOME}/.config/VSCodium/User/snippets"
+        [VSCodium : settings]="vscodium/settings.json ${HOME}/.config/VSCodium/User"
+        [VSCodium : snippets]="vscodium/shellscript.json ${HOME}/.config/VSCodium/User/snippets"
         [XFCE settings : Task-bar - Keyboard shortcuts - Thunar config - Theme - Icons]="xfce/xfconf/* ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
     )
 }
