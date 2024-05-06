@@ -15,6 +15,7 @@ set_config_files_list() {
 
     user_config_files_list=(
         [Autostart applications]="autostart/* ${HOME}/.config/autostart"
+        [Git : configuration file]="git/.gitconfig ${HOME}"
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
         [Shell : personal aliases for BASH]="shell/.bashrc-personal ${HOME}"

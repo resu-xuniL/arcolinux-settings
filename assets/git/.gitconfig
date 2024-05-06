@@ -1,0 +1,11 @@
+[user]
+	name = resu-xuniL
+	email = linux@lavache.com
+
+[alias]
+	lg = log --relative-date --graph --abbrev-commit
+	ri = "!f() { git rebase -i HEAD~\"$1\"; }; f"
+	pf = push --force-with-lease
+
+[format]
+	pretty = format:%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
