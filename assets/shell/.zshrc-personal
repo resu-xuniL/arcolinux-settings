@@ -1,9 +1,3 @@
-
-### ZSH ALIASES ###
-
-# Use 'z' as 'cd'
-alias cd='z'
-
 ### ALIASES ###
 
 # Pacman : Synchronize and update all packages (with typo)
