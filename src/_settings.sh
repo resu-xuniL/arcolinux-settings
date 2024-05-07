@@ -35,9 +35,12 @@ extra_config_settings() {
     ##############  Set volume 100 % & microphone off ##############        
     ################################################################
 
-    exec_log "amixer set Master 100%" "${GREEN}[+]${RESET} Setting [${YELLOW}speakers${RESET}] volume to : [${YELLOW}100%${RESET}]"
-    exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
-    exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
+    prompt_choice "${BLUE}:: ${RESET}Do you want to set volume at 100 % and microphone off ?" true
+    if [[ ${answer} == true ]]; then
+        exec_log "amixer set Master 100%" "${GREEN}[+]${RESET} Setting [${YELLOW}speakers${RESET}] volume to : [${YELLOW}100%${RESET}]"
+        exec_log "amixer set Capture 0%" "${GREEN}[+]${RESET} Setting [${YELLOW}microphone${RESET}] volume to : [${YELLOW}0%${RESET}]"
+        exec_log "amixer set Capture toggle" "${GREEN}[+]${RESET} Toggling [${YELLOW}microphone${RESET}] to : [${YELLOW}MUTE${RESET}]"
+    fi
 
     ################################################################
     ##########             Set filename order             ##########
