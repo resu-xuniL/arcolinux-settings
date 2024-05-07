@@ -1,14 +1,22 @@
 
 ### ALIASES ###
 
+# Pacman : Synchronize and update all packages (with typo)
 alias updtae='sudo pacman -Syyu'
-alias updnewer='sudo pacman -Syuu'
 
+# Pacman : Cleanup orphaned package(s)
+alias cleanorphaned='pacman -Qtdq | sudo pacman -Rns -'
+alias cleanor='sudo pacman -Rns $(pacman -Qtdq)'
+
+# Pacman : List all files owned by a given package 
+alias paclst='sudo pacman -Ql'
+
+# Pacman : Check if [package] is installed
+alias pacgrep='sudo pacman -Q | grep' # [package]
+
+# Update grub (with typo)
 alias grub-updtae="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias updtae-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-
-# Cleanup orphaned packages
-alias cleanorphaned='pacman -Qtdq | sudo pacman -Rns -'
 
 # Switch conky colors
 alias conky-switch=". ~/.config/conky/wam_color_switch.sh"
@@ -18,9 +26,6 @@ alias zdotdir-change="sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.co
 
 # Reset MediaHuman YouTube Downloader
 alias RAZ-mhytd="wine regedit ~/.wine/drive_c/MediaHuman\ YouTube\ Downloader\ RAZ.reg && echo 'MediaHuman YouTube Downloader has been reset successfully !'"
-
-# Check if [package] is installed
-alias pacgrep='sudo pacman -Q | grep' # [package]
 
 # Perform unrecoverable file delete
 alias destroy='shred -uvz' # [file]
