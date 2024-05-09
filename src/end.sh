@@ -4,7 +4,7 @@ endscript() {
 
     log_msg "\nAll done in ${GREEN}${duration}${RESET} seconds."
 
-    prompt_choice "${BLUE}:: ${RESET}Do you want to upload the log file to a pastebin?" false
+    prompt_choice "${BLUE}:: ${RESET}Do you want to upload the log file to a pastebin ?" false
     if [[ ${answer} == true ]]; then
         log_msg "${GREEN}[+]${RESET} Uploading log file to [${GREEN}pastebin${RESET}] ... ${GREEN}\u2713${RESET}"
         local -r url="$(curl -s -F'file=@'"${LOG_FILE}" -Fexpires=1 https://0x0.st)"
