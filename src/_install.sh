@@ -130,8 +130,8 @@ post_config_apps() {
             replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
             
             check_dir ${HOME}/.bin "user"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_conky_fetch_icon ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_conky_fetch_icon${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_conky_color_switch ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_conky_color_switch${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
 
             check_dir ${HOME}/.config/conky/images "user"
             fetch_password
