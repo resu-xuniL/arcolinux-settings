@@ -125,18 +125,13 @@ post_config_apps() {
             app_conf="Conky : WAMconky"
 
             check_dir ${HOME}/.config/conky "user"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
             exec_log "cp ${INSTALL_DIRECTORY}/conky/conky-sessionfile ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}conky-sessionfile${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
             replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
-            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
-
-            if [[ -f "${HOME}/.bashrc-personal" ]]; then
-                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.bashrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}~/.bashrc-personal${RESET}]"
-            fi
-            if [[ -f "${HOME}/.zshrc-personal" ]]; then
-                exec_log "grep -qxF '# Switch conky colors' ${HOME}/.zshrc-personal || printf '\n%s\n%s\n' '# Switch conky colors' 'alias conky-switch=\". ~/.config/conky/wam_color_switch.sh\"' | sudo tee -a ${HOME}/.zshrc-personal" "${GREEN}[+]${RESET} Adding [${YELLOW}conky-switch alias${RESET}] to [${YELLOW}~/.zshrc-personal${RESET}]"
-            fi
+            
+            check_dir ${HOME}/.bin "user"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_fetch_icon.sh ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_fetch_icon.sh${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
+            exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_color_switch.sh ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_color_switch.sh${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
 
             check_dir ${HOME}/.config/conky/images "user"
             fetch_password
