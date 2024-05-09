@@ -9,4 +9,4 @@ Target = oh-my-zsh-git
 [Action]
 Description = oh-my-zsh-git : change ZDOTDIR path
 When = PostTransaction
-Exec = /usr/bin/bash -c 'sed -i "s/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/" /usr/share/oh-my-zsh/oh-my-zsh.sh && printf "\e[32m%s\e[0m\n" "oh-my-zsh-git : ZDOTDIR path changed."; sed -i "s/{%a,%b%d}/{%a %d %b}/" /usr/share/oh-my-zsh/themes/jonathan.zsh-theme && printf "\e[32m%s%s\e[0m\n" "jonathan.zsh-theme : " "edited."'
+Exec = /usr/bin/bash -c 'sed -i "s/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/" /usr/share/oh-my-zsh/oh-my-zsh.sh && printf "\e[32m%s\e[0m\n" "oh-my-zsh-git : ZDOTDIR path changed."'
