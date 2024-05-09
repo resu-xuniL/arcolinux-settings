@@ -34,6 +34,7 @@ check_required_dep() {
     local packages
 
     required_dep_list=(
+        ffmpegthumbnailer
         file-roller
         gvfs
         gvfs-afc
