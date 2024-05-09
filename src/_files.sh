@@ -18,8 +18,7 @@ set_config_files_list() {
         [Git : configuration file]="git/.gitconfig ${HOME}"
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
-        [Shell : personal aliases for BASH]="shell/.bashrc-personal ${HOME}"
-        [Shell : personal aliases for ZSH]="shell/.zshrc-personal ${HOME}"
+        [Shell : personal aliases for BASH & ZSH]="shell/.zshrc-personal ${HOME}"
         [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
@@ -178,6 +177,20 @@ set_config_files() {
 
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
+    fi
+    
+    ################################################################
+    ##########                 BASH & ZSH                 ##########
+    ##########                   ALIASES                  ##########
+    ################################################################
+
+    if [[ ${packages} =~ "shell/.zshrc-personal" ]]; then
+        file_conf="BASH & ZSH aliases"
+
+        if [[ -f "${HOME}/.bashrc-personal" ]]; then
+            exec_log "rm ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
+        fi
+        exec_log "ln -s ${HOME}/.zshrc-personal ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Creating simlink for [${YELLOW}.bashrc-personal${RESET}]"
     fi
 
     ################################################################
