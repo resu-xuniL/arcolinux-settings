@@ -80,6 +80,8 @@ init() {
   
     if [[ ! ${VM} == "none" ]]; then
 	    exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
+    else
+        wam_scripts
     fi
     
     prompt_choice "${BLUE}:: ${RESET}Do you want to check for useless kernels ?" true
