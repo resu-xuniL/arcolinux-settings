@@ -30,7 +30,7 @@ check_dir() {
         log "Folder already exists : ${GREEN}${folder}${RESET}"
     else
         if [[ ${permission} == "user" ]]; then
-            exec_log "mkdir -p ${folder// /\\ }" "${GREEN}[+]${RESET} Creating missing folder with [${YELLOW}USER${RESET}] permissions : [${YELLOW}${folder}${RESET}]"
+            exec_log "mkdir -p ${folder// /\\ }" "${GREEN}[+]${RESET} Creating missing folder with [${YELLOW}USER${RESET}] permissions : [${YELLOW}${folder/${HOME}/'~'}${RESET}]"
         elif [[ ${permission} == "root" ]]; then
             exec_log "sudo mkdir -p ${folder// /\\ }" "${GREEN}[+]${RESET} Creating missing folder with [${YELLOW}ROOT${RESET}] permissions : [${YELLOW}${folder}${RESET}]"
         fi
