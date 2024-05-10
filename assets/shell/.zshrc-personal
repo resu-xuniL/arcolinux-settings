@@ -17,9 +17,6 @@ alias pacgrep='sudo pacman -Q | grep' # [package]
 alias grub-updtae="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias updtae-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
-# Change ZDOTDIR path
-alias zdotdir-change="sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh && echo 'ZDOTDIR : path changed'"
-
 # Reset MediaHuman YouTube Downloader
 alias RAZ-mhytd="wine regedit ~/.wine/drive_c/MediaHuman\ YouTube\ Downloader\ RAZ.reg && echo 'MediaHuman YouTube Downloader has been reset successfully !'"
 
