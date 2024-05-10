@@ -19,6 +19,7 @@
         <value type="int" value="5"/>
         <value type="int" value="9"/>
         <value type="int" value="2"/>
+        <value type="int" value="1"/>
       </property>
       <property name="background-alpha" type="uint" value="76"/>
       <property name="enter-opacity" type="uint" value="95"/>
@@ -51,8 +52,12 @@
     <property name="plugin-4" type="string" value="pager">
       <property name="rows" type="uint" value="2"/>
       <property name="miniature-view" type="bool" value="true"/>
+      <property name="workspace-scrolling" type="bool" value="false"/>
     </property>
-    <property name="plugin-5" type="string" value="clock"/>
+    <property name="plugin-5" type="string" value="clock">
+      <property name="digital-date-format" type="string" value="%d/%m/%Y"/>
+      <property name="digital-layout" type="uint" value="1"/>
+    </property>
     <property name="plugin-6" type="string" value="systray">
       <property name="names-visible" type="array">
         <value type="string" value="evolution-alarm-notify"/>
@@ -98,16 +103,16 @@
         <value type="string" value="clipman"/>
       </property>
       <property name="known-legacy-items" type="array">
-        <value type="string" value="clipman"/>
-        <value type="string" value="pamac-tray"/>
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
-        <value type="string" value="flameshot"/>
-        <value type="string" value="qBittorrent"/>
-        <value type="string" value="vlc"/>
         <value type="string" value="Nextcloud"/>
         <value type="string" value="variety"/>
+      </property>
+      <property name="icon-size" type="int" value="22"/>
+      <property name="hidden-items" type="array">
+      </property>
+      <property name="hidden-legacy-items" type="array">
       </property>
     </property>
     <property name="plugin-7" type="string" value="whiskermenu">
@@ -133,19 +138,18 @@
         <value type="string" value="org.mozilla.Thunderbird.desktop"/>
         <value type="string" value="wine-Programs-MediaHuman-YouTube Downloader-MediaHuman YouTube Downloader.desktop"/>
         <value type="string" value="virtualbox.desktop"/>
-        <value type="string" value="code.desktop"/>
       </property>
       <property name="recent" type="array">
+        <value type="string" value="xfce4-terminal.desktop"/>
+        <value type="string" value="org.qbittorrent.qBittorrent.desktop"/>
+        <value type="string" value="brave-browser.desktop"/>
+        <value type="string" value="xfce-session-settings.desktop"/>
         <value type="string" value="org.keepassxc.KeePassXC.desktop"/>
         <value type="string" value="qt5ct.desktop"/>
         <value type="string" value="archlinux-tweak-tool.desktop"/>
         <value type="string" value="org.gnome.FontManager.desktop"/>
-        <value type="string" value="xfce-session-settings.desktop"/>
-        <value type="string" value="firefox.desktop"/>
         <value type="string" value="gparted.desktop"/>
         <value type="string" value="btop.desktop"/>
-        <value type="string" value="plank.desktop"/>
-        <value type="string" value="wine-Programs-MediaHuman-YouTube Downloader-MediaHuman YouTube Downloader.desktop"/>
       </property>
       <property name="search-actions" type="int" value="7">
         <property name="action-0" type="empty">
@@ -202,40 +206,11 @@
       <property name="mpris-players" type="string" value="pragha;spotify"/>
       <property name="known-players" type="string" value="Brave;Chromium;vlc"/>
     </property>
-    <property name="plugin-9" type="string" value="weather">
-      <property name="location" type="empty">
-        <property name="name" type="string" value="Lunel, France"/>
-        <property name="latitude" type="string" value="43.674800"/>
-        <property name="longitude" type="string" value="4.130500"/>
-      </property>
-      <property name="msl" type="int" value="15"/>
-      <property name="timezone" type="string" value="Europe/Paris"/>
-      <property name="offset" type="string" value="+02:00"/>
-      <property name="cache-max-age" type="int" value="172800"/>
-      <property name="power-saving" type="bool" value="true"/>
-      <property name="units" type="empty">
-        <property name="temperature" type="int" value="0"/>
-        <property name="pressure" type="int" value="0"/>
-        <property name="windspeed" type="int" value="0"/>
-        <property name="precipitation" type="int" value="0"/>
-        <property name="altitude" type="int" value="0"/>
-        <property name="apparent-temperature" type="int" value="3"/>
-      </property>
-      <property name="round" type="bool" value="false"/>
-      <property name="single-row" type="bool" value="true"/>
-      <property name="tooltip-style" type="int" value="1"/>
-      <property name="forecast" type="empty">
-        <property name="layout" type="int" value="1"/>
-        <property name="days" type="int" value="5"/>
-      </property>
-      <property name="theme-dir" type="string" value="/usr/share/xfce4/weather/icons/liquid-dark"/>
-      <property name="scrollbox" type="empty">
-        <property name="show" type="bool" value="true"/>
-        <property name="animate" type="bool" value="true"/>
-        <property name="lines" type="int" value="1"/>
-        <property name="color" type="string" value="rgba(0,0,0,0)"/>
-        <property name="use-color" type="bool" value="false"/>
-      </property>
+    <property name="plugin-1" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-9" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
     </property>
   </property>
 </channel>
