@@ -18,8 +18,8 @@ set_config_files_list() {
         [Git : configuration file]="git/.gitconfig ${HOME}"
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
-        [Shell : personal aliases for BASH & ZSH]="shell/.zshrc-personal ${HOME}"
-        [Shell : ZSH (with powerline theme)]="shell/.zshrc ${HOME}"
+        [Shell : personal aliases for BASH & ZSH]="zsh/.zshrc-personal ${HOME}"
+        [Shell : ZSH (with powerline theme)]="zsh/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Variety : configuration file]="variety/variety.conf ${HOME}/.config/variety"
@@ -184,7 +184,7 @@ set_config_files() {
     ##########                   ALIASES                  ##########
     ################################################################
 
-    if [[ ${packages} =~ "shell/.zshrc-personal" ]]; then
+    if [[ ${packages} =~ "zsh/.zshrc-personal" ]]; then
         file_conf="BASH & ZSH aliases"
 
         if [[ -f "${HOME}/.bashrc-personal" ]]; then
@@ -197,7 +197,7 @@ set_config_files() {
     ##########                     ZSH                    ##########
     ################################################################
 
-    if [[ ${packages} =~ "shell/.zshrc" ]]; then
+    if [[ ${packages} =~ "zsh/.zshrc" ]]; then
         file_conf="ZSH"
 
         zsh_packages_list=(
