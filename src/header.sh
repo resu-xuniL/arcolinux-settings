@@ -15,7 +15,7 @@ header() {
 EOF
 
     sleep 1
-    
+
     printf "${BOLD}${RED}"
     center_text "/!\ THIS SCRIPT WILL MAKE CHANGES TO THE SYSTEM ! /!\\" "$(tput cols)"
     printf "${RESET}"

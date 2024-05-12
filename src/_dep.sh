@@ -1,7 +1,45 @@
+arch_required() {
+    declare -a required_arch_list
+
+    required_arch_list=(
+        alsa-utils
+        bibata-cursor-theme-bin
+        bc
+        fakeroot
+        jq
+        locate
+        man
+        network-manager-applet
+        noto-fonts
+        os-prober
+        pacman-contrib
+        pavucontrol
+        pulseaudio
+        rsync
+        sddm
+        thunar-archive-plugin
+        ttf-ubuntu-font-family
+        wget
+        xdg-user-dirs
+        xfce4
+        xfce4-pulseaudio-plugin
+        xfce4-whiskermenu-plugin
+        xorg-xdpyinfo
+    )
+
+    log_msg "\n${GREEN}[+]${RESET} Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
+
+    for required_arch_dep in "${required_arch_list[@]}"; do
+        required_arch_deps+="${required_arch_dep}&"
+    done
+    action_type="install"
+    manage_lst "${required_arch_deps}"
+
+    log_msg "${GREEN}[+]${RESET} ${YELLOW}Installation complete${RESET}\n"
+}
 
 remove_useless_kernels() {
     declare -a kernel_to_remove_list
-    local packages
 
     kernel_to_remove_list=(
     linux-lts-headers
@@ -20,7 +58,7 @@ remove_useless_kernels() {
     linux-xanmod
     )
 
-    log_msg "${GREEN}[+]${RESET} Checking for kernel(s) to remove :${RESET}"
+    log_msg "${GREEN}[+]${RESET} Checking kernel(s) to remove :"
 
     for kernel in "${kernel_to_remove_list[@]}"; do
         kernels+="${kernel}&"
@@ -31,10 +69,10 @@ remove_useless_kernels() {
 
 check_required_dep() {
     declare -a required_dep_list
-    local packages
 
     required_dep_list=(
         ffmpegthumbnailer
+        libadwaita-without-adwaita-git # need to be installed before file-roller
         file-roller
         gvfs
         gvfs-afc
@@ -49,7 +87,7 @@ check_required_dep() {
         required_dep_list+=(virtualbox-guest-utils)
     fi
 
-    log_msg "${GREEN}[+]${RESET} Checking for required packages :${RESET}"
+    log_msg "${GREEN}[+]${RESET} Checking required packages :"
 
     for required_dep in "${required_dep_list[@]}"; do
         if [[ ${required_dep} == "virtualbox-guest-utils" ]]; then

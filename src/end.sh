@@ -21,7 +21,7 @@ endscript() {
     read -rp "Press [${GREEN}Enter${RESET}] to restart or [${RED}Ctrl+C${RESET}] to cancel."
 
     restore_xfce_terminal_display
-    
+
     for i in {10..1}; do
         printf "%s\r" "${GREEN}Restarting in ${i} seconds...${RESET}"
         sleep 1

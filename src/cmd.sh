@@ -9,7 +9,7 @@ center_text() {
     local -r message="$1"
     local -r width=$2
     #local -r padding=$(printf '%0.1s' \ {1..25}) #25 --> 100
-    
+
     for i in $(seq 1 ${width}); do
         local padding+=$(printf "%0.1s" " ");
     done
@@ -63,7 +63,7 @@ prompt_choice() {
 exec_log() {
     local -r command="$1"
     local -r comment="$2"
-    
+
     log_msg "${comment}"
     execute "${command}"
 }
@@ -77,7 +77,7 @@ execute() {
         eval "${command}" >>"${LOG_FILE}" 2>&1 &
     fi
     job_pid=$!
-    
+
     progress_dots
     wait -n
     exit_status "${comment}"
@@ -94,13 +94,13 @@ log() {
     local -r comment="$1"
 
     printf "%s\n" "[$(date "+%Y-%m-%d %H:%M:%S")] ${comment}" >>"${LOG_FILE}"
-    sed -i -E "s/\x1B\[[0-9;]*[JKmsu]|\x1B\(B|\\\u[0-9]{0,4}|\\\n//g" ${LOG_FILE}
+    sed -i -E "s/\x0F|\x1B\[[0-9;]*[JKmsu]|\x1B\(B|\\\u[0-9]{0,4}|\\\n//g" ${LOG_FILE}
 }
 
 exit_status() {
     local exit_status=$?
     local -r comment="$1"
-    
+
     printf "%s\n" "[INFO]: Exit status: ${exit_status}" >>"${LOG_FILE}"
     if [[ ${exit_status} -ne 0 ]]; then
         if [[ ${action_type} == "install" ]]; then
@@ -121,7 +121,7 @@ exit_status() {
         fi
     else
         printf "%b\n" "\033[1A\033[2K${comment} ${GREEN}\u2714${RESET}"
-        
+
         if   [[ ${action_type} == "uninstall" ]]; then
             case ${package} in
                 rtl8821cu-morrownr-dkms-git )

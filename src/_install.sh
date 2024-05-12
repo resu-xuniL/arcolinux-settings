@@ -21,6 +21,7 @@ set_install_list() {
     soft_list=(
         [Brave]="brave-bin"
         [Catfish]="catfish"
+        [dconf editor]="dconf-editor"
         [Conky]="conky-lua-archers"
         [Font manager]="font-manager"
         [Galculator]="galculator"
@@ -48,7 +49,7 @@ set_install_list() {
 
 install_software() {
     action_type="install"
-    
+
     set_install_list
 
     if [[ ${VM} == "none" ]]; then
@@ -71,7 +72,7 @@ install_software() {
 
     post_config_apps
 }
-    
+
 pre_config_apps() {
 
     ################################################################
@@ -80,7 +81,7 @@ pre_config_apps() {
 
     if [[ ${packages} =~ "virtualbox" ]]; then
         app_conf="Pre-VirtualBox"
-        
+
         if pacman -Q virtualbox-host-dkms &> /dev/null; then
             action_type="uninstall"
             manage_one "virtualbox-host-dkms"
@@ -115,7 +116,7 @@ post_config_apps() {
     # [Conky : Conky WAM & USER config. and alias]="conky/conky-sessionfile ${HOME}/.config/conky"
     if [[ ${packages} =~ "conky-lua-archers" && ${extra_install[conky-lua-archers]} == true ]]; then
         exec_log "sudo cp ${INSTALL_DIRECTORY}/conky/am-conky-session /usr/bin" "${GREEN}[+]${RESET} Copying [${YELLOW}am-conky-session${RESET}] file to [${YELLOW}/usr/bin${RESET}] folder"
-        
+
         ################################################################
         ##########                Conky : WAM                 ##########
         ##########            User config & alias             ##########
@@ -128,7 +129,7 @@ post_config_apps() {
             exec_log "cp ${INSTALL_DIRECTORY}/conky/WAM.conkyrc ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}WAM.conkyrc${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
             exec_log "cp ${INSTALL_DIRECTORY}/conky/conky-sessionfile ${HOME}/.config/conky" "${GREEN}[+]${RESET} Copying [${YELLOW}conky-sessionfile${RESET}] file to [${YELLOW}~/.config/conky${RESET}] folder"
             replace_username "${HOME}/.config/conky/conky-sessionfile" "${GREEN}[+]${RESET} Configuring [${YELLOW}conky-sessionfile${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-            
+
             check_dir ${HOME}/.bin "user"
             exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_conky_fetch_icon ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_conky_fetch_icon${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
             exec_log "cp ${INSTALL_DIRECTORY}/conky/wam_conky_color_switch ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_conky_color_switch${RESET}] file to [${YELLOW}~/.bin${RESET}] folder"
@@ -136,7 +137,7 @@ post_config_apps() {
             check_dir ${HOME}/.config/conky/images "user"
             fetch_password
             exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/conky/meteo-icons.7z -o${HOME}/.config/conky/images" "${GREEN}[+]${RESET} Extracting [${YELLOW}meteo-icons.7z${RESET}] to [${YELLOW}~/.config/conky/images/meteo-icons${RESET}]"
-            
+
             check_dir ${HOME}/.cache/openmeteo "user"
             check_dir /usr/share/fonts/TTF "root"
             exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/Bentoh_mod.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}Bentoh_mod.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
@@ -182,7 +183,7 @@ post_config_apps() {
         fi
 
         thunderbird_dir=$(find ~/.thunderbird/ -name '*.default-*' -type d)
-        exec_log "cp ${INSTALL_DIRECTORY}/thunderbird/handlers.json ${thunderbird_dir}" "${GREEN}[+]${RESET} Copying [${YELLOW}handlers.json${RESET}] file to [${YELLOW}${thunderbird_dir}${RESET}] folder"
+        exec_log "cp ${INSTALL_DIRECTORY}/thunderbird/handlers.json ${thunderbird_dir}" "${GREEN}[+]${RESET} Copying [${YELLOW}handlers.json${RESET}] file to [${YELLOW}${thunderbird_dir/${HOME}/'~'}${RESET}] folder"
     fi
 
     ################################################################
@@ -238,7 +239,7 @@ post_config_apps() {
             check_dir ${HOME}/.wine/drive_c/Program\ Files/TagRename "user"
             fetch_password
             exec_log "7z x -p${PASSWORD} -y ${INSTALL_DIRECTORY}/wine/tag-rename/TagRename.7z -o${HOME}/.wine/drive_c/Program\ Files/TagRename" "${GREEN}[+]${RESET} Extracting [${YELLOW}TagRename.7z${RESET}] files to [${YELLOW}WINE${RESET}] folder"
-            
+
             check_dir ${HOME}/.wine/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/TagRename "user"
             exec_log "wine shortcut /f:'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\TagRename\TagRename.lnk' /a:c /t:'C:\Program Files\TagRename\TagRename.exe' /i:'C:\Program Files\TagRename\TagRename.exe,0'" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Creating [${YELLOW}TagRename.lnk${RESET}] ${RED}(might be long)${RESET}"
             sleep 3
@@ -260,7 +261,7 @@ post_config_apps() {
         if [[ ${answer} == true ]]; then
             app_conf="Wine : Youtube downloader"
             plank_dockitem+="wine_mhyd "
-            
+
             local -r file="YouTubeDownloader-x64.exe"
 
             if [[ -f ${HOME}/Downloads/${file} ]]; then
@@ -272,7 +273,7 @@ post_config_apps() {
 
             exec_log "wine ${HOME}/Downloads/${file}" "${GREEN}[+]${RESET} [${YELLOW}WINE${RESET}] : Installing [${YELLOW}${file}${RESET}] to [${YELLOW}WINE${RESET}] folder ${RED}(might be long)${RESET}"
             sleep 3
-            
+
             exec_log "rm -v ${HOME}/Desktop/MediaHuman\ YouTube\ Downloader.lnk" "${RED}[-]${RESET} Removing [${YELLOW}MediaHuman YouTube Downloader.lnk${RESET}] desktop shortcut"
             exec_log "rm -v ${HOME}/Desktop/Visit\ MediaHuman\ Website.url" "${RED}[-]${RESET} Removing [${YELLOW}Visit MediaHuman Website.url${RESET}] desktop shortcut"
             exec_log "rm -v ${HOME}/Desktop/MediaHuman\ YouTube\ Downloader.desktop" "${RED}[-]${RESET} Removing [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] desktop shortcut"
@@ -280,9 +281,9 @@ post_config_apps() {
             check_dir ${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader.desktop ${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] file to [${YELLOW}${CURRENT_USER^^}${RESET}] folder"
             replace_username "${HOME}/.local/share/applications/wine/Programs/MediaHuman/YouTube\ Downloader/MediaHuman\ YouTube\ Downloader.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}MediaHuman YouTube Downloader.desktop${RESET}] : changing username to [${YELLOW}${CURRENT_USER^^}${RESET}]"
-        
+
             exec_log "cp ${INSTALL_DIRECTORY}/wine/youtube-downloader/MediaHuman\ YouTube\ Downloader\ RAZ.reg ${HOME}/.wine/drive_c" "${GREEN}[+]${RESET} Copying [${YELLOW}MediaHuman YouTube Downloader RAZ.reg${RESET}] file to [${YELLOW}~/.wine/drive_c${RESET}] folder"
-            
+
             check_dir ${HOME}/.local/share/applications "user"
             exec_log "cp ${INSTALL_DIRECTORY}/wine/wine-regedit.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wine-regedit.desktop${RESET}] shortcut for .reg files to [${YELLOW}~/.local/share/applications${RESET}] folder"
 
@@ -291,7 +292,7 @@ post_config_apps() {
             ################################################################
             ##########      Youtube downloader : tracking.dat     ##########
             ################################################################
-            
+
             app_conf="Wine : Youtube downloader - tracking.dat"
 
             if [[ ${CURRENT_RESOLUTION} == "1680x1050" && ${CURRENT_USER} == "wam" ]]; then
@@ -322,7 +323,7 @@ post_config_apps() {
         if [[ ${VM} == "none" ]]; then
             exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/wam_arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arcolinux-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         fi
-        
+
         exec_log "rsync --mkpath '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
         replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
