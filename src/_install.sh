@@ -26,7 +26,7 @@ set_install_list() {
         [Galculator]="galculator"
         [Meld]="meld"
         [Plank]="plank"
-        [Visual studio code]="vscodium-bin"
+        [VSCodium]="vscodium-bin"
         [VLC]="vlc"
         [Xreader]="xreader"
     )
