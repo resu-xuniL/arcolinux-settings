@@ -99,7 +99,7 @@ template5 = [[ ${execi 30 checkupdates | wc -l} ]]
 
 conky.text = [[
 ${execi 300 curl -s "${template1}?${template2}&${template3}&current=temperature_2m,weather_code&timezone=auto&forecast_days=1" -o ~/.cache/openmeteo/weather.json}
-${execi 300 ~/.config/conky/wam_fetch_icon.sh}${image ~/.cache/openmeteo/current.png -s 60x60}${image ~/.cache/openmeteo/therm.png -p 47,8 -s 25x25}\
+${execi 300 ~/.bin/wam_conky_fetch_icon}${image ~/.cache/openmeteo/current.png -s 60x60}${image ~/.cache/openmeteo/therm.png -p 47,8 -s 25x25}\
 ${voffset -10}${goto 70}${font Technical CE:bold:size=13}${execi 300 jq .current.temperature_2m ~/.cache/openmeteo/weather.json | awk '{printf("%.1f",$1)}'}°\
 \
 ${goto 115}${font Bentoh_mod:size=40}${execi 300 date +"%A" | sed 's/^./\u&/'}
