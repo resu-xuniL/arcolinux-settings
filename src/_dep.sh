@@ -43,8 +43,6 @@ check_required_dep() {
         gvfs-smb
         p7zip
         tldr
-        unzip
-        zip
     )
 
     if [[ ! ${VM} == "none" ]]; then
