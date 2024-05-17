@@ -140,7 +140,7 @@ set_config_files() {
         fi
 
         if pacman -Q kvantum-qt5-git &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm kvantum-qt5-git" "${RED}[-]${RESET} Unstalling [${YELLOW}kvantum${RESET}]"
+            exec_log "sudo pacman -Rsn --noconfirm kvantum-qt5-git" "${RED}[-]${RESET} Uninstalling [${YELLOW}kvantum${RESET}]"
         fi
 
         exec_log "sudo sed -i 's/QT_STYLE_OVERRIDE=kvantum/#QT_STYLE_OVERRIDE=kvantum/' /etc/environment" "${GREEN}[+]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file"
