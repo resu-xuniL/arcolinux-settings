@@ -121,10 +121,9 @@ unsetopt SHARE_HISTORY
 
 export HISTCONTROL=ignoreboth:erasedups
 
-# Make nano the default editor
-
-export EDITOR='nano'
-export VISUAL='nano'
+# Make vim the default editor
+export EDITOR='vim'
+#export VISUAL='codium'
 
 #PS1='[\u@\h \W]\$ '
 
@@ -353,34 +352,33 @@ alias rg="rg --sort path"
 #get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
-#nano for important configuration files
-#know what you do in these files
-alias nlxdm="sudo $EDITOR /etc/lxdm/lxdm.conf"
-alias nlightdm="sudo $EDITOR /etc/lightdm/lightdm.conf"
-alias npacman="sudo $EDITOR /etc/pacman.conf"
-alias ngrub="sudo $EDITOR /etc/default/grub"
-alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
-alias nmakepkg="sudo $EDITOR /etc/makepkg.conf"
-alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
-alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
-alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
-alias nsddm="sudo $EDITOR /etc/sddm.conf"
-alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
-alias nfstab="sudo $EDITOR /etc/fstab"
-alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
-alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
-alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
-alias nhosts="sudo $EDITOR /etc/hosts"
-alias nhostname="sudo $EDITOR /etc/hostname"
-alias nresolv="sudo $EDITOR /etc/resolv.conf"
-alias nb="$EDITOR ~/.bashrc"
-alias nz="$EDITOR ~/.zshrc"
-alias nf="$EDITOR ~/.config/fish/config.fish"
-alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
-alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
-alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
-alias nenvironment="sudo $EDITOR /etc/environment"
-alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
+#vim for important configuration files
+alias vlxdm="sudo $EDITOR /etc/lxdm/lxdm.conf"
+alias vlightdm="sudo $EDITOR /etc/lightdm/lightdm.conf"
+alias vpacman="sudo $EDITOR /etc/pacman.conf"
+alias vgrub="sudo $EDITOR /etc/default/grub"
+alias vconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
+alias vmakepkg="sudo $EDITOR /etc/makepkg.conf"
+alias vmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
+alias vmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
+alias varcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
+alias vsddm="sudo $EDITOR /etc/sddm.conf"
+alias vsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
+alias vfstab="sudo $EDITOR /etc/fstab"
+alias vnsswitch="sudo $EDITOR /etc/nsswitch.conf"
+alias vsamba="sudo $EDITOR /etc/samba/smb.conf"
+alias vgnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
+alias vhosts="sudo $EDITOR /etc/hosts"
+alias vhostname="sudo $EDITOR /etc/hostname"
+alias vresolv="sudo $EDITOR /etc/resolv.conf"
+alias vb="$EDITOR ~/.bashrc"
+alias vz="$EDITOR ~/.zshrc"
+alias vf="$EDITOR ~/.config/fish/config.fish"
+alias vneofetch="$EDITOR ~/.config/neofetch/config.conf"
+alias vplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
+alias vvconsole="sudo $EDITOR /etc/vconsole.conf"
+alias venvironment="sudo $EDITOR /etc/environment"
+alias vloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 
 
 #reading logs with bat
