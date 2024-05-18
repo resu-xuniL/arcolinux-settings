@@ -19,6 +19,7 @@ set_uninstall_list() {
 
     soft_list=(
         [Clipman]="xfce4-clipman-plugin"
+        [neofetch]="neofetch"
         [Parole]="parole"
         [Xfburn]="xfburn"
     )
@@ -40,6 +41,8 @@ uninstall_software() {
     selected_packages=""
 
     manage_lst "${packages}"
+
+    additional_uninstall
     
     mkinitcpio
 }
@@ -47,5 +50,23 @@ uninstall_software() {
 mkinitcpio() {
     if [[ ${mkinitcpio_needed} -gt 0 ]]; then
         exec_log "sudo mkinitcpio -P" "${GREEN}[+]${RESET} Building [${YELLOW}initcpio${RESET}] image ${RED}(might be long)${RESET}"
+    fi
+}
+
+additional_uninstall() {
+
+    ################################################################
+    ##########                  Neofetch                  ##########
+    ################################################################
+
+    if [[ ${packages} =~ "neofetch" ]]; then
+        app_conf="Neofetch"
+
+        if pacman -Q arcolinux-neofetch-git &> /dev/null; then
+            exec_log "sudo pacman -Rsn --noconfirm arcolinux-neofetch-git" "${RED}[-]${RESET} Uninstalling [${YELLOW}arcolinux-neofetch-git${RESET}]"
+        fi
+
+        exec_log "sed -i '/#alias vneofetch=/ ! s/alias vneofetch=/#alias vneofetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (remove 'vneofetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sed -i '/vneofetch/ ! s/neofetch/#neofetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
     fi
 }

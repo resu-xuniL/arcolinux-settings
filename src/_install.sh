@@ -22,6 +22,7 @@ set_install_list() {
         [Brave]="brave-bin"
         [Catfish]="catfish"
         [Conky]="conky-lua-archers"
+        [Fastfetch]="fastfetch"
         [Font manager]="font-manager"
         [Galculator]="galculator"
         [Meld]="meld"
@@ -146,6 +147,23 @@ post_config_apps() {
             exec_log "sudo cp ${INSTALL_DIRECTORY}/fonts/TechnicalCE.ttf /usr/share/fonts/TTF" "${GREEN}[+]${RESET} Copying [${YELLOW}TechnicalCE.ttf${RESET}] font to [${YELLOW}/usr/share/fonts/TTF${RESET}]"
             exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
         fi
+    fi
+
+    ################################################################
+    ##########                  Fastfetch                 ##########
+    ################################################################
+
+    if [[ ${packages} =~ "fastfetch" && ${extra_install[font-manager]} == true ]]; then
+        app_conf="Font manager"
+
+        check_dir ${HOME}/.config/fastfetch "user"
+        exec_log "cp ${INSTALL_DIRECTORY}/fastfetch/arch.jsonc ${HOME}/.config/fastfetch" "${GREEN}[+]${RESET} Copying [${YELLOW}arch.jsonc${RESET}] file to [${YELLOW}~/.config/fastfetch${RESET}] folder"
+        
+        exec_log "grep -qxF 'fastfetch -c ${HOME}/.config/fastfetch/arch.jsonc' ${HOME}/.zshrc || printf '\n%s\n' 'fastfetch -c ${HOME}/.config/fastfetch/arch.jsonc' | sudo tee -a ${HOME}/.zshrc" "${GREEN}[+]${RESET} Adding [${YELLOW}fastfetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
+        exec_log "sed -i 's/vneofetch=/vfastfetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sed -i 's/\/neofetch/\/fastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sed -i 's/fastfetch\/config.conf/fastfetch\/arch.jsonc/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'fastfetch' config. file name) for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sed -i 's/#alias vfastfetch/alias vfastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (enable 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
     fi
 
     ################################################################
