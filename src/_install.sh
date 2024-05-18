@@ -153,8 +153,8 @@ post_config_apps() {
     ##########                  Fastfetch                 ##########
     ################################################################
 
-    if [[ ${packages} =~ "fastfetch" && ${extra_install[font-manager]} == true ]]; then
-        app_conf="Font manager"
+    if [[ ${packages} =~ "fastfetch" && ${extra_install[fastfetch]} == true ]]; then
+        app_conf="Fastfetch"
 
         check_dir ${HOME}/.config/fastfetch "user"
         exec_log "cp ${INSTALL_DIRECTORY}/fastfetch/arch.jsonc ${HOME}/.config/fastfetch" "${GREEN}[+]${RESET} Copying [${YELLOW}arch.jsonc${RESET}] file to [${YELLOW}~/.config/fastfetch${RESET}] folder"
