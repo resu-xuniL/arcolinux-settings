@@ -25,11 +25,11 @@ set_step_list() {
         [End]="end_step"
     )
 }
- 
+
 
 steps_selection() {
     action_type="steps"
-    
+
     set_step_list
 
     select_from_list step_list "Choose step(s) to execute" step_order

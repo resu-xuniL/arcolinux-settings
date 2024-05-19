@@ -1,6 +1,6 @@
 update_system() {
     action_type="sys_update"
-    
+
     exec_log "sudo pacman -Syyu --noconfirm" "${GREEN}[+]${RESET} Updating full system ${RED}(might be long)${RESET}"
     log_msg "\n${GREEN}System is up-to-date${RESET}"
 }
@@ -61,7 +61,7 @@ select_from_list() {
             options+=("$software")
             ((i++))
         done
-        
+
         if [[ ${action_type} == "install" ]]; then
             printf "\n%s" "${BLUE}:: ${RESET}Packages to install (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
         elif [[ ${action_type} == "uninstall" ]]; then

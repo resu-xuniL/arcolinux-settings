@@ -27,7 +27,7 @@ set_uninstall_list() {
 
 uninstall_software() {
     local mkinitcpio_needed=0
-    
+
     action_type="uninstall"
 
     set_uninstall_list

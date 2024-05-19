@@ -17,9 +17,9 @@ set_config_files_list() {
         [Autostart applications]="autostart/* ${HOME}/.config/autostart"
         [Git : configuration file]="git/.gitconfig ${HOME}"
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
-        [Qt applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
+        [Qt & GTK applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
         [Shell : personal aliases for BASH & ZSH]="zsh/.zshrc-personal ${HOME}"
-        [Shell : ZSH (with powerline theme)]="zsh/.zshrc ${HOME}"
+        [Shell : ZSH (with powerline theme & neofetch)]="zsh/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Variety : configuration file]="variety/variety.conf ${HOME}/.config/variety"
@@ -93,10 +93,42 @@ set_config_files() {
 
         exec_log "cp ${INSTALL_DIRECTORY}/_extra/.login.sound.mp3 ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}.login.sound.mp3${RESET}] to [${YELLOW}${HOME}${RESET}]"
         replace_username "${HOME}/.config/autostart/login.sound.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}Login sound${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        
+
         if [[ -f ${HOME}/.config/autostart/xfce4-clipman-plugin-autostart.desktop ]]; then
             exec_log "rm -v ${HOME}/.config/autostart/xfce4-clipman-plugin-autostart.desktop" "${RED}[-]${RESET} Removing [${YELLOW}xfce4-clipman-plugin${RESET}] from autostart folder"
         fi
+    fi
+
+    ################################################################
+    ##########                 Dark theme                 ##########
+    ##########                  QT & GTK                  ##########
+    ################################################################
+
+    if [[ ${packages} =~ "qt5ct/qt5ct.conf" ]]; then
+
+        ################################################################
+        ##########                    GTK                     ##########
+        ################################################################
+
+        file_conf="QT5CT theme"
+
+        if ! pacman -Q qt5ct &> /dev/null; then
+            exec_log "sudo pacman -S --noconfirm --needed qt5ct" "${GREEN}[+]${RESET} Installing [${YELLOW}qt5ct${RESET}] for [${YELLOW}dark theme${RESET}] on Qt applications"
+        fi
+
+        if pacman -Q kvantum &> /dev/null; then
+            exec_log "sudo pacman -Rsn --noconfirm kvantum" "${RED}[-]${RESET} Unstalling [${YELLOW}kvantum${RESET}]"
+        fi
+
+        exec_log "sudo sed -i 's/QT_STYLE_OVERRIDE=kvantum/#QT_STYLE_OVERRIDE=kvantum/' /etc/environment" "${GREEN}[+]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file (if exist)"
+
+        ################################################################
+        ##########                     QT                     ##########
+        ################################################################
+
+        file_conf="GTK theme"
+
+        exec_log "gsettings set org.gnome.desktop.interface gtk-theme Windows-10-Dark" "${GREEN}[+]${RESET} Setting [${YELLOW}GTK Theme${RESET}] to [${YELLOW}Windows-10-Dark${RESET}]"
     fi
 
     ################################################################
@@ -118,12 +150,19 @@ set_config_files() {
 
         if [[ ${VM} == "none" ]]; then
             exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/fallout-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}fallout-grub-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
-            exec_log "sudo sed -i 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
+            exec_log "sudo sed -i -E 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"|#GRUB_THEME=\"\/path\/to\/gfxtheme\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
+        else
+            if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
+                exec_log "sudo rm -v -r /boot/grub/themes/Vimix" "${GREEN}[+]${RESET} Removing [${YELLOW}boot/grub/themes/Vimix${RESET}] folder"
+                exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/arch-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}arch-fluent-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
+                exec_log "sudo sed -i 's/#GRUB_THEME=\"\/path\/to\/gfxtheme\"/GRUB_THEME=\"\/boot\/grub\/themes\/arch_fluent\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (virtual machine)"
+            fi
         fi
-        exec_log "sudo sed -i 's/quiet //' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : non quiet boot for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         exec_log "sudo sed -i 's/GRUB_DEFAULT=0/GRUB_DEFAULT=saved/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_DEFAULT=saved for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        exec_log "sudo sed -i 's/#GRUB_SAVEDEFAULT=\"true\"/GRUB_SAVEDEFAULT=\"true\"/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_SAVEDEFAULT=\"true\" for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-        exec_log "sudo sed -i 's/GRUB_GFXMODE=auto/GRUB_GFXMODE=${CURRENT_RESOLUTION}/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_GFXMODE=${CURRENT_RESOLUTION} for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo sed -i -E 's/quiet | quiet//' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : non quiet boot for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo sed -i -E 's/GRUB_GFXMODE=auto|GRUB_GFXMODE=[0-9]{3,4}x[0-9]{3,4}/GRUB_GFXMODE=${CURRENT_RESOLUTION}/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_GFXMODE=${CURRENT_RESOLUTION} for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo sed -i 's/#GRUB_SAVEDEFAULT=/GRUB_SAVEDEFAULT=/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_SAVEDEFAULT=true for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_DISABLE_OS_PROBER=false for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
         exec_log "sudo grub-mkconfig -o /boot/grub/grub.cfg" "${GREEN}[+]${RESET} Saving [${YELLOW}GRUB${RESET}] config."
     fi
@@ -167,20 +206,38 @@ set_config_files() {
     fi
 
     ################################################################
+    ##########                  VARIETY                   ##########
+    ################################################################
+
+    if [[ ${packages} =~ "variety/variety.conf" ]]; then
+        file_conf="Variety"
+
+        if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
+            exec_log "sudo pacman -S --noconfirm --needed variety" "${GREEN}[+]${RESET} Installing [${YELLOW}variety${RESET}]"
+            exec_log "sed -i 's/set_wallpaper_arco/set_wallpaper/' ${HOME}/.config/variety/variety.conf" "${GREEN}[+]${RESET} Editing [${YELLOW}variety.conf${RESET}] file for [${YELLOW}Arch Linux${RESET}]"
+            exec_log "sed -i 's/get_wallpaper_arco/get_wallpaper/' ${HOME}/.config/variety/variety.conf" "${GREEN}[+]${RESET} Editing [${YELLOW}variety.conf${RESET}] file for [${YELLOW}Arch Linux${RESET}]"
+        fi
+    fi
+
+    ################################################################
     ##########                    XFCE                    ##########
     ################################################################
 
     if [[ ${packages} =~ "xfce/xfconf/*" ]]; then
         file_conf="XFCE"
+        if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
+            exec_log "sed -i 's/value=\"start-here-arcolinux\"/value=\"archlinux-logo\"/' ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}icon${RESET}] on [${YELLOW}whisker menu${RESET}]"
+            exec_log "sed -i 's/value=\"ArcoLinux  \"/value=\"Arch Linux  \"/' ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}title${RESET}] on [${YELLOW}whisker menu${RESET}]"
+        fi
 
         exec_log "cp ${INSTALL_DIRECTORY}/xfce/helpers.rc ${HOME}/.config/xfce4" "${GREEN}[+]${RESET} Copying [${YELLOW}helpers.rc${RESET}] to [${YELLOW}~/.config/xfce4${RESET}]"
 
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/icons/Mint-L-Yellow-We10x-black-dark.7z -o/usr/share/icons" "${GREEN}[+]${RESET} Extracting [${YELLOW}Mint-L-Yellow-We10x-black-dark.7z${RESET}] icons"
     fi
-    
+
     ################################################################
-    ##########                 BASH & ZSH                 ##########
+    ##########                ZSH (& BASH)                ##########
     ##########                   ALIASES                  ##########
     ################################################################
 
@@ -188,7 +245,7 @@ set_config_files() {
         file_conf="BASH & ZSH aliases"
 
         if [[ -f "${HOME}/.bashrc-personal" ]]; then
-            exec_log "rm ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
+            exec_log "rm -v ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
         fi
         exec_log "ln -s ${HOME}/.zshrc-personal ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Creating simlink for [${YELLOW}.bashrc-personal${RESET}]"
     fi
@@ -201,10 +258,11 @@ set_config_files() {
         file_conf="ZSH"
 
         zsh_packages_list=(
+            neofetch
+            oh-my-zsh-powerline-theme-git
             zsh-autosuggestions
             zsh-completions
             zsh-syntax-highlighting
-            oh-my-zsh-powerline-theme-git
         )
 
         for zsh_package in "${zsh_packages_list[@]}"; do
@@ -212,7 +270,7 @@ set_config_files() {
         done
         action_type="install"
         manage_lst "${zsh_packages}"
-        
+
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
