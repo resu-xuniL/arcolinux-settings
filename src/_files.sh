@@ -19,7 +19,7 @@ set_config_files_list() {
         [Inputrc : Disable \"^\[\[200~\" on terminal]="terminal/.inputrc ${HOME}"
         [Qt & GTK applications : set dark theme]="qt5ct/qt5ct.conf ${HOME}/.config/qt5ct"
         [Shell : personal aliases for BASH & ZSH]="zsh/.zshrc-personal ${HOME}"
-        [Shell : ZSH (with powerline theme & neofetch)]="zsh/.zshrc ${HOME}"
+        [Shell : ZSH (Powerline theme - Fastfetch)]="zsh/.zshrc ${HOME}"
         [Thunar : bookmarks]="gtk3/bookmarks ${HOME}/.config/gtk-3.0"
         [Thunar : Personal actions]="thunar/uca.xml ${HOME}/.config/Thunar"
         [Variety : configuration file]="variety/variety.conf ${HOME}/.config/variety"
@@ -257,24 +257,67 @@ set_config_files() {
     if [[ ${packages} =~ "zsh/.zshrc" ]]; then
         file_conf="ZSH"
 
-        zsh_packages_list=(
-            neofetch
+        zsh_packages_install_list=(
             oh-my-zsh-powerline-theme-git
             zsh-autosuggestions
             zsh-completions
             zsh-syntax-highlighting
         )
+        prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}fastfetch${RESET}] ?" true
+        if [[ ${answer} == true ]]; then
 
-        for zsh_package in "${zsh_packages_list[@]}"; do
-            zsh_packages+="${zsh_package}&"
+            zsh_packages_install_list+="fastfetch"
+
+            ################################################################
+            ##########                  Fastfetch                 ##########
+            ################################################################
+
+            app_conf="Fastfetch"
+
+            check_dir ${HOME}/.config/fastfetch "user"
+            exec_log "cp ${INSTALL_DIRECTORY}/fastfetch/arch.jsonc ${HOME}/.config/fastfetch" "${GREEN}[+]${RESET} Copying [${YELLOW}arch.jsonc${RESET}] file to [${YELLOW}~/.config/fastfetch${RESET}] folder"
+
+            exec_log "grep -qxF 'fastfetch -c ${HOME}/.config/fastfetch/arch.jsonc' ${HOME}/.zshrc || printf '\n%s\n' 'fastfetch -c ${HOME}/.config/fastfetch/arch.jsonc' | sudo tee -a ${HOME}/.zshrc" "${GREEN}[+]${RESET} Adding [${YELLOW}fastfetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
+            exec_log "sed -i 's/vneofetch=/vfastfetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/\/neofetch/\/fastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/fastfetch\/config.conf/fastfetch\/arch.jsonc/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'fastfetch' config. file name) for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/#alias vfastfetch/alias vfastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (enable 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+
+        fi
+
+        for zsh_install_package in "${zsh_packages_install_list[@]}"; do
+            zsh_install_packages+="${zsh_install_package}&"
         done
         action_type="install"
-        manage_lst "${zsh_packages}"
+        manage_lst "${zsh_install_packages}"
+
+        prompt_choice "${BLUE}:: ${RESET}Do you want to uninstall [${YELLOW}neofetch${RESET}] ?" true
+        if [[ ${answer} == true ]]; then
+
+            zsh_packages_uninstall_list=(
+                arcolinux-neofetch-git
+                neofetch
+            )
+            for zsh_uninstall_package in "${zsh_packages_uninstall_list[@]}"; do
+                zsh_uninstall_packages+="${zsh_uninstall_package}&"
+            done
+            action_type="uninstall"
+            manage_lst "${zsh_uninstall_packages}"
+
+            ################################################################
+            ##########                  Neofetch                  ##########
+            ################################################################
+
+            app_conf="Neofetch"
+
+            exec_log "sed -i '/#alias vneofetch=/ ! s/alias vneofetch=/#alias vneofetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (remove 'vneofetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i '/vneofetch/ ! s/neofetch/#neofetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
+        fi
 
         check_dir ${HOME}/.config/zsh "user"
         exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
-        
+
         exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i -E 's/%a,%b%d|%a %b %d/%a %d %b/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
         exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i 's/%Y-%m-%d/%d-%m-%Y/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
 
