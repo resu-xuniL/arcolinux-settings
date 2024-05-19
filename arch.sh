@@ -37,9 +37,9 @@ if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
         file_conf="Locate"
         exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}locate${RESET}] database"
         file_conf="XFCE Terminal"
-        exec_log "xfconf-query -c xfce4-terminal -p /scrolling-bar -n -t string -s TERMINAL_SCROLLBAR_NONE" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}SCROLLING BAR${RESET}] and setting it at [${YELLOW}NONE${RESET}]"
-        exec_log "xfconf-query -c xfce4-terminal -p /misc-default-geometry -n -t string -s 100x30" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}DEFAULT GEOMETRY${RESET}] and setting it at [${YELLOW}100x30${RESET}]"
-        exec_log "xfconf-query -c xfce4-session -p /general/SaveOnExit -s false" "${GREEN}[+]${RESET} XFCE session : set property [${YELLOW}SAVE ON EXIT${RESET}] to [${YELLOW}FALSE${RESET}]"
+        exec_log "xfconf-query -c xfce4-terminal -p /scrolling-bar -n -t string -s TERMINAL_SCROLLBAR_NONE" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}SCROLLING BAR${RESET}] and setting it to [${YELLOW}NONE${RESET}]"
+        exec_log "xfconf-query -c xfce4-terminal -p /misc-default-geometry -n -t string -s 100x30" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}DEFAULT GEOMETRY${RESET}] and setting it to [${YELLOW}100x30${RESET}]"
+        exec_log "xfconf-query -c xfce4-session -p /general/SaveOnExit -n -t bool -s false" "${GREEN}[+]${RESET} XFCE session : creating property [${YELLOW}SAVE ON EXIT${RESET}] and setting it to [${YELLOW}FALSE${RESET}]"
 
         endscript "${start_time}"
     else
