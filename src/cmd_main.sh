@@ -57,8 +57,8 @@ select_from_list() {
         printf "\n%s" "${BLUE}:: ${RESET}Choose steps (e.g., 1 2 3, 1-3, (a)ll or press enter to skip): "
     else
         for software in "${!item_list[@]}"; do
-            printf "${PURPLE}%2d${RESET}) %s\n" "$i" "$software"
-            options+=("$software")
+            printf "${PURPLE}%2d${RESET}) %s\n" "$i" "${software}"
+            options+=("${software}")
             ((i++))
         done
 
