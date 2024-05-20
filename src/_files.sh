@@ -107,7 +107,7 @@ set_config_files() {
     if [[ ${packages} =~ "qt5ct/qt5ct.conf" ]]; then
 
         ################################################################
-        ##########                    GTK                     ##########
+        ##########                     QT                     ##########
         ################################################################
 
         file_conf="QT5CT theme"
@@ -115,15 +115,17 @@ set_config_files() {
         if ! pacman -Q qt5ct &> /dev/null; then
             exec_log "sudo pacman -S --noconfirm --needed qt5ct" "${GREEN}[+]${RESET} Installing [${YELLOW}qt5ct${RESET}] for [${YELLOW}dark theme${RESET}] on Qt applications"
         fi
-
         if pacman -Q kvantum &> /dev/null; then
             exec_log "sudo pacman -Rsn --noconfirm kvantum" "${RED}[-]${RESET} Unstalling [${YELLOW}kvantum${RESET}]"
         fi
+        if pacman -Q kvantum-qt5-git &> /dev/null; then
+            exec_log "sudo pacman -Rsn --noconfirm kvantum-qt5-git" "${RED}[-]${RESET} Uninstalling [${YELLOW}kvantum${RESET}]"
+        fi
 
-        exec_log "sudo sed -i 's/QT_STYLE_OVERRIDE=kvantum/#QT_STYLE_OVERRIDE=kvantum/' /etc/environment" "${GREEN}[+]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file (if exist)"
+        exec_log "sudo sed -i '/QT_STYLE_OVERRIDE=kvantum/d' /etc/environment" "${RED}[-]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file (if exist)"
 
         ################################################################
-        ##########                     QT                     ##########
+        ##########                    GTK                     ##########
         ################################################################
 
         file_conf="GTK theme"
@@ -165,24 +167,6 @@ set_config_files() {
         exec_log "sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub" "${GREEN}[+]${RESET} Configuring [${YELLOW}GRUB${RESET}] : GRUB_DISABLE_OS_PROBER=false for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
         exec_log "sudo grub-mkconfig -o /boot/grub/grub.cfg" "${GREEN}[+]${RESET} Saving [${YELLOW}GRUB${RESET}] config."
-    fi
-
-    ################################################################
-    ##########                     QT                     ##########
-    ################################################################
-
-    if [[ ${packages} =~ "qt5ct/qt5ct.conf" ]]; then
-        file_conf="QT5CT"
-
-        if ! pacman -Q qt5ct &> /dev/null; then
-            exec_log "sudo pacman -S --noconfirm --needed qt5ct" "${GREEN}[+]${RESET} Installing [${YELLOW}qt5ct${RESET}] for [${YELLOW}dark theme${RESET}] on Qt applications"
-        fi
-
-        if pacman -Q kvantum-qt5-git &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm kvantum-qt5-git" "${RED}[-]${RESET} Uninstalling [${YELLOW}kvantum${RESET}]"
-        fi
-
-        exec_log "sudo sed -i 's/QT_STYLE_OVERRIDE=kvantum/#QT_STYLE_OVERRIDE=kvantum/' /etc/environment" "${GREEN}[+]${RESET} Remove [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file"
     fi
 
     ################################################################
@@ -266,7 +250,7 @@ set_config_files() {
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}fastfetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
 
-            zsh_packages_install_list+="fastfetch"
+            zsh_packages_install_list+=(fastfetch)
 
             ################################################################
             ##########                  Fastfetch                 ##########
