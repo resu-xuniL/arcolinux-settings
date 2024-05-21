@@ -2,11 +2,14 @@ arch_required() {
     declare -a required_arch_list
 
     required_arch_list=(
+        mesa # need to be installed first
         alsa-utils
-        bibata-cursor-theme-bin
+        base-devel
         bc
+        bibata-cursor-theme-bin
         fakeroot
         jq
+        linux-firmware
         locate
         man
         network-manager-applet
@@ -15,6 +18,7 @@ arch_required() {
         pacman-contrib
         pavucontrol
         pulseaudio
+        pulseaudio-alsa
         rsync
         sddm
         thunar-archive-plugin
@@ -23,8 +27,10 @@ arch_required() {
         xdg-user-dirs
         xfce4
         xfce4-pulseaudio-plugin
+        xfce4-screenshooter
         xfce4-whiskermenu-plugin
         xorg-xdpyinfo
+        yay
     )
 
     log_msg "\n${GREEN}[+]${RESET} Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
