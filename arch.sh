@@ -15,6 +15,7 @@ if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
 
         init
 
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/locale.conf /etc" "${GREEN}[+]${RESET} Copying [${YELLOW}locale.conf${RESET}] file to [${YELLOW}/etc${RESET}] folder"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/environment /etc" "${GREEN}[+]${RESET} Copying [${YELLOW}environment${RESET}] file to [${YELLOW}/etc${RESET}] folder"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/pacman.conf /etc" "${GREEN}[+]${RESET} Copying [${YELLOW}pacman.conf${RESET}] file to [${YELLOW}/etc${RESET}] folder"
         exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/arcolinux-mirrorlist /etc/pacman.d" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-mirrorlist${RESET}] file to [${YELLOW}/etc/pacman.d${RESET}] folder"
@@ -31,7 +32,7 @@ if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
 
         action_type="config_files"
         file_conf="X11-keymap"
-        exec_log "sudo localectl set-x11-keymap fr" "${GREEN}[+]${RESET} Setting [${YELLOW}x11-keymap${RESET}] to [${YELLOW}fr${RESET}]"
+        exec_log "sudo localectl --no-convert set-x11-keymap fr pc104 ,oss" "${GREEN}[+]${RESET} Setting [${YELLOW}x11-keymap${RESET}] to [${YELLOW}fr${RESET}]"
         file_conf="SDDM"
         exec_log "sudo systemctl enable sddm" "${GREEN}[+]${RESET} Enabling [${YELLOW}SDDM${RESET}]"
         file_conf="Locate"
@@ -40,6 +41,8 @@ if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
         exec_log "xfconf-query -c xfce4-terminal -p /scrolling-bar -n -t string -s TERMINAL_SCROLLBAR_NONE" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}SCROLLING BAR${RESET}] and setting it to [${YELLOW}NONE${RESET}]"
         exec_log "xfconf-query -c xfce4-terminal -p /misc-default-geometry -n -t string -s 120x30" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}DEFAULT GEOMETRY${RESET}] and setting it to [${YELLOW}120x30${RESET}]"
         exec_log "xfconf-query -c xfce4-session -p /general/SaveOnExit -n -t bool -s false" "${GREEN}[+]${RESET} XFCE session : creating property [${YELLOW}SAVE ON EXIT${RESET}] and setting it to [${YELLOW}FALSE${RESET}]"
+        file_conf="vconsole.conf"
+        exec_log "printf '%s\n' 'FONT=gr737c-8x16' | sudo tee -a /etc/vconsole.conf" "${GREEN}[+]${RESET} Adding [${YELLOW}FONT${RESET}] to [${YELLOW}vconsole.conf${RESET}] file"
 
         endscript "${start_time}"
     else
