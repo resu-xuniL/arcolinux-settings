@@ -99,9 +99,15 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+######################
+####   SETTINGS   ####
+######################
 
-####   ARCOLINUX SETTINGS   ####
+export HISTCONTROL=ignoreboth:erasedups
+export GPG_TTY=$(tty)
 export PAGER='most'
+export EDITOR='vim'
+export VISUAL='codium'
 
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -112,18 +118,12 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
 fi
 
 setopt GLOB_DOTS
-#share commands between terminal instances or not
-unsetopt SHARE_HISTORY
-#setopt SHARE_HISTORY
+# share commands between terminal instances or not
+# unsetopt SHARE_HISTORY
+setopt SHARE_HISTORY
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
-
-export HISTCONTROL=ignoreboth:erasedups
-
-# Make vim the default editor
-export EDITOR='vim'
-#export VISUAL='codium'
 
 #PS1='[\u@\h \W]\$ '
 
@@ -135,7 +135,9 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-### ALIASES ###
+#####################
+####   ALIASES   ####
+#####################
 
 #list
 alias ls='ls --color=auto'
@@ -158,7 +160,6 @@ function_depends()  {
     search=$(echo "$1")
     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
     }
-
 alias depends='function_depends'
 
 #fix obvious typo's
