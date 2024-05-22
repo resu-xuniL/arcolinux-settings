@@ -35,8 +35,10 @@ arch_required() {
 
     if [[ ${VM} == "none" ]]; then
         required_arch_list+=(linux-firmware)
+    else
+        required_arch_list+=(virtualbox-guest-utils)
     fi
-    
+
     log_msg "\n${GREEN}[+]${RESET} Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
 
     for required_arch_dep in "${required_arch_list[@]}"; do
@@ -93,10 +95,6 @@ check_required_dep() {
         p7zip
         tldr
     )
-
-    if [[ ! ${VM} == "none" ]]; then
-        required_dep_list+=(virtualbox-guest-utils)
-    fi
 
     log_msg "${GREEN}[+]${RESET} Checking required packages :"
 
