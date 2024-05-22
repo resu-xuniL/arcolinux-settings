@@ -7,11 +7,12 @@ arch_required() {
         base-devel
         bc
         bibata-cursor-theme-bin
-        fakeroot
         jq
+        libadwaita-without-adwaita-git
         linux-firmware
         locate
         man
+        most
         network-manager-applet
         noto-fonts
         os-prober
@@ -78,7 +79,6 @@ check_required_dep() {
 
     required_dep_list=(
         ffmpegthumbnailer
-        libadwaita-without-adwaita-git # need to be installed before file-roller
         file-roller
         gvfs
         gvfs-afc
