@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source src/opt.sh
 source src/init.sh
 source src/header.sh
 source src/steps.sh
