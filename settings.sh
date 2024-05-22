@@ -9,8 +9,8 @@ source src/cmd_main.sh
 source src/_dep.sh
 source src/_uninstall.sh
 source src/_install.sh
-source src/_settings.sh
-source src/_files.sh
+source src/_config_settings.sh
+source src/_config_files.sh
 source src/end.sh
 
 start_time="$(date +%s)"
