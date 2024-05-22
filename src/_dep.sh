@@ -45,6 +45,8 @@ arch_required() {
     action_type="install"
     manage_lst "${required_arch_deps}"
 
+    exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
+
     log_msg "${GREEN}[+]${RESET} ${YELLOW}Installation complete${RESET}\n"
 }
 
