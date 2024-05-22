@@ -8,7 +8,7 @@ set_config_files_list() {
     root_config_files_list=(
         [GRUB : Change theme and edit settings]="grub/theme.txt /boot/grub/themes/Vimix"
         [Pacman hook : check for orphans at update]="pacman.hook/wam_check-orphaned.hook /etc/pacman.d/hooks"
-        [Resolv : set 1.1.1.1 DNS]="dns/resolv.conf /etc"
+        [Resolv : set FDN DNS]="dns/resolv.conf /etc"
         [Samba : Edit config.]="samba/smb.conf /etc/samba"
         [SDDM : Enable arcolinux-sugar-candy theme]="sddm/kde_settings.conf /etc/sddm.conf.d"
     )
