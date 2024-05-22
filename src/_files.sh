@@ -265,8 +265,6 @@ set_config_files() {
             exec_log "sed -i 's/vneofetch=/vfastfetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
             exec_log "sed -i 's/\/neofetch/\/fastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'neofetch' for 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
             exec_log "sed -i 's/fastfetch\/config.conf/fastfetch\/arch.jsonc/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (change 'fastfetch' config. file name) for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-            exec_log "sed -i 's/#alias vfastfetch/alias vfastfetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (enable 'fastfetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-
         fi
 
         for zsh_install_package in "${zsh_packages_install_list[@]}"; do
@@ -294,8 +292,7 @@ set_config_files() {
 
             app_conf="Neofetch"
 
-            exec_log "sed -i '/#alias vneofetch=/ ! s/alias vneofetch=/#alias vneofetch=/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Configuring [${YELLOW}.zshrc${RESET}] alias (remove 'vneofetch') for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
-            exec_log "sed -i '/vneofetch/ ! s/neofetch/#neofetch/' ${HOME}/.zshrc" "${GREEN}[+]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
+            exec_log "sed -i '/neofetch/s/^#*/#/' ${HOME}/.zshrc" "${RED}[-]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
         fi
 
         check_dir ${HOME}/.config/zsh "user"
