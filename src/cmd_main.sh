@@ -130,14 +130,19 @@ manage_one() {
         local asdeps_str=""
         local warning_msg=""
         local -r warning="
-            rtl8821cu-morrownr-dkms-git
+            base-devel
             broadcom-wl-dkms
             brave-bin
+            ffmpegthumbnailer
+            linux-firmware
+            rtl8821cu-morrownr-dkms-git
+            sddm
             thunderbird
             virtualbox
             vscodium-bin
             we10x-icon-theme-git
             wine
+            xfce4
         "
 
         if [[ ${warning} =~ ${package} ]]; then
