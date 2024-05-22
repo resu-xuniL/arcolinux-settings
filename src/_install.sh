@@ -218,8 +218,8 @@ post_config_apps() {
     if [[ ${packages} =~ "vscodium-bin" && ${extra_install[vscodium-bin]} == true ]]; then
         app_conf="VSCodium"
 
-        exec_log "sudo sed -i 's/--unity-launch //' /usr/share/applications/codium.desktop" "${GREEN}[+]${RESET} Removing the [${YELLOW}unity-launch${RESET}] tag on [${YELLOW}codium.desktop${RESET}] file"
-        exec_log "sudo sed -i 's/--unity-launch //' /usr/share/applications/codium-wayland.desktop" "${GREEN}[+]${RESET} Removing the [${YELLOW}unity-launch${RESET}] tag on [${YELLOW}codium-wayland.desktop${RESET}] file"
+        exec_log "sudo sed -i 's/--unity-launch //' /usr/share/applications/codium.desktop" "${RED}[-]${RESET} Removing the [${YELLOW}unity-launch${RESET}] tag on [${YELLOW}codium.desktop${RESET}] file"
+        exec_log "sudo sed -i 's/--unity-launch //' /usr/share/applications/codium-wayland.desktop" "${RED}[-]${RESET} Removing the [${YELLOW}unity-launch${RESET}] tag on [${YELLOW}codium-wayland.desktop${RESET}] file"
         exec_log "sudo sed -i 's/Keywords=vscode;/Keywords=vscode;\nHidden=true/' /usr/share/applications/codium-wayland.desktop" "${GREEN}[+]${RESET} Setting [${YELLOW}codium-wayland.desktop${RESET}] to [${YELLOW}Hidden=true${RESET}]"
     fi
 

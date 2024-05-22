@@ -155,7 +155,7 @@ set_config_files() {
             exec_log "sudo sed -i -E 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"|#GRUB_THEME=\"\/path\/to\/gfxtheme\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
         else
             if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
-                exec_log "sudo rm -v -r /boot/grub/themes/Vimix" "${GREEN}[+]${RESET} Removing [${YELLOW}boot/grub/themes/Vimix${RESET}] folder"
+                exec_log "sudo rm -v -r /boot/grub/themes/Vimix" "${RED}[-]${RESET} Removing [${YELLOW}boot/grub/themes/Vimix${RESET}] folder"
                 exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/arch-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}arch-fluent-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
                 exec_log "sudo sed -i 's/#GRUB_THEME=\"\/path\/to\/gfxtheme\"/GRUB_THEME=\"\/boot\/grub\/themes\/arch_fluent\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (virtual machine)"
             fi
@@ -229,7 +229,7 @@ set_config_files() {
         file_conf="BASH & ZSH aliases"
 
         if [[ -f "${HOME}/.bashrc-personal" ]]; then
-            exec_log "rm -v ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
+            exec_log "rm -v ${HOME}/.bashrc-personal" "${RED}[-]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
         fi
         exec_log "ln -s ${HOME}/.zshrc-personal ${HOME}/.bashrc-personal" "${GREEN}[+]${RESET} Creating simlink for [${YELLOW}.bashrc-personal${RESET}]"
     fi
@@ -247,9 +247,9 @@ set_config_files() {
             zsh-completions
             zsh-syntax-highlighting
         )
+
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}fastfetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
-
             zsh_packages_install_list+=(fastfetch)
 
             ################################################################
@@ -270,19 +270,21 @@ set_config_files() {
         for zsh_install_package in "${zsh_packages_install_list[@]}"; do
             zsh_install_packages+="${zsh_install_package}&"
         done
+
         action_type="install"
         manage_lst "${zsh_install_packages}"
 
         prompt_choice "${BLUE}:: ${RESET}Do you want to uninstall [${YELLOW}neofetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
-
             zsh_packages_uninstall_list=(
                 arcolinux-neofetch-git
                 neofetch
             )
+
             for zsh_uninstall_package in "${zsh_packages_uninstall_list[@]}"; do
                 zsh_uninstall_packages+="${zsh_uninstall_package}&"
             done
+
             action_type="uninstall"
             manage_lst "${zsh_uninstall_packages}"
 
