@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Arch-settings in VSCodium
+Comment=Open arch-settings folder in VSCodium
+Exec=codium .
+Icon=format-text-code
+Path=/home/***/Documents/arch-settings
+Terminal=false
+StartupNotify=true

@@ -331,21 +331,21 @@ post_config_apps() {
         app_conf="Plank"
 
         check_dir ${HOME}/.local/share/applications "user"
-        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/wam_arcolinux-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_arcolinux-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}~/.local/share/applications${RESET}] folder"
-        replace_username "${HOME}/.local/share/applications/wam_arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arcolinux-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/wam_arch-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}~/.local/share/applications${RESET}] folder"
+        replace_username "${HOME}/.local/share/applications/wam_arch-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         if [[ ${VM} == "none" ]]; then
-            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/wam_arcolinux-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arcolinux-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/wam_arch-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         fi
 
         exec_log "rsync --mkpath '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
-        replace_username "${HOME}/.config/plank/dock1/launchers/arcolinux-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+        replace_username "${HOME}/.config/plank/dock1/launchers/arch-settings-in-VSCodium.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
 
         dock_item_string="'xfce4-terminal.dockitem', 'thunar.dockitem', 'brave-browser.dockitem'"
         if [[ ${plank_dockitem} =~ "thunderbird" ]]; then
             exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/org.mozilla.Thunderbird.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}org.mozilla.Thunderbird.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
             dock_item_string+=", 'org.mozilla.Thunderbird.dockitem'"
         fi
-        dock_item_string+=", 'codium.dockitem', 'arcolinux-settings-in-VSCodium.dockitem'"
+        dock_item_string+=", 'codium.dockitem', 'arch-settings-in-VSCodium.dockitem'"
         if [[ ${plank_dockitem} =~ "wine_mhyd" ]]; then
             exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/mediaHuman.YouTubeDownloader.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}mediaHuman.YouTubeDownloader.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
             replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
