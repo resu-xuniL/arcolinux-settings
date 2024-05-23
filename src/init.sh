@@ -95,10 +95,6 @@ init() {
     exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod u+w,a+r {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
 
     if [[ -n ${XDG_CURRENT_DESKTOP} ]]; then
-        if [[ ! ${VM} == "none" ]]; then
-	        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
-        fi
-
         prompt_choice "${BLUE}:: ${RESET}Do you want to check for useless kernels ?" true
         if [[ ${answer} == true ]]; then
             remove_useless_kernels

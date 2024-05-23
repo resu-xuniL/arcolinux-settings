@@ -42,11 +42,21 @@ arch_required() {
     log_msg "\n${GREEN}[+]${RESET} Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
 
     for required_arch_dep in "${required_arch_list[@]}"; do
+        if [[ ${required_arch_dep} == "virtualbox-guest-utils" ]]; then
+            if pacman -Q virtualbox-guest-utils-nox &> /dev/null; then
+                action_type="uninstall"
+                manage_one "virtualbox-guest-utils-nox"
+            fi
+        fi
         required_arch_deps+="${required_arch_dep}&"
     done
+
     action_type="install"
     manage_lst "${required_arch_deps}"
-
+    
+    if pacman -Q virtualbox-guest-utils &> /dev/null; then
+        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
+    fi
     exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
 
     log_msg "${GREEN}[+]${RESET} ${YELLOW}Installation complete${RESET}\n"
@@ -77,6 +87,7 @@ remove_useless_kernels() {
     for kernel in "${kernel_to_remove_list[@]}"; do
         kernels+="${kernel}&"
     done
+
     action_type="uninstall"
     manage_lst "${kernels}"
 }
@@ -96,6 +107,10 @@ check_required_dep() {
         tldr
     )
 
+    if [[ ! ${VM} == "none" ]]; then
+        required_dep_list+=(virtualbox-guest-utils)
+    fi
+
     log_msg "${GREEN}[+]${RESET} Checking required packages :"
 
     for required_dep in "${required_dep_list[@]}"; do
@@ -107,8 +122,13 @@ check_required_dep() {
         fi
         required_deps+="${required_dep}&"
     done
+
     action_type="install"
     manage_lst "${required_deps}"
+
+    if pacman -Q virtualbox-guest-utils &> /dev/null; then
+        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
+    fi
 }
 
 wam_scripts() {
