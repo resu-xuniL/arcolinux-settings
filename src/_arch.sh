@@ -38,6 +38,11 @@ arch_config_files(){
     exec_log "xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-home -n -t bool -s false" "${GREEN}[+]${RESET} XFCE desktop : creating property [${YELLOW}SHOW HOME${RESET}] icon to [${YELLOW}FALSE${RESET}]"
     exec_log "xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-removable -n -t bool -s false" "${GREEN}[+]${RESET} XFCE desktop : creating property [${YELLOW}SHOW REMOVABLE${RESET}] icon to [${YELLOW}FALSE${RESET}]"
     exec_log "xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -n -t bool -s false" "${GREEN}[+]${RESET} XFCE desktop : creating property [${YELLOW}SHOW TRASH${RESET}] icon to [${YELLOW}FALSE${RESET}]"
+    
+    file_conf="Virtualbox guest utils"
+    if pacman -Q virtualbox-guest-utils &> /dev/null; then
+        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
+    fi
 }
 
 arch_preset_step(){

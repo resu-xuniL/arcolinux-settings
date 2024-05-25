@@ -53,13 +53,6 @@ arch_required() {
 
     action_type="install"
     manage_lst "${required_arch_deps}"
-    
-    log_msg "${BLUE}:: ${RESET}Configuring installed packages :"
-
-    if pacman -Q virtualbox-guest-utils &> /dev/null; then
-        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
-    fi
-    exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
 }
 
 remove_useless_kernels() {
