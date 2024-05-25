@@ -1,15 +1,3 @@
-#!/usr/bin/env bash
-export NOCLEAR=false
-
-source src/init.sh
-source src/cmd.sh
-source src/cmd_main.sh
-source src/_dep.sh
-source src/end.sh
-
-start_time="$(date +%s)"
-LOG_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/logfile_archlinux_$(date "+%Y%m%d-%H%M%S").log"
-
 arch_copy_files() {
     exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/locale.conf /etc" "${GREEN}[+]${RESET} Copying [${YELLOW}locale.conf${RESET}] file to [${YELLOW}/etc${RESET}] folder"
     exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/environment /etc" "${GREEN}[+]${RESET} Copying [${YELLOW}environment${RESET}] file to [${YELLOW}/etc${RESET}] folder"
@@ -52,19 +40,24 @@ arch_config_files(){
     exec_log "xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -n -t bool -s false" "${GREEN}[+]${RESET} XFCE desktop : creating property [${YELLOW}SHOW TRASH${RESET}] icon to [${YELLOW}FALSE${RESET}]"
 }
 
-if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
-    if [[ -z ${XDG_CURRENT_DESKTOP} ]]; then
-        check_internet || exit 1
-        init
-        arch_copy_files
-        arch_required
-        arch_config_files
-        endscript "${start_time}"
+arch_preset_step(){
+    if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
+        if [[ -z ${XDG_CURRENT_DESKTOP} ]]; then
+            display_step "ARCH PRESET MODE"
+            sleep 1
+            step arch_copy_files "Copy files"
+            prompt_to_continue
+            step arch_required "Install deps"
+            prompt_to_continue
+            step arch_config_files "Config files"
+            prompt_to_continue
+        else
+            log_msg "${RED}/!\ [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] is now set and ready to be riced. Run [${RESET}${BB}${YELLOW}'settings.sh' WITHOUT '--preset' option${RESET}${RED}] ! /!\ ${RESET}\n"
+            exit 0
+        fi
     else
-        log_msg "${RED}/!\ [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] is now set and ready to be riced. Run [${RESET}${BB}${YELLOW}settings.sh${RESET}${RED}] script instead /!\ ${RESET}\n"
-        exit
+        log_msg "\n${RED}/!\ THIS IS NOT AN [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
+        restore_xfce_terminal_display
+        exit 0;
     fi
-else
-    log_msg "${RED}/!\ THIS IS NOT AN [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
-    exit
-fi
+}

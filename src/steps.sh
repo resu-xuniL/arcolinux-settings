@@ -4,6 +4,7 @@ selected_packages=""
 
 set_step_list() {
     step_order=(
+        [0]="Preset"
         [1]="Start"
         [2]="Header"
         [3]="Init"
@@ -15,6 +16,7 @@ set_step_list() {
     )
 
     step_list=(
+        [Preset]="arch_preset_step"
         [Start]="start_step"
         [Header]="header_step"
         [Init]="init_step"
@@ -46,6 +48,7 @@ gui_steps_selection() {
         --separate-output \
         --title "Step(s) to execute" \
         --checklist "Choose steps :" 10 60 0 \
+        "0" "Step 0 : Arch preset" OFF \
         "1" "Step 1 : Start" OFF \
         "2" "Step 2 : Header" OFF \
         "3" "Step 3 : Init" OFF \
@@ -62,6 +65,9 @@ gui_steps_selection() {
     else
         for step_sel in ${steps_sel}; do
             case "${step_sel}" in
+            0 )
+                arch_preset_step
+                ;;
             1 )
                 start_step
                 ;;

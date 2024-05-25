@@ -39,7 +39,7 @@ arch_required() {
         required_arch_list+=(virtualbox-guest-utils)
     fi
 
-    log_msg "\n${GREEN}[+]${RESET} Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
+    log_msg "${BLUE}:: ${RESET}Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
 
     for required_arch_dep in "${required_arch_list[@]}"; do
         if [[ ${required_arch_dep} == "virtualbox-guest-utils" ]]; then
@@ -54,12 +54,12 @@ arch_required() {
     action_type="install"
     manage_lst "${required_arch_deps}"
     
+    log_msg "${BLUE}:: ${RESET}Configuring installed packages :"
+
     if pacman -Q virtualbox-guest-utils &> /dev/null; then
         exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
     fi
     exec_log "sudo fc-cache -fv" "${GREEN}[+]${RESET} Building [${YELLOW}fonts${RESET}] cache file"
-
-    log_msg "${GREEN}[+]${RESET} ${YELLOW}Installation complete${RESET}\n"
 }
 
 remove_useless_kernels() {

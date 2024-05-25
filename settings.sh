@@ -6,6 +6,7 @@ source src/header.sh
 source src/steps.sh
 source src/cmd.sh
 source src/cmd_main.sh
+source src/_arch.sh
 source src/_dep.sh
 source src/_uninstall.sh
 source src/_install.sh
@@ -21,9 +22,9 @@ start_step() {
     change_xfce_terminal_display
 }
 
-if [[ ${CURRENT_OS} == "ArcoLinux" || ${CURRENT_OS} == "Arch Linux" ]]; then
-    if [[ -z ${XDG_CURRENT_DESKTOP} ]]; then
-        log_msg "${RED}/!\ RUN [${RESET}${BB}${YELLOW}arch.sh${RESET}${RED}] SCRIPT FIRST /!\ ${RESET}\n"
+if [[ ${CURRENT_OS} == "Arch Linux" || ${CURRENT_OS} == "ArcoLinux" ]]; then
+    if [[ -z ${XDG_CURRENT_DESKTOP} && ${PRESET} == "false" ]]; then
+        log_msg "${RED}/!\ RUN [${RESET}${BB}${YELLOW}settings.sh --preset${RESET}${RED}] OPTION FIRST /!\ ${RESET}\n"
         exit
     fi
 
@@ -126,6 +127,19 @@ if [[ ${CURRENT_OS} == "ArcoLinux" || ${CURRENT_OS} == "Arch Linux" ]]; then
         step configuration_step "Configutation step mode"
         restore_xfce_terminal_display
         exit 0;
+    fi
+
+    if [[ ${PRESET} == "true" ]]; then
+        if [[ -z ${XDG_CURRENT_DESKTOP} ]];then
+            check_internet || exit 1
+            header_step
+            init_step
+            arch_preset_step
+            end_step
+        else
+            log_msg "${RED}/!\ [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] seems to be set and ready to be riced.\nRun [${RESET}${BB}${YELLOW}'settings.sh' WITHOUT '--preset' option${RESET}${RED}] ! /!\ ${RESET}\n"
+            exit 0
+        fi
     fi
 
     all_steps

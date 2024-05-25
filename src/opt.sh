@@ -2,6 +2,7 @@ usage() {
     printf "\n%s\n" "Usage : ./settings.sh [OPTION(s)]"
     printf "\n%s\n" "Options :"
     printf "%s\n" "  -h --help      : Display this help."
+    printf "%s\n" "  -p --preset    : Preset settings for Arch Linux new install"
     printf "%s\n" "  -t --test      : Test mode."
     printf "%s\n" "  -g --gui       : Test mode with GUI selection."
     printf "%s\n" "  -f --force     : Force extra-installation."
@@ -14,7 +15,7 @@ usage() {
     printf "%s\n" "  --no-reboot    : Do not reboot the system at the end of the script."
 }
 
-valid_args=$(getopt -o htgfiucnv --long help,test,gui,force,install,uninstall,config,verbose,no-log,no-clear,no-reboot -- "$@")
+valid_args=$(getopt -o hptgfiucnv --long help,preset,test,gui,force,install,uninstall,config,verbose,no-log,no-clear,no-reboot -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -25,6 +26,10 @@ while [ : ]; do
     -h | --help)
         usage
         exit 1
+        ;;
+    -p | --preset)
+        export PRESET=true
+        shift
         ;;
     -t | --test)
         export TESTMODE=true
@@ -74,6 +79,10 @@ while [ : ]; do
   esac
 done
 
+if [[ -z ${PRESET+x} ]]; then
+    export PRESET=false
+fi
+
 if [[ -z ${TESTMODE+x} ]]; then
     export TESTMODE=false
 fi
@@ -109,6 +118,7 @@ fi
 if [[ -z ${NOCLEAR+x} ]]; then
     export NOCLEAR=false
 fi
+
 if [[ -z ${NOREBOOT+x} ]]; then
     export NOREBOOT=false
 fi
