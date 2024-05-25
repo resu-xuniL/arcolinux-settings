@@ -58,6 +58,6 @@ arch_preset_step(){
     else
         log_msg "\n${RED}/!\ THIS IS NOT AN [${RESET}${BB}${YELLOW}ARCH LINUX${RESET}${RED}] DISTRO /!\ ${RESET}\n"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 }

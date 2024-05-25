@@ -2076,7 +2076,7 @@ fetch_the_25th_word() {
 
     if [[ ${deltaInDaysRounded} -lt 0 ]]; then
         printf "%s\n" "Today cannot be a date before Tue, 10 May 2022"
-        exit 0;
+        exit 0
     fi
 
     the25thWord=${word_list[deltaInDaysRounded]}

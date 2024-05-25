@@ -97,7 +97,7 @@ if [[ ${CURRENT_OS} == "Arch Linux" || ${CURRENT_OS} == "ArcoLinux" ]]; then
         display_step "TEST MODE"
         step steps_selection "Testing step(s) mode"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 
     if [[ ${GUIMODE} == "true" ]]; then
@@ -105,28 +105,28 @@ if [[ ${CURRENT_OS} == "Arch Linux" || ${CURRENT_OS} == "ArcoLinux" ]]; then
         display_step "TEST MODE"
         step gui_steps_selection "Testing step(s) mode"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 
     if [[ ${INSTALLMODE} == "true" ]]; then
         display_step "INSTALL MODE"
         step install_step "Install step mode"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 
     if [[ ${UNINSTALLMODE} == "true" ]]; then
         display_step "UNINSTALL MODE"
         step uninstall_step "Uninstall step mode"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 
     if [[ ${CONFIGMODE} == "true" ]]; then
         display_step "CONFIGURATION MODE"
         step configuration_step "Configutation step mode"
         restore_xfce_terminal_display
-        exit 0;
+        exit 0
     fi
 
     if [[ ${PRESET} == "true" ]]; then
