@@ -126,7 +126,7 @@
       <property name="position-commands-alternate" type="bool" value="true"/>
       <property name="position-categories-alternate" type="bool" value="true"/>
       <property name="menu-width" type="int" value="410"/>
-      <property name="menu-height" type="int" value="583"/>
+      <property name="menu-height" type="int" value="620"/>
       <property name="menu-opacity" type="int" value="80"/>
       <property name="command-lockscreen" type="string" value="archlinux-logout"/>
       <property name="command-switchuser" type="string" value="xfce4-session-logout -u"/>
