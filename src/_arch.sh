@@ -25,7 +25,7 @@ arch_config_files(){
     file_conf="Locate"
     exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}locate${RESET}] database"
 
-    if [[ -z "$(grep 'FONT=' /etc/vconsole.conf )" ]]; then
+    if [[ -z $(grep FONT= /etc/vconsole.conf ) ]]; then
         file_conf="vconsole.conf"
         exec_log "printf '%s\n' 'FONT=gr737c-8x16' | sudo tee -a /etc/vconsole.conf" "${GREEN}[+]${RESET} Adding [${YELLOW}FONT${RESET}] to [${YELLOW}vconsole.conf${RESET}] file"
     fi
