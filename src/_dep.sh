@@ -130,7 +130,7 @@ wam_scripts() {
     prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}Wam scripts${RESET}] to [${YELLOW}${HOME}/.bin${RESET}] folder ?" true
     if [[ ${answer} == true ]]; then
         check_dir ${HOME}/.bin "user"
-        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/wam_scripts/* ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam scripts${RESET}] to [${YELLOW}~/.bin${RESET}]"
+        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/scripts/* ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam scripts${RESET}] to [${YELLOW}~/.bin${RESET}] folder"
     fi
 }
 
