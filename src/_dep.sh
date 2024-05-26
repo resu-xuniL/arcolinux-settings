@@ -133,3 +133,11 @@ wam_scripts() {
         exec_log "cp '${INSTALL_DIRECTORY}'/_extra/wam_scripts/* ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam scripts${RESET}] to [${YELLOW}~/.bin${RESET}]"
     fi
 }
+
+wam_templates() {
+    prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}Wam templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder ?" true
+    if [[ ${answer} == true ]]; then
+        check_dir ${HOME}/Templates "user"
+        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/templates/* ${HOME}/Templates" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder"
+    fi
+}

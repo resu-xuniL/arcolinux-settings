@@ -106,6 +106,7 @@ init() {
         fi
 
         wam_scripts
+        wam_templates
     fi
 }
 
