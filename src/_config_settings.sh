@@ -10,7 +10,7 @@ set_config_list() {
         [Timedatectl : enable sync. time]="timedatectl set-ntp true"
     )
 
-    if [[ -n $(sudo grep "menuentry 'Windows 11" /boot/grub/grub.cfg ) ]]; then
+    if [[ -n $(sudo grep "menuentry 'Windows 11" /boot/grub/grub.cfg) ]]; then
         sys_config_list+=([Timedatectl : adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock")
     fi
 }
