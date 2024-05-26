@@ -22,8 +22,8 @@ arch_config_files(){
     file_conf="SDDM"
     exec_log "sudo systemctl enable sddm" "${GREEN}[+]${RESET} Enabling [${YELLOW}SDDM service${RESET}]"
 
-    file_conf="Locate"
-    exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}locate${RESET}] database"
+    file_conf="Mlocate"
+    exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}mlocate${RESET}] database"
 
     if [[ -z $(grep FONT= /etc/vconsole.conf ) ]]; then
         file_conf="vconsole.conf"
