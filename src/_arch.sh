@@ -20,7 +20,7 @@ arch_config_files(){
     exec_log "sudo localectl --no-convert set-x11-keymap fr pc104 ,oss" "${GREEN}[+]${RESET} Setting [${YELLOW}x11-keymap${RESET}] to [${YELLOW}fr${RESET}]"
 
     file_conf="SDDM"
-    exec_log "sudo systemctl enable sddm" "${GREEN}[+]${RESET} Enabling [${YELLOW}SDDM${RESET}]"
+    exec_log "sudo systemctl enable sddm" "${GREEN}[+]${RESET} Enabling [${YELLOW}SDDM service${RESET}]"
 
     file_conf="Locate"
     exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}locate${RESET}] database"
