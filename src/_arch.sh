@@ -25,8 +25,10 @@ arch_config_files(){
     file_conf="Locate"
     exec_log "sudo updatedb" "${GREEN}[+]${RESET} Updating [${YELLOW}locate${RESET}] database"
 
-    file_conf="vconsole.conf"
-    exec_log "printf '%s\n' 'FONT=gr737c-8x16' | sudo tee -a /etc/vconsole.conf" "${GREEN}[+]${RESET} Adding [${YELLOW}FONT${RESET}] to [${YELLOW}vconsole.conf${RESET}] file"
+    if [[ -z "$(grep 'FONT=' /etc/vconsole.conf )" ]]; then
+        file_conf="vconsole.conf"
+        exec_log "printf '%s\n' 'FONT=gr737c-8x16' | sudo tee -a /etc/vconsole.conf" "${GREEN}[+]${RESET} Adding [${YELLOW}FONT${RESET}] to [${YELLOW}vconsole.conf${RESET}] file"
+    fi
 
     file_conf="XFCE Terminal"
     exec_log "xfconf-query -c xfce4-terminal -p /scrolling-bar -n -t string -s TERMINAL_SCROLLBAR_NONE" "${GREEN}[+]${RESET} XFCE terminal : creating property [${YELLOW}SCROLLING BAR${RESET}] and setting it to [${YELLOW}NONE${RESET}]"
