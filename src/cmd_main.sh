@@ -139,6 +139,7 @@ manage_one() {
             sddm
             thunderbird
             virtualbox
+            virtualbox-guest-utils
             vscodium-bin
             we10x-icon-theme-git
             wine

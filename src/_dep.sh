@@ -9,8 +9,8 @@ arch_required() {
         bibata-cursor-theme-bin
         jq
         libadwaita-without-adwaita-git
-        locate
         man
+        mlocate
         most
         network-manager-applet
         noto-fonts
