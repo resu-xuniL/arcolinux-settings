@@ -7,9 +7,12 @@ set_config_list() {
     sys_config_list=(
         [Localectl : set filenames order]="localectl set-locale LC_COLLATE=C"
         [Pacman : enable cache cleanup]="systemctl enable --now paccache.timer"
-        [Timedatectl : adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock"
         [Timedatectl : enable sync. time]="timedatectl set-ntp true"
     )
+
+    if [[ -n $(sudo grep "menuentry 'Windows 11" /boot/grub/grub.cfg ) ]]; then
+        sys_config_list+=([Timedatectl : adjust clock for dual-boot]="timedatectl set-local-rtc 1 --adjust-system-clock")
+    fi
 }
 
 config_settings() {
