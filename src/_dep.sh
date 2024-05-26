@@ -46,6 +46,8 @@ arch_required() {
             if pacman -Q virtualbox-guest-utils-nox &> /dev/null; then
                 action_type="uninstall"
                 manage_one "virtualbox-guest-utils-nox"
+
+                exec_log "sudo systemctl enable vboxservice" "${GREEN}[+]${RESET} Enabling [${YELLOW}VBOX service${RESET}]"
             fi
         fi
         required_arch_deps+="${required_arch_dep}&"
