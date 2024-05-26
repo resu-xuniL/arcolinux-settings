@@ -248,6 +248,15 @@ set_config_files() {
             zsh-syntax-highlighting
         )
 
+        check_dir ${HOME}/.config/zsh "user"
+        exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
+
+        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i -E 's/%a,%b%d|%a %b %d/%a %d %b/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
+        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i 's/%Y-%m-%d/%d-%m-%Y/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
+
+        exec_log "sudo chsh -s /bin/zsh ${CURRENT_USER}" "${GREEN}[+]${RESET} Setting default [${YELLOW}shell${RESET}] to [${YELLOW}ZSH${RESET}]"
+
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}fastfetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
             zsh_packages_install_list+=(fastfetch)
@@ -296,14 +305,5 @@ set_config_files() {
 
             exec_log "sed -i '/neofetch/s/^#*/#/' ${HOME}/.zshrc" "${RED}[-]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
         fi
-
-        check_dir ${HOME}/.config/zsh "user"
-        exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
-        exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
-
-        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i -E 's/%a,%b%d|%a %b %d/%a %d %b/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
-        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i 's/%Y-%m-%d/%d-%m-%Y/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
-
-        exec_log "sudo chsh -s /bin/zsh ${CURRENT_USER}" "${GREEN}[+]${RESET} Setting default [${YELLOW}shell${RESET}] to [${YELLOW}ZSH${RESET}]"
     fi
 }
