@@ -92,6 +92,7 @@ check_required_dep() {
         gvfs-smb
         p7zip
         tldr
+        zsh
     )
 
     if [[ ! ${VM} == "none" ]]; then
