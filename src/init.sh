@@ -110,8 +110,8 @@ init() {
             fi
         fi
 
-        wam_scripts
-        wam_templates
+        personal_scripts
+        personal_templates
     fi
 }
 

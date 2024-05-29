@@ -111,18 +111,18 @@ check_required_dep() {
     manage_lst "${required_deps}"
 }
 
-wam_scripts() {
-    prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}Wam scripts${RESET}] to [${YELLOW}${HOME}/.bin${RESET}] folder ?" true
+personal_scripts() {
+    prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}personal scripts${RESET}] to [${YELLOW}${HOME}/.bin${RESET}] folder ?" true
     if [[ ${answer} == true ]]; then
         check_dir ${HOME}/.bin "user"
-        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/scripts/* ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam scripts${RESET}] to [${YELLOW}~/.bin${RESET}] folder"
+        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/scripts/* ${HOME}/.bin" "${GREEN}[+]${RESET} Copying [${YELLOW}personal scripts${RESET}] to [${YELLOW}~/.bin${RESET}] folder"
     fi
 }
 
-wam_templates() {
-    prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}Wam templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder ?" true
+personal_templates() {
+    prompt_choice "${BLUE}:: ${RESET}Do you want to add [${YELLOW}personal templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder ?" true
     if [[ ${answer} == true ]]; then
         check_dir ${HOME}/Templates "user"
-        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/templates/* ${HOME}/Templates" "${GREEN}[+]${RESET} Copying [${YELLOW}Wam templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder"
+        exec_log "cp '${INSTALL_DIRECTORY}'/_extra/templates/* ${HOME}/Templates" "${GREEN}[+]${RESET} Copying [${YELLOW}personal templates${RESET}] to [${YELLOW}${HOME}/Templates${RESET}] folder"
     fi
 }
