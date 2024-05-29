@@ -211,6 +211,7 @@ set_config_files() {
 
     if [[ ${packages} =~ "xfce/xfconf/*" ]]; then
         file_conf="XFCE"
+
         if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
             exec_log "sed -i 's/value=\"start-here-arcolinux\"/value=\"archlinux-logo\"/' ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}icon${RESET}] on [${YELLOW}whisker menu${RESET}]"
             exec_log "sed -i 's/value=\"ArcoLinux  \"/value=\"Arch Linux  \"/' ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}title${RESET}] on [${YELLOW}whisker menu${RESET}]"
@@ -254,24 +255,16 @@ set_config_files() {
             zsh-syntax-highlighting
         )
 
-        check_dir ${HOME}/.config/zsh "user"
-        exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
-        exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
-
-        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i -E 's/%a,%b%d|%a %b %d/%a %d %b/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
-        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i 's/%Y-%m-%d/%d-%m-%Y/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
-
         exec_log "sudo chsh -s /bin/zsh ${CURRENT_USER}" "${GREEN}[+]${RESET} Setting default [${YELLOW}shell${RESET}] to [${YELLOW}ZSH${RESET}]"
 
         prompt_choice "${BLUE}:: ${RESET}Do you want to install [${YELLOW}fastfetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
-            zsh_packages_install_list+=(fastfetch)
-
             ################################################################
             ##########                  Fastfetch                 ##########
             ################################################################
 
-            app_conf="Fastfetch"
+            file_conf="Fastfetch"
+            zsh_packages_install_list+=(fastfetch)
 
             check_dir ${HOME}/.config/fastfetch "user"
             exec_log "cp ${INSTALL_DIRECTORY}/fastfetch/arch.jsonc ${HOME}/.config/fastfetch" "${GREEN}[+]${RESET} Copying [${YELLOW}arch.jsonc${RESET}] file to [${YELLOW}~/.config/fastfetch${RESET}] folder"
@@ -285,12 +278,28 @@ set_config_files() {
         for zsh_install_package in "${zsh_packages_install_list[@]}"; do
             zsh_install_packages+="${zsh_install_package}&"
         done
+        log_msg "${BLUE}:: ${RESET}Installing extra packages for [${YELLOW}ZSH${RESET}] :"
 
         action_type="install"
         manage_lst "${zsh_install_packages}"
 
+        action_type="config_files"
+        file_conf="OH MY ZSH"
+        log_msg "${BLUE}:: ${RESET}Setting [${YELLOW}OH MY ZSH${RESET}] :"
+        check_dir ${HOME}/.config/zsh "user"
+        exec_log "sudo sed -i 's/\${ZDOTDIR:-\$HOME}/\${ZDOTDIR:-\$HOME\/.config\/zsh}/' /usr/share/oh-my-zsh/oh-my-zsh.sh" "${GREEN}[+]${RESET} Changing path for[${YELLOW}ZSH cache completion${RESET}] on [${YELLOW}/usr/share/oh-my-zsh/oh-my-zsh.sh${RESET}]"
+        exec_log "sudo cp ${INSTALL_DIRECTORY}/pacman.hook/wam_edit-zdotdir.hook /etc/pacman.d/hooks" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_edit-zdotdir.hook${RESET}] file to [${YELLOW}/etc/pacman.d/hooks${RESET}] folder"
+
+        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i -E 's/%a,%b%d|%a %b %d/%a %d %b/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
+        exec_log "sudo find /usr/share/oh-my-zsh/themes -type f -name '*.zsh-theme' -exec sed -i 's/%Y-%m-%d/%d-%m-%Y/' {} \;" "${GREEN}[+]${RESET} Changing [${YELLOW}date format${RESET}] on [${YELLOW}Oh-my-ZSH${RESET}] themes"
+
         prompt_choice "${BLUE}:: ${RESET}Do you want to uninstall [${YELLOW}neofetch${RESET}] ?" true
         if [[ ${answer} == true ]]; then
+            ################################################################
+            ##########                  Neofetch                  ##########
+            ################################################################
+
+            file_conf="Neofetch"
             zsh_packages_uninstall_list=(
                 arcolinux-neofetch-git
                 neofetch
@@ -303,12 +312,8 @@ set_config_files() {
             action_type="uninstall"
             manage_lst "${zsh_uninstall_packages}"
 
-            ################################################################
-            ##########                  Neofetch                  ##########
-            ################################################################
-
-            app_conf="Neofetch"
-
+            action_type="config_files"
+            file_conf="Neofetch"
             exec_log "sed -i '/neofetch/s/^#*/#/' ${HOME}/.zshrc" "${RED}[-]${RESET} Removing [${YELLOW}neofetch${RESET}] on [${YELLOW}.zshrc${RESET}]"
         fi
     fi
