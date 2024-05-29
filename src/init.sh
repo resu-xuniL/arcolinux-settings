@@ -103,6 +103,11 @@ init() {
         prompt_choice "${BLUE}:: ${RESET}Do you want to check for required dependencies ?" true
         if [[ ${answer} == true ]]; then
             check_required_dep
+            
+            if check_app virtualbox-guest-utils; then
+                exec_log "sudo systemctl enable vboxservice" "${GREEN}[+]${RESET} Enabling [${YELLOW}VBOX service${RESET}]"
+                exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
+            fi
         fi
 
         wam_scripts

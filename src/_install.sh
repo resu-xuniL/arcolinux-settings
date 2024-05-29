@@ -82,10 +82,7 @@ pre_config_apps() {
     if [[ ${packages} =~ "virtualbox" ]]; then
         app_conf="Pre-VirtualBox"
 
-        if pacman -Q virtualbox-host-dkms &> /dev/null; then
-            action_type="uninstall"
-            manage_one "virtualbox-host-dkms"
-        fi
+        check_app virtualbox-host-dkms uninstall
 
         required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
         action_type="install"

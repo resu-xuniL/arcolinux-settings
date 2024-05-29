@@ -112,15 +112,9 @@ set_config_files() {
 
         file_conf="QT5CT theme"
 
-        if ! pacman -Q qt5ct &> /dev/null; then
-            exec_log "sudo pacman -S --noconfirm --needed qt5ct" "${GREEN}[+]${RESET} Installing [${YELLOW}qt5ct${RESET}] for [${YELLOW}dark theme${RESET}] on Qt applications"
-        fi
-        if pacman -Q kvantum &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm kvantum" "${RED}[-]${RESET} Unstalling [${YELLOW}kvantum${RESET}]"
-        fi
-        if pacman -Q kvantum-qt5-git &> /dev/null; then
-            exec_log "sudo pacman -Rsn --noconfirm kvantum-qt5-git" "${RED}[-]${RESET} Uninstalling [${YELLOW}kvantum${RESET}]"
-        fi
+        check_app qt5ct install 
+        check_app kvantum uninstall 
+        check_app kvantum-qt5-git uninstall 
 
         if [[ -n $(sudo grep QT_STYLE_OVERRIDE=kvantum /etc/environment) ]]; then
             exec_log "sudo sed -i '/QT_STYLE_OVERRIDE=kvantum/d' /etc/environment" "${RED}[-]${RESET} Removing [${YELLOW}QT_STYLE_OVERRIDE${RESET}] value on [${YELLOW}etc/environment${RESET}] file"
@@ -152,6 +146,8 @@ set_config_files() {
     if [[ ${packages} =~ "grub/theme.txt" ]]; then
         file_conf="Grub"
 
+        check_app grub install
+
         if [[ ${VM} == "none" ]]; then
             exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/grub/fallout-grub-theme.7z -o/boot/grub/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}fallout-grub-theme.7z${RESET}] on [${YELLOW}${CURRENT_USER^^} /boot/grub/themes${RESET}] folder"
             exec_log "sudo sed -i -E 's/GRUB_THEME=\"\/boot\/grub\/themes\/Vimix\/theme.txt\"|#GRUB_THEME=\"\/path\/to\/gfxtheme\"/GRUB_THEME=\"\/boot\/grub\/themes\/fallout\/theme.txt\"/' /etc/default/grub" "${GREEN}[+]${RESET} Changing [${YELLOW}GRUB${RESET}] theme for [${YELLOW}${CURRENT_USER^^}${RESET}] user (on virtual machine)"
@@ -178,6 +174,8 @@ set_config_files() {
     if [[ ${packages} =~ "sddm/kde_settings.conf" ]]; then
         file_conf="SDDM"
 
+        check_app sddm install
+
         check_dir /usr/share/sddm/themes/arcolinux-sugar-candy "root"
 
         if [[ -z "$(ls -A /usr/share/sddm/themes/arcolinux-sugar-candy)" ]]; then
@@ -197,6 +195,8 @@ set_config_files() {
 
     if [[ ${packages} =~ "variety/variety.conf" ]]; then
         file_conf="Variety"
+
+        check_app variety install
 
         if [[ ${CURRENT_OS} == "Arch Linux" ]]; then
             exec_log "sudo pacman -S --noconfirm --needed variety" "${GREEN}[+]${RESET} Installing [${YELLOW}variety${RESET}]"
@@ -230,6 +230,8 @@ set_config_files() {
     if [[ ${packages} =~ "zsh/.zshrc-personal" ]]; then
         file_conf="BASH & ZSH aliases"
 
+        check_app zsh install
+
         if [[ -f "${HOME}/.bashrc-personal" ]]; then
             exec_log "rm -v ${HOME}/.bashrc-personal" "${RED}[-]${RESET} Removing [${YELLOW}~/.bashrc-personal${RESET}] file"
         fi
@@ -242,6 +244,8 @@ set_config_files() {
 
     if [[ ${packages} =~ "zsh/.zshrc" ]]; then
         file_conf="ZSH"
+
+        check_app zsh install
 
         zsh_packages_install_list=(
             oh-my-zsh-powerline-theme-git

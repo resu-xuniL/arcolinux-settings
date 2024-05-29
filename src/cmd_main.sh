@@ -37,6 +37,22 @@ check_dir() {
     fi
 }
 
+check_app() {
+    local -r check_package=$1
+    local -r action=$2
+
+    if [[ ${action} == "install" || ${action} == "uninstall" ]]; then
+        action_type=${action}
+        manage_one ${check_package}
+    else
+        if pacman -Q ${check_package} &> /dev/null; then
+            return 0
+        else
+            return 1
+        fi
+    fi
+}
+
 select_from_list() {
     declare -n item_list=$1
     local -r type_list=$2

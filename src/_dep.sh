@@ -42,14 +42,6 @@ arch_required() {
     log_msg "${BLUE}:: ${RESET}Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
 
     for required_arch_dep in "${required_arch_list[@]}"; do
-        if [[ ${required_arch_dep} == "virtualbox-guest-utils" ]]; then
-            if pacman -Q virtualbox-guest-utils-nox &> /dev/null; then
-                action_type="uninstall"
-                manage_one "virtualbox-guest-utils-nox"
-
-                exec_log "sudo systemctl enable vboxservice" "${GREEN}[+]${RESET} Enabling [${YELLOW}VBOX service${RESET}]"
-            fi
-        fi
         required_arch_deps+="${required_arch_dep}&"
     done
 
@@ -110,20 +102,13 @@ check_required_dep() {
 
     for required_dep in "${required_dep_list[@]}"; do
         if [[ ${required_dep} == "virtualbox-guest-utils" ]]; then
-            if pacman -Q virtualbox-guest-utils-nox &> /dev/null; then
-                action_type="uninstall"
-                manage_one "virtualbox-guest-utils-nox"
-            fi
+            check_app virtualbox-guest-utils-nox uninstall
         fi
         required_deps+="${required_dep}&"
     done
 
     action_type="install"
     manage_lst "${required_deps}"
-
-    if pacman -Q virtualbox-guest-utils &> /dev/null; then
-        exec_log "sudo usermod -aG vboxsf ${USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
-    fi
 }
 
 wam_scripts() {
