@@ -168,7 +168,7 @@ manage_one() {
 
         if [[ ${action_type} == "install" ]]; then
             if pacman -Q ${package} &> /dev/null; then
-                log_msg "${GREEN}[+]${RESET} ${package} ${GREEN}(already present)${RESET}"
+                log_msg "${GREEN}[+]${RESET} Installing [${YELLOW}${package}${RESET}] ${GREEN}(already present)${RESET}"
                 if [[ ${FORCEMODE} == false ]]; then
                     extra_install[${package}]=false
                 fi
@@ -176,13 +176,13 @@ manage_one() {
                 if [[ ${package} =~ "virtualbox-host-modules-arch" ]]; then
                     asdeps_str="--asdeps"
                 fi
-                exec_log "sudo pacman -S ${asdeps_str} --noconfirm --needed ${package}" "${GREEN}[+]${RESET} ${package}${warning_msg}"
+                exec_log "sudo pacman -S ${asdeps_str} --noconfirm --needed ${package}" "${GREEN}[+]${RESET} Installing [${YELLOW}${package}${RESET}]${warning_msg}"
             fi
         elif [[ ${action_type} == "uninstall" ]]; then
             if pacman -Q ${package} &> /dev/null; then
-                exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} ${package}${warning_msg}"
+                exec_log "sudo pacman -Rsn --noconfirm ${package}" "${RED}[-]${RESET} Removing [${YELLOW}${package}${RESET}]${warning_msg}"
             else
-                log_msg "${RED}[-]${RESET} ${package} ${GREEN}(not present or already removed)${RESET}"
+                log_msg "${RED}[-]${RESET} Removing [${YELLOW}${package}${RESET}] ${GREEN}(not present or already removed)${RESET}"
             fi
         elif [[ ${action_type} == "config_system" ]]; then
             exec_log "sudo ${package}" "${GREEN}[+]${RESET} Setting [${YELLOW}${package_split[-1]}${RESET}] on [${YELLOW}${package_split[0]}${RESET}]"
