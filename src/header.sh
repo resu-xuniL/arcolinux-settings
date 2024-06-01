@@ -8,7 +8,7 @@ header() {
         ${PURPLE}##  #  ##${RESET}  ${GREEN}##   ##  #### ####${RESET}          Script configuration for Arch Linux
         ${PURPLE}## ### ##${RESET} ${GREEN}##     ## ## ### ##${RESET} 
         ${PURPLE}#### ####${RESET} ${GREEN}######### ##  #  ##${RESET} 
-        ${PURPLE}###   ###${RESET} ${GREEN}##     ## ##     ##${RESET}          https://github.com/resu-xuniL/arcolinux-settings
+        ${PURPLE}###   ###${RESET} ${GREEN}##     ## ##     ##${RESET}          https://github.com/resu-xuniL/arch-settings
         ${PURPLE}##     ##${RESET} ${GREEN}##     ## ##     ##${RESET} 
 
 ----------------------------------------------------------------------------------------------------
