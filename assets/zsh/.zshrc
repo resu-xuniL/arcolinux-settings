@@ -107,7 +107,7 @@ export HISTCONTROL=ignoreboth:erasedups
 export GPG_TTY=$(tty)
 export PAGER='most'
 export EDITOR='vim'
-export VISUAL='codium'
+export VISUAL='vim'
 
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
