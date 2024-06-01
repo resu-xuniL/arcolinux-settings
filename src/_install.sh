@@ -331,7 +331,7 @@ post_config_apps() {
         exec_log "sudo cp ${INSTALL_DIRECTORY}/vscodium/wam_arch-settings-in-VSCodium.desktop ${HOME}/.local/share/applications" "${GREEN}[+]${RESET} Copying [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] file to [${YELLOW}~/.local/share/applications${RESET}] folder"
         replace_username "${HOME}/.local/share/applications/wam_arch-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         if [[ ${VM} == "none" ]]; then
-            exec_log "sed -i 's/Documents\/arcolinux-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arcolinux-settings/' ${HOME}/.local/share/applications/wam_arch-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
+            exec_log "sed -i 's/Documents\/arch-settings/Documents\/[Nextcloud]\/[Linux]\/[Scripts]\/arch-settings/' ${HOME}/.local/share/applications/wam_arch-settings-in-VSCodium.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}wam_arch-settings-in-VSCodium.desktop${RESET}] path for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
         fi
 
         exec_log "rsync --mkpath '${INSTALL_DIRECTORY}'/plank/* ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}Plank${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
