@@ -137,19 +137,10 @@
         <value type="string" value="brave-browser.desktop"/>
         <value type="string" value="org.mozilla.Thunderbird.desktop"/>
         <value type="string" value="wine-Programs-MediaHuman-YouTube Downloader-MediaHuman YouTube Downloader.desktop"/>
-        <value type="string" value="virtualbox.desktop"/>
       </property>
       <property name="recent" type="array">
         <value type="string" value="xfce4-terminal.desktop"/>
-        <value type="string" value="org.qbittorrent.qBittorrent.desktop"/>
         <value type="string" value="brave-browser.desktop"/>
-        <value type="string" value="xfce-session-settings.desktop"/>
-        <value type="string" value="org.keepassxc.KeePassXC.desktop"/>
-        <value type="string" value="qt5ct.desktop"/>
-        <value type="string" value="archlinux-tweak-tool.desktop"/>
-        <value type="string" value="org.gnome.FontManager.desktop"/>
-        <value type="string" value="gparted.desktop"/>
-        <value type="string" value="btop.desktop"/>
       </property>
       <property name="search-actions" type="int" value="7">
         <property name="action-0" type="empty">
