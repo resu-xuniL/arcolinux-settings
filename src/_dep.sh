@@ -7,6 +7,7 @@ arch_required() {
         base-devel
         bc
         bibata-cursor-theme-bin
+        expac
         jq
         libadwaita-without-adwaita-git
         man
