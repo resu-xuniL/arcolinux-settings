@@ -64,6 +64,7 @@ install_software() {
     select_from_list soft_list "Softwares"
     select_from_list special_list "Specials"
 
+    selected_packages=${selected_packages/'nextcloud-client&keepassxc'/'keepassxc&nextcloud-client'}
     local -r packages="${selected_packages}"
     selected_packages=""
 
