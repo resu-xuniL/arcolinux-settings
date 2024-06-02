@@ -19,6 +19,7 @@ set_install_list() {
     )
 
     soft_list=(
+        [Betterlockscreen]="betterlockscreen"
         [Brave]="brave-bin"
         [Catfish]="catfish"
         [dconf editor]="dconf-editor"
@@ -93,6 +94,16 @@ pre_config_apps() {
 post_config_apps() {
     action_type="post_config_apps"
     plank_dockitem=""
+
+    ################################################################
+    ##########              BETTERLOCKSCREEN              ##########
+    ################################################################
+
+    if [[ ${packages} =~ "betterlockscreen" && ${extra_install[betterlockscreen]} == true ]]; then
+        app_conf="Betterlockscreen"
+
+        exec_log "xfconf-query -c xfce4-session -p /general/LockCommand -n -t string -s betterlockscreen\ -l" "${GREEN}[+]${RESET} XFCE session : Setting [${YELLOW}LOCKCOMMAND${RESET}] to [${YELLOW}betterlockscreen${RESET}]"
+    fi
 
     ################################################################
     ##########                   Brave                    ##########

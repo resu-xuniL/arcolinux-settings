@@ -24,6 +24,7 @@ export CURRENT_USER=$(whoami)
 export CURRENT_RESOLUTION=$(xdpyinfo | grep dimensions: | awk '{print $2}')
 export CURRENT_OS=$(cat /etc/os-release | grep NAME | cut -d '=' -f 2 | uniq | tr -d \")
 export VM=$(systemd-detect-virt)
+export CHASSIS=$(hostnamectl chassis)
 export PASSWORD=""
 
 change_xfce_terminal_display() {

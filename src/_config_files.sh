@@ -217,6 +217,10 @@ set_config_files() {
             exec_log "sed -i 's/value=\"ArcoLinux  \"/value=\"Arch Linux  \"/' ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" "${GREEN}[+]${RESET} Changing [${YELLOW}title${RESET}] on [${YELLOW}whisker menu${RESET}]"
         fi
 
+        if [[ ${CHASSIS} == "laptop" ]]; then
+            exec_log "cp ${INSTALL_DIRECTORY}/xfce/_laptop/xfce4-panel.xml ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml" "${GREEN}[+]${RESET} Setting [${YELLOW}power management${RESET}] on [${YELLOW}laptop${RESET}] computer"
+        fi
+
         exec_log "cp ${INSTALL_DIRECTORY}/xfce/helpers.rc ${HOME}/.config/xfce4" "${GREEN}[+]${RESET} Copying [${YELLOW}helpers.rc${RESET}] to [${YELLOW}~/.config/xfce4${RESET}]"
 
         exec_log "sudo 7z x -y ${INSTALL_DIRECTORY}/themes/Windows-10-Dark-3.2.1-dark.7z -o/usr/share/themes" "${GREEN}[+]${RESET} Extracting [${YELLOW}Windows-10-Dark-3.2.1-dark.7z${RESET}] theme"
