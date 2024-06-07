@@ -36,7 +36,7 @@ arch_required() {
 
     if [[ ${VM} == "none" ]]; then
         required_arch_list+=(linux-firmware)
-    else
+    elif [[ ${VM} == "oracle" ]]; then
         required_arch_list+=(virtualbox-guest-utils)
     fi
 
@@ -96,7 +96,7 @@ check_required_dep() {
         zsh
     )
 
-    if [[ ! ${VM} == "none" ]]; then
+    if [[ ${VM} == "oracle" ]]; then
         required_dep_list+=(virtualbox-guest-utils)
     fi
 
