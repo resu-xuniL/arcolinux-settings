@@ -72,17 +72,15 @@ execute() {
     local -r command="$1"
 
     if [[ ${VERBOSE} == true ]]; then
-        eval "${command}" 2>&1 | tee -a "${LOG_FILE}" &
+        eval "${command}" 2>&1 | tee -a "${LOG_FILE}"
     else
-        eval "${command}" >>"${LOG_FILE}" 2>&1 &
-    fi
-    job_pid=$!
+        eval "${command}" >> "${LOG_FILE}" 2>&1 &
 
-    if [[ ${VERBOSE} == false ]]; then
+        job_pid=$!
         progress_dots
+        wait -n
+        exit_status "${comment}"
     fi
-    wait -n
-    exit_status "${comment}"
 }
 
 log_msg() {
