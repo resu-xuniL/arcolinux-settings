@@ -271,7 +271,7 @@ post_config_apps() {
 
             local icon_filename=$(find ~ -name "*TagRename*.png" -printf "%f" -quit)
             icon_filename=${icon_filename%.*}
-            exec_log "sed -i 's/Icon=/Icon=$icon_filename/' ${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing icon filename to [${YELLOW}${icon_filename}${RESET}]"
+            exec_log "sed -i 's/Icon=/Icon=${icon_filename}/' ${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing icon filename to [${YELLOW}${icon_filename}${RESET}]"
             replace_username "${HOME}/.local/share/applications/wine/Programs/TagRename/TagRename.desktop" "${GREEN}[+]${RESET} Configuring [${YELLOW}TagRename.desktop${RESET}] : changing username to [${YELLOW}${CURRENT_USER^^}${RESET}]"
         fi
 
