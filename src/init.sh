@@ -110,7 +110,7 @@ init() {
                 exec_log "sudo usermod -aG vboxsf ${CURRENT_USER}" "${GREEN}[+]${RESET} Giving permission for [${YELLOW}VM shared folder${RESET}] (guest machine)"
             fi
             if check_app spice-vdagent; then
-                exec_log "grep -qxF 'shared_folder /mnt/shared_folder virtiofs defaults 0 0' /etc/fstab || printf '\n%s\n%s\n' '# Shared folder' 'shared_folder /mnt/shared_folder virtiofs defaults 0 0' | sudo tee -a /etc/fstab" "${GREEN}[+]${RESET} Setting auto-mount for [${YELLOW}VM shared folder${RESET}] on [${YELLOW}fstab${RESET}] file"
+                exec_log "grep -qxF 'shared_folder /mnt/shared_folder virtiofs defaults 0 0' /etc/fstab || printf '%s\n%s\n' '# Shared folder' 'shared_folder /mnt/shared_folder virtiofs defaults 0 0' | sudo tee -a /etc/fstab" "${GREEN}[+]${RESET} Setting auto-mount for [${YELLOW}VM shared folder${RESET}] on [${YELLOW}fstab${RESET}] file"
             fi
         fi
 
