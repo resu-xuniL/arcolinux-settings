@@ -38,6 +38,8 @@ arch_required() {
         required_arch_list+=(linux-firmware)
     elif [[ ${VM} == "oracle" ]]; then
         required_arch_list+=(virtualbox-guest-utils)
+    elif [[ ${VM} == "kvm" ]]; then
+        required_arch_list+=(spice-vdagent)
     fi
 
     log_msg "${BLUE}:: ${RESET}Installing required packages for [${YELLOW}ARCH LINUX${RESET}] :"
@@ -98,6 +100,8 @@ check_required_dep() {
 
     if [[ ${VM} == "oracle" ]]; then
         required_dep_list+=(virtualbox-guest-utils)
+    elif [[ ${VM} == "kvm" ]]; then
+        required_dep_list+=(spice-vdagent)
     fi
 
     log_msg "${GREEN}[+]${RESET} Checking required packages :"

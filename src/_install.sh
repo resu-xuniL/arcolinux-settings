@@ -11,6 +11,7 @@ selected_packages=""
 set_install_list() {
     vm_list=(
         [VirtualBox (+ template)]="virtualbox"
+        [Virtual Machine Manager (+ qemu)]="virt-manager"
     )
 
     font_icon_list=(
@@ -54,10 +55,10 @@ install_software() {
     set_install_list
 
     if [[ ${VM} == "none" ]]; then
-        select_from_list vm_list "VirtualBox"
+        select_from_list vm_list "Virtual machine"
         select_from_list extra_list "Extra"
     else
-        log_msg "${RED}[This is a virtual machine] - Skipping VirtualBox and 'extra' installation${RESET}\n"
+        log_msg "${RED}[This is a virtual machine] - Skipping Virtual machine and 'extra' installation${RESET}\n"
     fi
 
     select_from_list font_icon_list "Font & icons"
@@ -87,7 +88,6 @@ pre_config_apps() {
         check_app virtualbox-host-dkms uninstall
 
         required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
-        action_type="install"
         manage_lst "${required_vbox_packages}"
     fi 
 }
@@ -203,11 +203,33 @@ post_config_apps() {
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
         app_conf="Post-VirtualBox"
 
-        exec_log "sudo gpasswd -a ${USER} vboxusers" "${GREEN}[+]${RESET} Add current user to [${YELLOW}vboxusers${RESET}] group"
+        exec_log "sudo gpasswd -a ${CURRENT_USER} vboxusers" "${GREEN}[+]${RESET} Add current user [${YELLOW}${CURRENT_USER^^}${RESET}] to [${YELLOW}vboxusers${RESET}] group"
 
         check_dir ${HOME}/VirtualBox_VMs "user"
         exec_log "tar -xf ${INSTALL_DIRECTORY}/virtualbox-template/template.tar.gz -C ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Extracting [${YELLOW}template.tar.gz${RESET}] for virtual machine"
         exec_log "vboxmanage setproperty machinefolder ${HOME}/VirtualBox_VMs" "${GREEN}[+]${RESET} Change [${YELLOW}VirtualBox VMs${RESET}] path"
+    fi
+
+    ################################################################
+    ##########           Virtual Machine Manager          ##########
+    ##########                   & qemu                   ##########
+    ################################################################
+
+    if [[ ${packages} =~ "virt-manager" && ${extra_install[virt-manager]} == true ]]; then
+        app_conf="Virt-manager"
+
+        required_virtman_packages="lqemu-desktop&libvirt&edk2-ovmf&dnsmasq&iptables-nft"
+        action_type="install"
+        manage_lst "${required_virtman_packages}"
+
+        action_type="post_config_apps"
+        exec_log "sudo gpasswd -a ${CURRENT_USER} libvirt" "${GREEN}[+]${RESET} Add current user [${YELLOW}${CURRENT_USER^^}${RESET}] to [${YELLOW}vboxusers${RESET}] group"
+        exec_log "sudo sed -i 's/#unix_sock_group/unix_sock_group/' /etc/libvirt/libvirtd.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}libvirt${RESET}] on [${YELLOW}libvirtd.conf${RESET}] file"
+        exec_log "sudo sed -i 's/#unix_sock_rw_perms/unix_sock_rw_perms/' /etc/libvirt/libvirtd.conf" "${GREEN}[+]${RESET} Configuring permissions : [${YELLOW}0770${RESET}] on [${YELLOW}libvirtd.conf${RESET}] file"
+        exec_log "sudo sed -i 's/#user = \"libvirt-qemu\"/user = \"${CURRENT_USER}\"' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring user : [${YELLOW}${CURRENT_USER^^}\${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
+        exec_log "sudo sed -i 's/#group = \"libvirt-qemu\"/group = \"${CURRENT_USER}\"' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}${CURRENT_USER^^}\${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
+
+        exec_log "sudo systemctl enable libvirtd" "${GREEN}[+]${RESET} Enabling [${YELLOW}LIBVIRTD service${RESET}]"
     fi
 
     ################################################################
