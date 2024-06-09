@@ -232,6 +232,7 @@ post_config_apps() {
         exec_log "sudo sed -i 's/#group = \"libvirt-qemu\"/group = \"${CURRENT_USER}\"' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}${CURRENT_USER^^}\${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
 
         exec_log "sudo systemctl enable libvirtd" "${GREEN}[+]${RESET} Enabling [${YELLOW}LIBVIRTD service${RESET}]"
+        exec_log "sudo virsh net-autostart default" "${GREEN}[+]${RESET} Setting [${YELLOW}KVM network${RESET}] to [${YELLOW}autostart${RESET}]"
     fi
 
     ################################################################
