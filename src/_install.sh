@@ -233,6 +233,9 @@ post_config_apps() {
 
         exec_log "sudo systemctl enable libvirtd" "${GREEN}[+]${RESET} Enabling [${YELLOW}LIBVIRTD service${RESET}]"
         exec_log "sudo virsh net-autostart default" "${GREEN}[+]${RESET} Setting [${YELLOW}KVM network${RESET}] to [${YELLOW}autostart${RESET}]"
+
+        check_dir ${HOME}/VirtualBox_VMs "user"
+        exec_log "qemu-img create -f qcow2 -o preallocation=off ${HOME}/VirtualBox_VMs/archlinux.qcow2 20G" "${GREEN}[+]${RESET} Creating [${YELLOW}QEMU virtual disk${RESET}] on [${YELLOW}${HOME}/VirtualBox_VMs${RESET}] folder"
     fi
 
     ################################################################
