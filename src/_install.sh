@@ -87,9 +87,10 @@ pre_config_apps() {
 
         check_app virtualbox-host-dkms uninstall
 
+        action_type="install"
         required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
         manage_lst "${required_vbox_packages}"
-    fi 
+    fi
 }
 
 post_config_apps() {
