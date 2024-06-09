@@ -202,6 +202,7 @@ post_config_apps() {
 
     if [[ ${packages} =~ "virtualbox" && ${extra_install[virtualbox]} == true ]]; then
         app_conf="Post-VirtualBox"
+        plank_dockitem+="virtualbox "
 
         exec_log "sudo gpasswd -a ${CURRENT_USER} vboxusers" "${GREEN}[+]${RESET} Add current user [${YELLOW}${CURRENT_USER^^}${RESET}] to [${YELLOW}vboxusers${RESET}] group"
 
@@ -217,6 +218,7 @@ post_config_apps() {
 
     if [[ ${packages} =~ "virt-manager" && ${extra_install[virt-manager]} == true ]]; then
         app_conf="Virt-manager"
+        plank_dockitem+="virt-manager "
 
         required_virtman_packages="lqemu-desktop&libvirt&edk2-ovmf&dnsmasq&iptables-nft"
         action_type="install"
@@ -380,9 +382,13 @@ post_config_apps() {
             replace_username "${HOME}/.config/plank/dock1/launchers/mediaHuman.YouTubeDownloader.dockitem" "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] for [${YELLOW}${CURRENT_USER^^}${RESET}] user"
             dock_item_string+=", 'mediaHuman.YouTubeDownloader.dockitem'"
         fi
-        if [[ ${VM} == "none" ]]; then
+        if [[ ${plank_dockitem} =~ "virtualbox" ]]; then 
             exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/virtualbox.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}virtualbox.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
             dock_item_string+=", 'virtualbox.dockitem'"
+        fi
+        if [[ ${plank_dockitem} =~ "virt-manager" ]]; then 
+            exec_log "cp '${INSTALL_DIRECTORY}'/plank/extra/virt-manager.dockitem ${HOME}/.config/plank/dock1/launchers" "${GREEN}[+]${RESET} Copying [${YELLOW}virt-manager.dockitem${RESET}] files to [${YELLOW}~/.config/plank/dock1/launchers${RESET}] folder"
+            dock_item_string+=", 'virt-manager.dockitem'"
         fi
         exec_log "gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items \"[${dock_item_string}]\""  "${GREEN}[+]${RESET} Configuring [${YELLOW}Plank${RESET}] shortcuts for [${YELLOW}${USER^^}${RESET}] user"
 
