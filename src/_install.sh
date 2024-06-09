@@ -87,8 +87,9 @@ pre_config_apps() {
 
         check_app virtualbox-host-dkms uninstall
 
-        action_type="install"
         required_vbox_packages="linux-headers&virtualbox-host-modules-arch"
+        
+        action_type="install"
         manage_lst "${required_vbox_packages}"
     fi
 }
@@ -221,7 +222,11 @@ post_config_apps() {
         app_conf="Virt-manager"
         plank_dockitem+="virt-manager "
 
-        required_virtman_packages="lqemu-desktop&libvirt&edk2-ovmf&dnsmasq&iptables-nft"
+        required_virtman_packages="qemu-desktop&dnsmasq&iptables-nft"
+        if check_app iptables; then
+            exec_log "sudo pacman -Rdd --noconfirm iptables" "${RED}[-]${RESET} Removing [${YELLOW}iptables${RESET}] for [${YELLOW}iptables-nft${RESET}] conflicted installation"
+        fi
+
         action_type="install"
         manage_lst "${required_virtman_packages}"
 
@@ -229,10 +234,10 @@ post_config_apps() {
         exec_log "sudo gpasswd -a ${CURRENT_USER} libvirt" "${GREEN}[+]${RESET} Add current user [${YELLOW}${CURRENT_USER^^}${RESET}] to [${YELLOW}vboxusers${RESET}] group"
         exec_log "sudo sed -i 's/#unix_sock_group/unix_sock_group/' /etc/libvirt/libvirtd.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}libvirt${RESET}] on [${YELLOW}libvirtd.conf${RESET}] file"
         exec_log "sudo sed -i 's/#unix_sock_rw_perms/unix_sock_rw_perms/' /etc/libvirt/libvirtd.conf" "${GREEN}[+]${RESET} Configuring permissions : [${YELLOW}0770${RESET}] on [${YELLOW}libvirtd.conf${RESET}] file"
-        exec_log "sudo sed -i 's/#user = \"libvirt-qemu\"/user = \"${CURRENT_USER}\"' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring user : [${YELLOW}${CURRENT_USER^^}\${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
-        exec_log "sudo sed -i 's/#group = \"libvirt-qemu\"/group = \"${CURRENT_USER}\"' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}${CURRENT_USER^^}\${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
+        exec_log "sudo sed -i 's/#user = \"libvirt-qemu\"/user = \"${CURRENT_USER}\"/' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring user : [${YELLOW}${CURRENT_USER^^}${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
+        exec_log "sudo sed -i 's/#group = \"libvirt-qemu\"/group = \"${CURRENT_USER}\"/' /etc/libvirt/qemu.conf" "${GREEN}[+]${RESET} Configuring group : [${YELLOW}${CURRENT_USER^^}${RESET}] on [${YELLOW}qemu.conf${RESET}] file"
 
-        exec_log "sudo systemctl enable libvirtd" "${GREEN}[+]${RESET} Enabling [${YELLOW}LIBVIRTD service${RESET}]"
+        exec_log "sudo systemctl enable --now libvirtd" "${GREEN}[+]${RESET} Enabling [${YELLOW}LIBVIRTD service${RESET}]"
         exec_log "sudo virsh net-autostart default" "${GREEN}[+]${RESET} Setting [${YELLOW}KVM network${RESET}] to [${YELLOW}autostart${RESET}]"
 
         check_dir ${HOME}/VirtualBox_VMs "user"
