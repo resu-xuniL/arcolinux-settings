@@ -4,7 +4,7 @@ endscript() {
 
     log_msg "\nAll done in ${GREEN}${duration}${RESET} seconds."
 
-    prompt_choice "${BLUE}:: ${RESET}Do you want to remove local pacman packages links ?" true
+    prompt_choice "${BLUE}:: ${RESET}Do you want to disable pacman packages local links ?" true
     if [[ ${answer} == true ]]; then
         exec_log "sudo sed -i '/Server = http:\/\/192/s/^#*/#/' /etc/pacman.d/mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}mirrorlist${RESET}]"
         exec_log "sudo sed -i '/Server = http:\/\/192/s/^#*/#/' /etc/pacman.d/arcolinux-mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}arcolinux-mirrorlist${RESET}]"

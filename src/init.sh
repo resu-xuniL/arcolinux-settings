@@ -95,6 +95,12 @@ init() {
 
     exec_log "find ${INSTALL_DIRECTORY} -type f -exec chmod u+w,a+r {} +" "${GREEN}[+]${RESET} Setting permissions on [${YELLOW}configuration${RESET}] files"
 
+    prompt_choice "${BLUE}:: ${RESET}Do you want to enable pacman packages local links ?" false
+    if [[ ${answer} == true ]]; then
+        exec_log "sudo sed -i 's/#Server = http:\/\/192/Server = http:\/\/192/' /etc/pacman.d/mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}mirrorlist${RESET}]"
+        exec_log "sudo sed -i 's/#Server = http:\/\/192/Server = http:\/\/192/' /etc/pacman.d/arcolinux-mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}arcolinux-mirrorlist${RESET}]"
+    fi
+
     if [[ -n ${XDG_CURRENT_DESKTOP} ]]; then
         prompt_choice "${BLUE}:: ${RESET}Do you want to check for useless kernels ?" true
         if [[ ${answer} == true ]]; then

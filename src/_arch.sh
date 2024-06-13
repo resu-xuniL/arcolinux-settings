@@ -5,6 +5,12 @@ arch_copy_files() {
     exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/arcolinux-mirrorlist /etc/pacman.d" "${GREEN}[+]${RESET} Copying [${YELLOW}arcolinux-mirrorlist${RESET}] file to [${YELLOW}/etc/pacman.d${RESET}] folder"
     exec_log "sudo cp ${INSTALL_DIRECTORY}/_archlinux/mirrorlist /etc/pacman.d" "${GREEN}[+]${RESET} Copying [${YELLOW}mirrorlist${RESET}] file to [${YELLOW}/etc/pacman.d${RESET}] folder"
 
+    prompt_choice "${BLUE}:: ${RESET}Do you want to enable pacman packages local links ?" false
+    if [[ ${answer} == true ]]; then
+        exec_log "sudo sed -i 's/#Server = http:\/\/192/Server = http:\/\/192/' /etc/pacman.d/mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}mirrorlist${RESET}]"
+        exec_log "sudo sed -i 's/#Server = http:\/\/192/Server = http:\/\/192/' /etc/pacman.d/arcolinux-mirrorlist" "${RED}[-]${RESET} Removing [${YELLOW}local pacman packages link${RESET}] on [${YELLOW}arcolinux-mirrorlist${RESET}]"
+    fi
+
     exec_log "cp ${INSTALL_DIRECTORY}/_archlinux/.face ${HOME}" "${GREEN}[+]${RESET} Copying [${YELLOW}icon${RESET}] file to [${YELLOW}${HOME}${RESET}]"
 
     exec_log "sudo pacman-key --recv-keys 74F5DE85A506BF64" "${GREEN}[+]${RESET} Importing [${YELLOW}public keys${RESET}] for [${YELLOW}Arcolinux repo${RESET}] packages"
